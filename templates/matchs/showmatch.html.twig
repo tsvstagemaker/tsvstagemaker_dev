@@ -1,0 +1,117 @@
+{% extends 'base.html.twig' %}
+
+{% block title match.name %}
+
+    {% block body %}
+
+<div class="container mt-4">   
+<h1 class="mb-5 text-center">{{ match.name|capitalize }}</h1>
+<div class="row">
+    <div class="col-md-6">
+        <div class="card text-center">
+          <div class="card-header">        
+          <h4 class="card-title">Match:  <strong> {{ match.name|capitalize }} </strong></h4>
+          </div>
+            <div class="card-body">
+                <h5 class="card-title">Level:
+                <strong> 
+                    {% if match.getMatchlevel == 0 %}
+                                TRAINING
+                                {% elseif  match.getMatchlevel == 1 %}
+                                LEVEL I
+                                {% elseif  match.getMatchlevel == 2 %}
+                                LEVEL II
+                                {% elseif  match.getMatchlevel == 3 %}
+                                LEVEL III
+                                {% elseif  match.getMatchlevel == 4 %}
+                                LEVEL IV
+                                {% elseif  match.getMatchlevel == 5 %}
+                                LEVEL V           
+                    {% endif %}
+                </strong>
+                </h5>
+                <p class="card-text">Date:  <strong> {{ match.matchdate }} </strong></p>
+                <p class="card-text">Firearmtype:
+                 <strong>
+                   {% if match.getFirearmtype == 1 %}
+                            Handgun
+                            {% elseif  match.getFirearmtype == 2 %}
+                            Rifle
+                            {% elseif  match.getFirearmtype == 3 %}
+                            Shotgun
+                            {% elseif  match.getFirearmtype == 5 %}
+                            Action Air
+                            {% elseif  match.getFirearmtype == 6 %}
+                            Mini-Rifle
+                            {% elseif  match.getFirearmtype == 7 %}
+                            Pistol Caliber Carbine %}
+                        {% endif %}
+                </strong>
+                </p>
+                <p class="card-text">Country:  <strong> {{ match.countryid }} </strong></p>
+                <p class="card-text">Club:  <strong> {{ match.clubname }} </strong></p>   
+                <p class="card-text">Number of squad:  <strong> {{ match.squadcount }} </strong></p>    
+                <p class="card-text">Statsdirector:  <strong> {{ match.statsdirector }} </strong></p>
+                <p class="card-text">Rangemaster:  <strong> {{ match.rangemaster }} </strong></p>
+                <p class="card-text">Matchdirector:  <strong> {{ match.matchdirector }} </strong></p>
+                <a href="{{ path('match_edit', {'id': match.id}) }}" class="btn btn-info btn-block">Go Edit</a>
+            </div>
+             <div class="card-footer d-flex justify-content-between text-muted">   
+                   <small>
+                      <p class="card-text">Created: {{ match.createdAt|date }}</p>                    
+                   </small>    
+                   <small>                  
+                      <p class="card-text">Updated: {{ match.updatedAt|date }}</p>
+                   </small>
+               </div>       
+          </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="card text-center">
+            <div class="card-header">        
+                <h4 class="card-title">Associate Stages:
+                <span class="badge badge-primary badge-pill">{{ match.getStages|length }}</span>       
+                </h4>
+            </div>
+            <table class="table table-sm">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Name</th>
+                      <th scope="col">FirearmType</th>
+                      <th scope="col">MinRounds</th>
+                      <th scope="col">MxPoints</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for stagelist in match.getStages %}
+                    <tr>
+                      <th scope="row">{{ stagelist.numstage }}</th>
+                      <td>{{ stagelist.nomstage }}</td>
+                      <td>{% if stagelist.firearmid == 1 %}
+                                Handgun
+                                {% elseif  stagelist.firearmid == 2 %}
+                                Rifle
+                                {% elseif  stagelist.firearmid == 3 %}
+                                Shotgun
+                                {% elseif  stagelist.firearmid == 5 %}
+                                Action Air
+                                {% elseif  stagelist.firearmid == 6 %}
+                                Mini-Rifle
+                                {% elseif  stagelist.firearmid == 7 %}
+                                Pistol Caliber Carbine %}
+                            {% endif %}
+                      </td>                 
+                      <td>{{ stagelist.minrounds }}</td>
+                      <td>{{ stagelist.maxpoints }}</td>
+                    </tr>
+                    {% endfor %}   
+                  </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+    <a class="mt-3 btn btn-info btn-sm" href="{{ path('matchs') }}">Go Back</a>  
+</div><br>
+    {% endblock %}

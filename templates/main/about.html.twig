@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+{% block title 'About' %}
+{% block body %}
+
+
+
+<div class="titre-about">
+		<h1 class="mt-5 mb-5">{{ title }}</h1>
+	</div>
+
+<div class="container container-about">
+	<div class="mx-auto my-auto about">
+		<h2>TSV STAGE MAKER !</h2>		
+		<p class="about-ss">App to create stages and matches for the ipsc community</p>
+	</div>
+
+		<div class="container text-justify" id="fonction" >
+			<div class="col-12 col-md-12">
+				<div class=" my-4">
+					<!-- <span><i class="fas fa-file-download"></i></span> -->
+					<div class="media-body fonction ml-3">		
+						<div class="instruction">
+							<div class="media">	
+								<p> TSV STAGE MAKER is an application create and designed IPSC stages more easily and quickly and to convert them to PDF quickly.
+								You can also create IPSC matches and associate your stages and create files compatible with the official WinMSS application quickly. </p>
+							</div>
+
+							<div class="media">
+								<p> This application is free and without limit of use, I ask those who wish to use it to register and make the most of it! </p>
+							</div>
+
+							<div class="media">
+								<p> I thank in advance the people who will use it and I will listen to feedback and comments in order to improve it. <br>
+								I would like to take this opportunity to thank the IPSC instructors from France and elsewhere and especially those who have trained me and who constantly train new shooters, free of charge, with pleasure!</p>
+							</div>
+
+							<div class="media">
+								<p> I also specify that I have created this project between work, family, training, and that the hosting of the site is unfortunately not free, so you will find at the bottom of some pages a link to Paypal to carry out donations, there is obviously no obligation, but that would preserve this application as long as possible </p>
+							</div>
+
+							<div class="media">
+								<p> special thanks to the IPSC instructors from the CTCM shooting range for the training, to Sylvie and Clément DORVAL for the photos, without forgetting my wife who still supports me !!!<br>
+								Thanks everyone !</p>
+							</div>
+							<br> <br>
+
+							<div class="media">	
+								<img class="avatar-about" src="{{ asset('images/Avatar3.jpg') }}">
+								<h1>&nbsp;&nbsp;DVC <br>&nbsp;&nbsp;&nbsp;Y.B</h1> 
+							</div>
+						</div>
+					</div>
+				</div>
+			</div> 
+		</div> 
+
+{% endblock %}

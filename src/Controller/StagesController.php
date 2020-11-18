@@ -32,7 +32,7 @@ class StagesController extends AbstractController
     /**
      * @Route("/stages/create", name="app_stage_create", methods={"GET", "POST"})
      */
-    public function createStage(Request $request, EntityManagerInterface $em): Response
+    public function createstage(Request $request, EntityManagerInterface $em): Response
     {
 
     	$stages = new Stage;
@@ -187,7 +187,7 @@ class StagesController extends AbstractController
         	
 
 
-    	return $this->render('stages/createStage.html.twig', [
+    	return $this->render('stages/createstage.html.twig', [
     		'form' => $form->createView()
     	]);
 
@@ -196,9 +196,9 @@ class StagesController extends AbstractController
     /**
      * @Route("/stages/{id<[0-9]+>}", name="app_stages_show")
      */
-    public function showStage(Stage $stage): Response
+    public function showstage(Stage $stage): Response
     {
-		return $this->render('stages/showStage.html.twig', compact('stage'));
+		return $this->render('stages/showstage.html.twig', compact('stage'));
         
     }
 }

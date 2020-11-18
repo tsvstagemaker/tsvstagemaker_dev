@@ -1,0 +1,110 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Your Matchs TSV STAGE MAKER !' %}
+
+	{% block body %}
+
+		<div class="container mt-4 "> 
+		<div class="example-wrapper">
+		<h1>Your Matchs</h1><br>
+
+		<a class="btn btn-info" href="{{ path('match_create') }}">Create new match</a><br><br>
+
+
+		<h3>{{ pluralize(matchs|length, 'match') }}</h3>
+		{% if matchs == null %}
+			<p>Sorry, No match created yet !</p>  
+			{% else %}
+				<div class="table-responsive">
+				<table class="table table-striped tftable table-match table-sm">
+				<thead>
+				<tr>             
+				<th>Match name</th>
+				<th>Nbr stages</th>
+				<th>Match date</th>
+				<th>Firearm type</th>
+				<th>Match level</th>
+				<th>Created date</th>  
+				<th>Updated date</th>				
+				<th>Download all stages</th>   
+				<th>Download all WinMSS files</th>
+				<th>Edit</th>   
+				<th>Delete</th>               
+				</tr>
+				</thead>
+				<tbody>
+
+				{% for match in matchs %}					
+					<tr>                        
+						<td><a href="{{ path('match_show', {'id': match.id}) }}">{{ match.getName }}
+						
+						</a></td>
+						<td><span class="badge badge-primary badge-pill">{{ match.getStages|length }}</span></td> 
+						<td>{{ match.getMatchdate }}</td>
+						<td>
+						{% if match.getFirearmtype == 1 %}
+							Handgun
+							{% elseif  match.getFirearmtype == 2 %}
+							Rifle
+							{% elseif  match.getFirearmtype == 3 %}
+							Shotgun
+							{% elseif  match.getFirearmtype == 5 %}
+							Action Air
+							{% elseif  match.getFirearmtype == 6 %}
+							Mini-Rifle
+							{% elseif  match.getFirearmtype == 7 %}
+							Pistol Caliber Carbine %}
+						{% endif %}
+						</td>
+						<td>
+						 	{% if match.getMatchlevel == 0 %}
+	                            TRAINING
+	                            {% elseif  match.getMatchlevel == 1 %}
+	                            LEVEL I
+								{% elseif  match.getMatchlevel == 2 %}
+								LEVEL II
+								{% elseif  match.getMatchlevel == 3 %}
+								LEVEL III
+								{% elseif  match.getMatchlevel == 4 %}
+								LEVEL IV
+								{% elseif  match.getMatchlevel == 5 %}
+								LEVEL V           
+							{% endif %}              
+						</td>					
+						<td>{{ match.createdAt|ago }}</td>
+						<td>{{ match.updatedAt|ago }}</td>
+
+						<td>							
+							<a class="btn-match btn btn-info btn-sm" href="#">Stages</a>				
+						</td>
+						<td>
+							<a class="btn-match btn btn-info btn-sm" href="#">WinMSS</a>
+						</td>    
+						<td>							
+							<a class="btn-match btn btn-warning btn-sm" href="{{ path('match_edit', {'id': match.id}) }}">Edit</a>       
+						</td> 
+						<td>					
+							<a class="btn-match btn btn-danger btn-sm" href="#" onclick="event.preventDefault(); confirm('Are you sure you want to delete match: {{ match.getName }} with all associated stages ?') && document.getElementById('js-match-delete-form-{{ match.id }}').submit();">Delete</a>
+							<form id="js-match-delete-form-{{ match.id }}" action="{{ path('match_delete', {'id': match.id}) }}" method="post" style="display: none;">
+							<input type="hidden" name="csrf_token" value="{{ csrf_token('match_deletion_' ~ match.id) }}">
+							<input type="hidden" name="_method" value="DELETE">						
+							</form>				
+						</td>                 
+					</tr>	
+				{% endfor %}
+				</tbody>
+				</table>	
+				</div>			
+				</div>
+				<div class="container" style="text-align: center;">
+				<hr>
+	<!--  <p>** MatchId = Changer que si vous avez deja des matchs dans la liste de votre WinMSS voir help</p>
+	<p>** MatchId = change only if you already have matches in the list of your WinMSS in tab match see help</p> -->
+	<button  title="CabMaker" class="btn btn-info" type="button" onclick=" window.open('doc/MSCabMaker.exe', '_blank'); return false;">Download MSCabMaker</button>
+	&nbsp;
+	<a type="button" class="btn btn-info nav-item nav-link modalhelp" data-toggle="modal" data-target="#exampleModalLong" href="#"><i class="fas fa-info 2x"></i></a>
+	<hr>
+	</div>
+	</div>	
+{% endif %}		
+{% endblock %}

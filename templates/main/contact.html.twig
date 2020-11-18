@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+{% block title 'Contact' %}
+{% block body %}
+
+<header  class="container" style="margin-top: 100px;">
+	<div class="contact-titre">
+		<h1>{{ title }}</h1>
+	</div>
+
+	<div class="rowcontact ">
+		<div class="col-12 col-md-12 contact-css align-items-center"> 
+			<br><br>
+			<i  class="fas fa-mobile-alt fa-2x"></i><a href="#">&nbsp;0679382505</a><br>
+			<i  class="fas fa-envelope-square fa-2x"></i><a href="#">&nbsp;contact@tsvstagemaker.fr</a><br><br><br>	
+			
+			
+			<form method="POST" action=""class="text-align: center;align-items: center;	align-content:center;">
+				<input type="text" class="form-control" name="prenom" placeholder="Your first name" value="<?php if(isset($_POST['prenom'])) { echo $_POST['prenom']; } ?>" /><br/>
+
+				<input type="email" class="form-control" name="mail" placeholder="Your email" value="<?php if(isset($_POST['mail'])) { echo $_POST['mail']; } ?>" /><br/>
+
+				<textarea name="message" class="form-control" placeholder="Your message"><?php if(isset($_POST['message'])) { echo $_POST['message']; } ?></textarea><br />
+
+				<div class="p-contact">
+				<p>Please answer Antispam question</p>
+				<label for="antispam_h"><?php echo $nospam['question'];?> </label>
+				<input class="form-control" type="text" placeholder="Response" name="antispam_h" id="antispam_h" /><input type="hidden" name="antispam_r" size="30" value="<?php echo $nospam['num'];?> " />
+				</div>
+				<br>
+
+				<input class="btn btn-info" type="submit" value="Send !" name="mailform"/><br>
+			</form>
+			
+		</div>
+	</div>
+</header>	
+{% endblock %}

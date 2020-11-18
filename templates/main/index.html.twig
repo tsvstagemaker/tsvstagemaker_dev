@@ -1,0 +1,238 @@
+{% extends 'base.html.twig' %}
+{% block title %}Home TSV STAGE MAKER !{% endblock %}
+{# {% block title %}Home!{% endblock %} #}
+
+{% block body %}
+
+{# header si le membre est connecté#} 
+ {% if app.user %}    
+  <header  class="container-fluid">
+    <div class="row">
+      <div class="col-12 col-md-6 connect d-flex"> 
+       <div class="mx-auto my-auto">
+       <h1>HOME <br> {{ title }}</h1><br>       
+         <h2 class="creatAnim">Hello {{ app.user.username }},</h2>             
+         <h3 class="readyAnim">Are you ready?</h3>
+         <h4 class="readyAnim">Standby!</h4>               
+         <a href="{{ path('stage_create') }}"><h4 class="creatAnim">Stage make ready !</h4></a>          
+      </div>
+    </div>  
+  </div>
+</header>
+ {% else %}
+
+{# header si le membre n'est pas connecté#}    
+  <header  class="container-fluid">
+    <div class="row">
+      <div class="col-12 col-md-6 connect d-flex text-align"> 
+       <div class="mx-auto my-auto">        
+        <h1>HOME <br> {{ title }}</h1><br>
+         <h2 class="readyAnim">Hello Shooters,</h2>
+         {# <span class="psw"> Not registered ?&nbsp;
+         <a href="inscription"><i class="fas fa-arrow-circle-right log"></i></a>
+         </span>  #}             
+        <a class="" href="{{ path('app_register') }}"><h3 class="creatAnim">You are not registered yet ?</h3> </a>        
+      </div>
+    </div>  
+  </div>
+</header>
+    {% endif %}
+
+
+
+{# <header class="container-fluid">
+      <div class="row align-items-center">
+
+        <div class="col-12 col-md-6 connect d-flex align-items-center"> 
+         <div>
+          <br>
+          <h1>{{ title }}</h1>        
+          <p>Create your IPSC stage quickly and easily!</p>
+
+          <form action="" method="post">
+
+            <div class="form-group">
+              <label for="uname">E-mail adress:</label>
+              <input type="email" name="mailconnect" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter your e-mail adress" size="25" required="">
+              <small id="emailHelp" class="form-text">We will never share your email with anyone else.</small>
+            </div>
+
+            <div class="form-group">
+              <label for="exampleInputPassword1">Password:</label>
+              <input type="password" name="mdpconnect" class="form-control" id="exampleInputPassword1" placeholder="Enter your password" width="60%" required="">
+            </div>
+
+            <div class="form-group form-check">
+              <input type="checkbox" class="form-check-input" id="exampleCheck1">
+              <label class="form-check-label" name="remember" for="exampleCheck1">Remember me </label>
+
+              <span class="psw">&nbsp;&nbsp;&nbsp; Forgot password ?&nbsp;<a href="recupmdp.php"><i class="fas fa-arrow-circle-right log"></i></a></span>
+            </div>
+            <button type="submit" name="formconnexion" class="btn btn-info">Login</button>
+            <br>
+            <span class="psw"> Not registered ?&nbsp;<a href="inscription"><i class="fas fa-arrow-circle-right log"></i></a></span> 
+            <br><br><br><br>
+          </form>      
+        </div>
+      </div>
+      <div class="col-12 col-md-6 slogan">   
+        <h2>Stage make ready !</h2>        
+      </div>
+    </div>
+  </header> #}
+
+
+<div class="container" id="fonction">
+ <div class="row">
+  <div class="col-12 mb-5" style="text-align: center;">
+    <h2 style="text-align: center;">TSV STAGE MAKER <br> IPSC shooters application</h2>
+    <h3>Design your IPSC stage</h3>
+
+    <img src="images/tireur.png" alt="tireur ipsc tsv stage maker" class="tireur">
+
+    <div class="slogan2">   
+      <h3 style="color: #17a2b8;">Stage make ready !</h3>  <br>
+      <h4 style="text-align: center;">Prepare your training IPSC stages, <br> Prepare your IPSC stages, <br> Prepare your IPSC matches. </h4>        
+    </div> <br> 
+    <div class="col-12 col-md-12">
+     <div class="media my-4">
+      <span><img style="max-width: 35px;" src="images/logo_navbar.png" alt="logo tsv stage maker" title="logo tsv stage maker"></span>
+      <div class="media-body ml-3">   
+      <h5 class="text-justify">TSV STAGE MAKER </h5>         
+        <p class="text-justify">Allows you to prepare your ipsc stage quickly and very simply. <br>
+          You will find multiple elements and objects, which will allow you to be creative while having fun! <br>
+          TSV STAGE MAKER offers very easy to use functionalities,<br>
+          just drag and drop the objects you want in the defined area.<br>
+          Calculates points, target number and hit number is done automatically!<br>
+          You can add your IPSC club logo!<br>
+          When your creation is completed !, you can download, save or store it in your account as a PDF !<br>
+          You can also generate imoprt files for the WinMSS application (official IPSC application), <br> for saving a lot of time to prepare your IPSC matches.<br>
+          You can ask us for other targeting or decoration elements and we will be happy to add them for you!!!!</p>
+      </div>
+    </div>
+  </div>       
+</div>
+</div>
+
+<!-- Fonctionnalités --> 
+
+<div class="container" id="fonction">
+ <div class="row">
+  <div class="col-12 mb-5">
+    <h2>All features</h2>
+  </div>
+  <div class="col-12 col-md-6">
+   <div class="media my-3">
+    <span><i class="fas fa-expand-arrows-alt iconindex"></i></span>
+    <div class="media-body ml-3">
+      <h5 class="mt-0">Drag and drop interaction!</h5>
+      <p class="text-justify">Drag and drop! all your targeting and decor elements thanks to the drag and drop interaction! <br>
+      Paper targets, steel targets and various and varied unusual objects.</p>
+    </div>
+  </div>
+</div>
+
+<div class="col-12 col-md-6">
+ <div class="media my-4">
+  <span><i class="fas fa-file-download iconindex"></i></span>
+  <div class="media-body ml-3">
+    <h5 class="mt-0">Download and Storage</h5>
+    <p class="text-justify">Online ipsc stage storage in your personal account! <br>
+      Download your stage directly to your PC! <br>
+      Making available IPSC documents in a click! <br>
+    IPSC Targer Guide, IPSC Rule Books division HandGun / PCC, ShotGun and Rifle.</p>
+  </div>
+</div>
+</div>       
+</div>
+</div>
+
+<div class="container" id="fonction">
+ <div class="row">
+  <div class="col-12 mb-5">
+  </div>
+  <div class="col-12 col-md-6">
+   <div class="media my-3">
+    <span><i class="fas fa-calculator iconindex"></i></span>
+    <div class="media-body ml-3">
+      <h5 class="mt-0">Automatic table filling</h5>
+      <p class="text-justify">When you dragged elements in the stage area the number of points, the number of shots and the number of targets by type, The table fills up as you create your stage.</p>
+    </div>
+  </div>
+</div>
+
+<div class="col-12 col-md-6">
+ <div class="media my-4">
+  <span><i class="fas fa-award iconindex"></i></span>
+  <div class="media-body ml-3">
+    <h5 class="mt-0">Special requests</h5>
+    <p class="text-justify">You can ask me for other targeting or decor elements and I will be happy to add them for you !</p>
+  </div>
+</div>
+</div>       
+</div>
+</div>
+
+<div class="container" id="fonction">
+ <div class="row">
+  <div class="col-12 mb-5">
+  </div>
+  <div class="col-12 col-md-6">
+   <div class="media my-3">
+    <span><i class="fab fa-maxcdn iconindex"></i></span>
+    <div class="media-body ml-3">
+      <h5 class="mt-0">IPSC Match creation</h5>
+      <p class="text-justify">When you create match, All the stages created will be in this match, you can stop and resume the creation of stages for the same match, or associate stage with other matches.</p>
+    </div>
+  </div>
+</div>
+
+<div class="col-12 col-md-6">
+ <div class="media my-4">
+  <span><i class="fab fa-wikipedia-w iconindex"></i></span>
+  <div class="media-body ml-3">
+    <h5 class="mt-0">Creation files import WinMSS compatible!</h5>
+    <p class="text-justify">When you create a match and stages, XML files will be created to import them into the WinMSS application so you will optimize, facilitate and speed up the preparation of your matches !<br>Download <a href="https://www.ipsc.org/matches/winmss.php" target="_blank"> WinMSS</a></p>
+  </div>
+</div>
+</div>       
+</div>
+</div>
+
+<div class="container" id="fonction">
+ <div class="row">
+  <div class="col-12 mb-5">
+  </div>
+  <div class="col-12 col-md-6">
+   <div class="media my-3">
+    <span><i class="fas fa-file-import iconindex"></i>></span>
+    <div class="media-body ml-3">
+      <h5 class="mt-0">Upload File element</h5>
+      <p class="text-justify">Upload your stage elements, to personalize, customize your stages so that your scenario look like of reality.</p>
+    </div>
+  </div>
+</div> 
+
+<div class="col-12 col-md-6">
+ <div class="media my-4">
+  <span><i class="fas fa-sync-alt iconindex"></i></span>
+  <div class="media-body ml-3">
+    <h5 class="mt-0">Elements Rotate</h5>
+    <p class="text-justify">You can rotate the elements you want with one click.</p>
+  </div>
+</div>
+</div>      
+</div>
+</div>
+
+<!-- Exemple 1 --> 
+<div class="container text-justify" id="exemple">  
+
+  <div class="col-12 col-md-12 exemplestage2" style="text-align: center;">
+    <h2 class="my-4">Stage example</h2><i class="fas fa-arrow-circle-down stagei"></i><br><br>
+    <img class=" col-12 col-md-12 exemplestage zoom" src="images/ipsc.jpeg" alt="stage ipsc tsv stage maker" style="max-width: 80%; height: auto; margin: auto;">   
+  </div>
+
+</div>
+
+{% endblock %}

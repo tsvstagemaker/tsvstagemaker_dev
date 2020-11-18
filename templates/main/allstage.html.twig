@@ -1,0 +1,135 @@
+{% extends 'base.html.twig' %}
+{% block title 'Allstage' %}
+{% block body %}
+
+
+
+
+<!-- dubut liste mes stages -->
+
+<div class="container pagging" id="container">
+    <div style="text-align: center; font-size: 2.5rem">
+        <h1>{{ title }}</h1>
+    </div> 
+    <div class="col-md-12">
+        <h5>Filtre*</h5>
+        <p>*Tapez quelque chose dans le champ de saisie pour rechercher un stage (Nom du stage, nom du match, date, Firearm type, Min Rounds, Max Points...)</p>  
+        <input class="form-control" id="myInput" type="text" placeholder="Rechercher..">    
+    </div><br> 
+    <br><br>
+    <?php
+    $stagesall = 0;
+    $stages = $bdd->prepare('SELECT * FROM stages WHERE showall ="1" ORDER BY date_creation_stage  DESC LIMIT '.$debutpage.','.$Stagesparpage);
+    $stages->execute(array($stagesall));            
+    ?>
+    <!--  <h5>Pages list</h5> -->
+    <div class="container">        
+        <nav aria-label="list stage">
+          <ul class="pagination">
+            <li class="page-item">
+               <?php '<a class="page-link" href="allstages.php?id=' . $stagesall . '& page='.$Previous.'">Next</a>'; ?>
+           </li>
+           <li class="page-item active">
+
+            <?php 
+            for($i=1;$i<=$pagesTotal;$i++){
+                if ($i == $pageCourante) {
+                    echo ' <li class="page-item active">
+                    <li class="page-item"><a class="page-link" href="allstages.php?id=' . $stagesall . '& page='.$i.'">'.$i.'</a> </li> 
+                    <span class="sr-only">(current)</span>
+                    </span>
+                    </li';
+                }else{
+        // echo '<a href="allstages.php?id='.$stagesall.'?page='.$i.'">'.$i.'</a> ';
+                    echo ' <li class="page-item active">
+                    <li class="page-item"><a class="page-link" href="allstages.php?id=' . $stagesall . '& page='.$i.'">'.$i.'</a> </li> 
+                    <span class="sr-only">(current)</span>
+                    </span>
+                    </li';
+                }
+            }
+            ?>
+            <li class="page-item">
+              <?php '<a class="page-link" href="allstages.php?id=' . $stagesall . '& page='.$Next.'">Next</a>'; ?>
+          </li>
+      </ul>
+  </nav>
+</div>
+<div id="stagelist" class="myTable">
+    <?php 
+    while ($messtages = $stages->fetch())                 
+    { 
+        ?>
+        <div class="stage-allstage" style="position:relative;">
+
+           
+
+            <form class="auto left">
+
+                 <div class="ministage zoom slide">
+
+                <img src="<?php echo $messtages['fileurlimg'] ?>" width=230 height=330 title="<?php echo $messtages['filenameimg'] ?>">
+            </div>
+                <h4 style="margin:0;"><?php echo $messtages['nomstage'];  ?></h4>
+                <p>Match: 
+                    <?php             
+                    $matchs = $bdd->prepare('SELECT * FROM matchs WHERE id=?');
+                    $matchs->execute(array($messtages['matchsid']));  
+                    $matchsidstage = $matchs->fetch()    
+                    ?>
+                    <?php $messtages['matchsid'];?>
+                    <?php echo $matchsidstage['name']; 
+                    if ($matchsidstage = null) {
+                        echo 'Training';
+                    } ?>             
+
+                </p>               
+                <hr>
+                <ul style="list-style:none;display:block;margin:5;padding:0;">
+                    <li>Stage number: <strong><?php echo $messtages['numstage']; ?></strong></li>
+                    <li>Firearm type: <strong>
+                        <?php if ($messtages['FirearmId'] == 1){
+                            echo "Handgun";
+                        } elseif ($messtages['FirearmId'] == 2) {
+                            echo "Rifle";
+                        }elseif ($messtages['FirearmId'] == 3) {
+                            echo "Shotgun";
+                        }elseif ($messtages['FirearmId'] == 5) {
+                            echo "Action Air";
+                        }elseif ($messtages['FirearmId'] == 6) {
+                            echo "Mini-Rifle";
+                        }elseif ($messtages['FirearmId'] == 7) {
+                            echo "Pistol Caliber Carbine";
+                        }?> </strong></li>
+                        <li>Types of Course: <strong><?php if ($messtages['CourseId'] == 0){
+                            echo "Standard Exercise Course";
+                        } elseif ($messtages['CourseId'] == 1) {
+                            echo "Short Course";
+                        }elseif ($messtages['CourseId'] == 2) {
+                            echo "Medium Course";
+                        }elseif ($messtages['CourseId'] == 3) {
+                            echo "Long Course";
+                        }?></strong></li>
+                        <li>Min Rounds: <strong><?php echo $messtages['MinRounds']; ?></strong></li>
+                        <li>Max Points: <strong><?php echo $messtages['MaxPoints']; ?></strong></li>
+                        <li>Number of Targets: <strong><?php echo $messtages['TrgtPaper']; ?></strong></li>  
+                        <li>Number of Popper: <strong><?php echo $messtages['TrgtPopper']; ?></strong></li>
+                        <li>Number of Plates: <strong><?php echo $messtages['TrgtPlates']; ?></strong></li>
+                        <li>Number of NoShoot: <strong><?php echo $messtages['TrgtPenlty']; ?></strong></li>
+                        <li>Number of Bobber: <strong><?php echo $messtages['bobber']; ?></strong></li>
+                        <li>Number of Disappearing Targets: <strong><?php echo $messtages['TrgtVanish']; ?></strong></li>
+                        <li>Creating date: <?php echo $messtages['date_creation_stage']; ?></li>                    
+                    </ul>
+                    <hr>
+                    <button class="btn btn-info vustage button" onclick=" window.open('<?php echo $messtages['fileurl'] ?>', '_blank'); return false;">Download pdf</button>    
+
+                    <button class="btn btn-info vustage button" onclick=" window.open('<?php echo $messtages['fileurlimg'] ?>', '_blank'); return false;">Download image</button>                 
+                </form>
+                <div class="clear"></div>
+            </div>
+            <?php     
+        }
+        ?>
+    </div>      
+</div><br>
+{% endblock %}
