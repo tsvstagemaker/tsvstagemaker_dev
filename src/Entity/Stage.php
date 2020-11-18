@@ -2,8 +2,8 @@
 
 namespace App\Entity;
 
-use App\Repository\StageRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\StageRepository;
 use App\Entity\Traits\Timestampable;
 
 /**

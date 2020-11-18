@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{% block title stage.stagename %}
+
+	{% block stylesheets %}		
+	{% endblock %}
+
+
+{% block body %}
+
+	<div class="container mt-3">
+			<div class="card">
+				<div class="card-body">
+					<h1 class="card-title text-center">{{ stage.stagename|capitalize }}</h1>
+
+					
+
+                 	<div class="row mt-3 mb-3">                 		
+                 		<div class="col-md-12"> 							
+							<div class="d-flex justify-content-between">   
+                    	<p class="card-text">Stage number: <strong>{{ stage.Stagenumber }}</strong></p>
+					<p class="card-text">Firearm type: 
+	                   <strong>
+	                   {% if  stage.getFirearmId == 1 %}
+	                    Handgun
+	                    {% elseif  stage.getFirearmId == 2 %}
+	                    Rifle
+	                    {% elseif  stage.getFirearmId == 3 %}
+	                    Shotgun
+	                    {% elseif  stage.getFirearmId == 5 %}
+	                    Action Air
+	                    {% elseif  stage.getFirearmId == 6 %}
+	                    Mini-Rifle
+	                    {% elseif  stage.getFirearmId == 7 %}
+	                    Pistol Caliber Carbine %}
+		                {% endif %}
+		                </strong>
+	                </p>
+
+					<p class="card-text">Types of Course: 
+		                <strong>
+		                {% if stage.getCourseId  == 0 %}
+		                    Standard Exercise Course
+		                    {%  elseif  stage.getCourseId  == 1 %}
+		                    Short Course
+		                    {% elseif  stage.getCourseId  == 2 %}
+		                    Medium Course
+		                    {% elseif  stage.getCourseId  == 3 %}
+		                    Long Course
+		                {% endif %}
+		                </strong>
+		            </p>
+                 	</div>
+                 		</div>
+                 	</div> 
+                 	
+
+                 	<div class="row mt-3 mb-3">
+                 		<div class="col-md-4"> 
+							<p class="card-text">Min Rounds: <strong>{{ stage.getMinRounds }}</strong></p>
+							<p class="card-text">Max Points: <strong>{{ stage.getMaxPoints }}</strong></p>
+                 		</div>
+                 		<div class="col-md-4"> 
+							<p class="card-text">Number of Targets: <strong>{{ stage.getTrgtPaper }}</strong></p>
+							<p class="card-text">Number of Popper: <strong>{{ stage.getTrgtPopper }}</strong></p>
+							<p class="card-text">Number of Plates: <strong>{{ stage.getTrgtPlates }}</strong></p>	
+                 		</div>
+                 		<div class="col-md-4"> 							
+							<p class="card-text">Number of NoShoot: <strong>{{ stage.getTrgtPenlty }}</strong></p>
+							<p class="card-text">Number of Bobber: <strong></strong>{{ stage.bobber }}</strong></p>
+							<p class="card-text">Number of Disappearing Targets: <strong>{{ stage.getTrgtVanish }}</strong></p>
+                 		</div>
+                 	</div>                 		
+
+					<div class="d-flex justify-content-between text-muted">   
+                     <small>
+                        <p class="card-text">Created: {{ stage.createdAt|date }}</p>                    
+                     </small>    
+                     <small>                  
+                        <p class="card-text">Updated: {{ stage.updatedAt|date }}</p>
+                     </small>
+                 	</div>
+				</div>
+					<img class="card-img-bottom" src="..." alt="Card image cap">
+			</div>
+	</div>
+
+	{% endblock %}

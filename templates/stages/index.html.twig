@@ -1,15 +1,133 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Your stages TSV STAGE MAKER{% endblock %}
+{% block title 'Your Stages TSV STAGE MAKER !' %}
+
+	{% block stylesheets %}
+		<link rel="stylesheet" href="{{ asset('css/stage.css') }}" />
+	{% endblock %}
+
 
 {% block body %}
-<h1>Your stages</h1>
 
-<h3>{{ pluralize(stages|length, 'stage') }}</h3>
+	<div class="container mt-4">
+		<h1 class="mb-3">Your stages</h1>
+		<a class="btn btn-primary mb-5" href="">Create new stage</a>
 
-{% for stage in stages %}
-<h2>{{ stage.stagename }}</h2>
-{% endfor %}
+		<div class="d-flex justify-content-between"> 
+        <p class="h4 text-muted">{{ pluralize(stages|length, 'stage') }} created</p>
+        <input class="form-control col-md-4" id="filtre-input-stage-js" type="text" placeholder="Search..">        
+        </div>
+
+         {% if stages == null %}
+            <p>Sorry, No stage created yet !</p>  
+            {% else %}	
+
+			{% for stage in stages %}
+                <div class="p-3 mb-3 mt-3 border border-primary rounded">
+                   <div class="rounded">
+                   {# <img src="{{ stage.getfileurlimg }}" width=230 height=330 title="{{ stage.getfileurlimg }}"> #}
+                   <img src="{{ stage.getfileurlimg }}" width=200 height=280 class="rounded float-right stageimg" alt="{{ stage.getfileurlimg }}">
+                   </div>
+
+                  
+                   <h4><a href="{{ path('app_stages_show', {id: stage.id}) }}">{% if stage.Stagename == null %}Unknown stage{% else %}{{ stage.Stagename|capitalize }}{% endif %}</a></h4>                  
+                  {#  <p>Match: <b>{% for matchList in matchs %}                                 
+                        {% if stage.getMatchs.id == matchList.getId %}                
+                            {{ matchList.getname|capitalize }}
+                            {% elseif stage.getMatchs.id == null %}
+                                unknown
+                        {% endif %}
+                    {% endfor %}  </b> #}
+                                 
+                   </p>               
+                   <hr class="hr-stage">
+                   <ul>                       
+                   <li>Stage number: <strong>{{ stage.Stagenumber }}</strong></li>
+                   <li>Firearm type: 
+                   <strong>
+                   {% if  stage.getFirearmId == 1 %}
+                    Handgun
+                    {% elseif  stage.getFirearmId == 2 %}
+                    Rifle
+                    {% elseif  stage.getFirearmId == 3 %}
+                    Shotgun
+                    {% elseif  stage.getFirearmId == 5 %}
+                    Action Air
+                    {% elseif  stage.getFirearmId == 6 %}
+                    Mini-Rifle
+                    {% elseif  stage.getFirearmId == 7 %}
+                    Pistol Caliber Carbine %}
+                {% endif %}
+                </strong>
+                </li>
+                <li>Types of Course: 
+                <strong>
+                {% if stage.getCourseId  == 0 %}
+                    Standard Exercise Course
+                    {%  elseif  stage.getCourseId  == 1 %}
+                    Short Course
+                    {% elseif  stage.getCourseId  == 2 %}
+                    Medium Course
+                    {% elseif  stage.getCourseId  == 3 %}
+                    Long Course
+                {% endif %}
+                </strong>
+                </li>
+                <li>Min Rounds: <strong>{{ stage.getMinRounds }}</strong></li>
+                <li>Max Points: <strong>{{ stage.getMaxPoints }}</strong></li>
+                <li>Number of Targets: <strong>{{ stage.getTrgtPaper }}</strong></li>  
+                <li>Number of Popper: <strong>{{ stage.getTrgtPopper }}</strong></li>
+                <li>Number of Plates: <strong>{{ stage.getTrgtPlates }}</strong></li>
+                <li>Number of NoShoot: <strong>{{ stage.getTrgtPenlty }}</strong></li>
+                <li>Number of Bobber: <strong></strong>{{ stage.bobber }}</li>
+                <li>Number of Disappearing Targets: <strong>{{ stage.getTrgtVanish }}</strong></li>
+             {#    <li>Creating date:{{ stage.getCreatedAt }}</li>
+             <li>Updating date:{{ stage.getUpdatedAt }}</li>    #}             
+             </ul>
+             <hr class="hr-stage"> 
+
+            {#  <div class="buttonstages">
+                 <button class="btn btn-info btn-sm" onclick=" window.open('{{ stage.getFileurl }}', '_blank'); return false;">Download pdf</button>
+
+                 <button class="btn btn-info btn-sm" onclick=" window.open('{{ stage.getFileurlimg }}', '_blank'); return false;">Download image</button>
+
+                 <a class="btn btn-success btn-sm btn-stage" href="showall.php?stageid=<?= $messtages['id'] ?>">Share to AllStages</a>
+
+                 <a class="btn btn-warning btn-sm btn-stage" href="{{ path('stage_edit', {'id': stage.id}) }}">Edit stage</a> 
+
+                    <a class="btn btn-danger btn-sm btn-stage" href="#" onclick="event.preventDefault(); confirm('Are you sure you want to delete stage {{ stage.getnomstage }} ?') && document.getElementById('js-stage-delete-form-{{ stage.id }}').submit();">Delete</a>
+                            <form id="js-stage-delete-form-{{ stage.id }}" action="{{ path('stage_delete', {'id': stage.id}) }}" method="post" style="display: none;">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token('stage_deletion_' ~ stage.id) }}">
+                            <input type="hidden" name="_method" value="DELETE">                 
+                            </form>  #}    
+
+
+                {#  <a class="btn btn-danger btn-sm btn-stage" href="#" onclick="event.preventDefault(); confirm('Are you sure you want to delete stage {{ stage.getnomstage }} ?') && document.getElementById('js-stage-delete-form').submit();">Delete</a>                    
+
+                 <form id="js-stage-delete-form" action="{{ path('stage_delete', {'id': stage.id}) }}" method="post" style="display: none;">
+                 <input type="hidden" name="csrf_token" value="{{ csrf_token('stage_deletion_' ~ stage.id) }}">
+                 <input type="hidden" name="_method" value="DELETE"> #}
+
+                 <div class="d-flex justify-content-between text-muted">   
+                     <small>
+                        <p class="card-text">Created: {{ stage.createdAt|date }}</p>                    
+                     </small>    
+                     <small>                  
+                        <p class="card-text">Updated: {{ stage.updatedAt|date }}</p>
+                     </small>
+                 </div>                
+           {#   </div> #}
+
+                           
+
+             </div>
+         {% endfor %}
+     {% endif %}
+
+
+
+	</div>
+		
 
 
 {% endblock %}
