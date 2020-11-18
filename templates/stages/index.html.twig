@@ -4,4 +4,12 @@
 
 {% block body %}
 <h1>Your stages</h1>
+
+<h3>{{ pluralize(stages|length, 'stage') }}</h3>
+
+{% for stage in stages %}
+<h2>{{ stage.stagename }}</h2>
+{% endfor %}
+
+
 {% endblock %}

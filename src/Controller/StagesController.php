@@ -2,17 +2,23 @@
 
 namespace App\Controller;
 
+use App\Repository\StageRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+
+
 
 class StagesController extends AbstractController
 {
     /**
      * @Route("/stages", name="app_stages")
      */
-    public function index(): Response
+    public function index(StageRepository $StageRepository): Response
     {
-        return $this->render('stages/index.html.twig');
+
+    	$stages = $StageRepository->findAll();
+
+        return $this->render('stages/index.html.twig', compact('stages'));
     }
 }

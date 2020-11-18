@@ -4,12 +4,16 @@ namespace App\Entity;
 
 use App\Repository\StageRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Traits\Timestampable;
 
 /**
  * @ORM\Entity(repositoryClass=StageRepository::class)
+ * @ORM\Table(name="stages")
+ * @ORM\HasLifecycleCallbacks
  */
 class Stage
 {
+    use Timestampable;
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -130,12 +134,12 @@ class Stage
     private $Location;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", options={"default": "CURRENT_TIMESTAMP"})
      */
     private $createdAt;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", options={"default": "CURRENT_TIMESTAMP"})
      */
     private $updatedAt;
 
@@ -515,5 +519,17 @@ class Stage
         $this->datastage = $datastage;
 
         return $this;
+    }
+
+     /**
+    * @ORM\PrePersist
+    * @ORM\PreUpdate
+    */
+    public function updateTimestamps()
+    {
+        if ($this->getCreatedAt() === null) {
+            $this->setCreatedAt(new \DateTimeImmutable);
+         } 
+        $this->setUpdatedAt(new \DateTimeImmutable);
     }
 }
