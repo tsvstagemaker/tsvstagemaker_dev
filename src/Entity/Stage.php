@@ -168,6 +168,17 @@ class Stage
      */
     private $datastage;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="stages")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=matchs::class, inversedBy="stages")
+     */
+    private $MatchsId;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -519,9 +530,33 @@ class Stage
         $this->datastage = $datastage;
 
         return $this;
+    }    
+
+    public function getUser(): ?User
+    {
+        return $this->user;
     }
 
-     /**
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }  
+
+    public function getMatchsId(): ?matchs
+    {
+        return $this->MatchsId;
+    }
+
+    public function setMatchsId(?matchs $MatchsId): self
+    {
+        $this->MatchsId = $MatchsId;
+
+        return $this;
+    }
+
+       /**
     * @ORM\PrePersist
     * @ORM\PreUpdate
     */

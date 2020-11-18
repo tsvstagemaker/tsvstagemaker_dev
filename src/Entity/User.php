@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Traits\Timestampable;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -86,6 +88,22 @@ class User implements UserInterface
      * @ORM\Column(type="boolean")
      */
     private $isVerified = false;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Stage::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $stages;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Matchs::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $matchs;
+
+    public function __construct()
+    {
+        $this->stages = new ArrayCollection();
+        $this->matchs = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -255,8 +273,68 @@ class User implements UserInterface
 
         return $this;
     }
+   
+    /**
+     * @return Collection|Stage[]
+     */
+    public function getStages(): Collection
+    {
+        return $this->stages;
+    }
 
-     /**
+    public function addStage(Stage $stage): self
+    {
+        if (!$this->stages->contains($stage)) {
+            $this->stages[] = $stage;
+            $stage->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStage(Stage $stage): self
+    {
+        if ($this->stages->removeElement($stage)) {
+            // set the owning side to null (unless already changed)
+            if ($stage->getUser() === $this) {
+                $stage->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Matchs[]
+     */
+    public function getMatchs(): Collection
+    {
+        return $this->matchs;
+    }
+
+    public function addMatch(Matchs $match): self
+    {
+        if (!$this->matchs->contains($match)) {
+            $this->matchs[] = $match;
+            $match->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMatch(Matchs $match): self
+    {
+        if ($this->matchs->removeElement($match)) {
+            // set the owning side to null (unless already changed)
+            if ($match->getUser() === $this) {
+                $match->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+      /**
     * @ORM\PrePersist
     * @ORM\PreUpdate
     */
@@ -267,4 +345,5 @@ class User implements UserInterface
          } 
         $this->setUpdatedAt(new \DateTimeImmutable);
     }
+
 }
