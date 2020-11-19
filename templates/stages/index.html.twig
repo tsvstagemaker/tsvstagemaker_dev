@@ -11,8 +11,8 @@
 
 	<div class="container mt-4">
 		<h1 class="mb-3">Your stages</h1>
-		<a class="btn btn-primary mb-5" href="">Create new stage</a>
 
+		<a class="btn btn-primary mb-5" href="{{ path('app_stage_create') }}">Create new stage</a>
 		<div class="d-flex justify-content-between"> 
         <p class="h4 text-muted">{{ pluralize(stages|length, 'stage') }} created</p>
         <input class="form-control col-md-4" id="filtre-input-stage-js" type="text" placeholder="Search..">        

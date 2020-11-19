@@ -29,21 +29,22 @@ class MatchsController extends AbstractController
      * @Route("/matchs/create", name="app_match_create", methods={"GET", "POST"})
      */
      public function creatematch(Request $request, EntityManagerInterface $em)
-     {        
+     {      
+
 
      	if($request->isMethod('POST')){
      		$data = $request->request->all();
-            // dd($data);   
+              // dd($data);   
 
      		if ($this->isCsrfTokenValid('match_create', $data['_token'])){            
 
      			$matchs = new Matchs;
                 $matchs->setUser($this->getUser());
-                // dd($matchs);
+                 dd($matchs);
      			$matchs->setName($data['name']);     	
      			$matchs->setFirearmtype($data['firearmtype']);
      			$matchs->setMatchlevel($data['matchlevel']);
-     			$matchs->setMatchdate($data['matchdate']);
+     			$matchs->setStartAt($data['startat']);
      			$matchs->setMatchdirector($data['MatchDirector']);
      			$matchs->setRangemaster($data['RangeMaster']);
      			$matchs->setStatsdirector($data['StatsDirector']);
@@ -74,7 +75,7 @@ class MatchsController extends AbstractController
     /**
      * @Route("/matchs/{id<[0-9]+>}/show", name="app_match_show", methods={"GET"})
      */
-     public function showmatch(matchs $match): Response
+     public function showmatch(Matchs $match): Response
      {                 
 
         return $this->render('matchs/showmatch.html.twig', compact('match'));
@@ -86,7 +87,7 @@ class MatchsController extends AbstractController
       /**
      * @Route("/matchs/{id<[0-9]+>}/edit", name="app_match_edit", methods={"GET", "PUT"})
      */
-     public function editmatch(Request $request, matchs $match, EntityManagerInterface $em): Response
+     public function editmatch(Request $request, Matchs $match, EntityManagerInterface $em): Response
      {
         if($request->isMethod('PUT')){
 
@@ -105,7 +106,7 @@ class MatchsController extends AbstractController
                 $matchs->setName($data['name']);
                 $matchs->setFirearmtype($data['firearmtype']);
                 $matchs->setMatchlevel($data['matchlevel']);
-                $matchs->setMatchdate($data['matchdate']);
+                $matchs->setStartAt($data['startAt']);
                 $matchs->setMatchdirector($data['MatchDirector']);
                 $matchs->setRangemaster($data['RangeMaster']);
                 $matchs->setStatsdirector($data['StatsDirector']);
@@ -128,7 +129,7 @@ class MatchsController extends AbstractController
     /**
      * @Route("/matchs/{id<[0-9]+>}/delete", name="app_match_delete", methods={"DELETE"})
      */
-     public function deleteMatch(Request $request, matchs $match, EntityManagerInterface $em): Response
+     public function deleteMatch(Request $request, Matchs $match, EntityManagerInterface $em): Response
      {     
         if ($this->isCsrfTokenValid('match_deletion_' . $match->getId(), $request->request->get('csrf_token')))
         {

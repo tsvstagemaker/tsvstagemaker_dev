@@ -12,11 +12,36 @@
 
 	<h1>Create stage</h1>
 
-	{{ form_start(form) }}
+	{{ form_start(CreateStageForm) }}
 	
-		{{ form_widget(form) }}
+		{{ form_row(CreateStageForm.stagename) }}
+		{{ form_row(CreateStageForm.stagenumber) }}
+		{{ form_row(CreateStageForm.FirearmId) }}
+		{{ form_row(CreateStageForm.CourseId) }}
+		{{ form_row(CreateStageForm.ScoringId) }}
+		{{ form_row(CreateStageForm.TrgtTypeId) }}
+		{# {{ form_row(CreateStageForm.IcsStageId) }}
+		{{ form_row(CreateStageForm.TrgtPaper) }}
+		{{ form_row(CreateStageForm.TrgtPopper) }}
+		{{ form_row(CreateStageForm.TrgtPlates) }}
+		{{ form_row(CreateStageForm.TrgtVanish) }}
+		{{ form_row(CreateStageForm.TrgtPenlty) }}
+		{{ form_row(CreateStageForm.MinRounds) }} #}
+		{{ form_row(CreateStageForm.ReportOn) }}
+		{# {{ form_row(CreateStageForm.MaxPoints) }} #}
+		{{ form_row(CreateStageForm.StartPos) }}
+		{{ form_row(CreateStageForm.StartOn) }}
+		{{ form_row(CreateStageForm.StringCnt) }}
+		{{ form_row(CreateStageForm.Descriptn) }}
+		{# {{ form_row(CreateStageForm.bobber) }}
+		{{ form_row(CreateStageForm.filename) }}
+		{{ form_row(CreateStageForm.fileurl) }}
+		{{ form_row(CreateStageForm.filenameimg) }}
+		{{ form_row(CreateStageForm.fileurlimg) }}
+		{{ form_row(CreateStageForm.datastage) }} #}
+		{{ form_row(CreateStageForm.MatchsId) }}
 
-	{{ form_end(form) }}
+	{{ form_end(CreateStageForm) }}
 
 
 			

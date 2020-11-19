@@ -106,7 +106,7 @@ class Stage
      *
      * @ORM\Column(name="StartOn", type="string", length=10, nullable=true, options={"default"="00"})
      */
-    private $starton = '00';
+    private $StartOn = '00';
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -175,7 +175,7 @@ class Stage
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity=matchs::class, inversedBy="stages")
+     * @ORM\ManyToOne(targetEntity=Matchs::class, inversedBy="stages")
      */
     private $MatchsId;
 
@@ -544,12 +544,12 @@ class Stage
         return $this;
     }  
 
-    public function getMatchsId(): ?matchs
+    public function getMatchsId(): ?Matchs
     {
         return $this->MatchsId;
     }
 
-    public function setMatchsId(?matchs $MatchsId): self
+    public function setMatchsId(?Matchs $MatchsId): self
     {
         $this->MatchsId = $MatchsId;
 

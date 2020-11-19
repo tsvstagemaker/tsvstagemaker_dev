@@ -1,0 +1,29 @@
+<footer class="container text-center mt-5">
+    <hr class="style-two">
+        <br>
+        <div class="col-md-12" id="social">
+            <ul style="margin-right: 36px;">
+                <li><a href="index.php"><img style="margin-top: 3px;"  width="40px" src="{{ asset('images/logo_navbar2.png') }}" alt="logo"></a></li>
+
+                <li><a href="https://www.facebook.com/younes.bassim.7" target="_blank" rel=""><img width="50px" alt="facebook" src="{{ asset('images/logo_facebook.svg') }}"></a></li>
+
+                <li><a href="formulaire-de-contact" target="_blank" rel=""><img width="50px" alt="whatsapps" src="{{ asset('images/logo_whatsapps.svg') }}"></a></li>
+
+                <li><a href="https://www.instagram.com/younesipsc/" target="_blank" rel=""><img width="40px" alt="Instagram" src="{{ asset('images/logo-instagram.svg') }}"></a></li>
+            </ul>  
+        </div>
+        <div id="donate">
+            <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                <input type="hidden" name="cmd" value="_s-xclick" />
+                <input type="hidden" name="hosted_button_id" value="AYFJUE64X9JMW" />
+                <input type="image" src="https://www.paypalobjects.com/fr_FR/FR/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Bouton Faites un don avec PayPal" />
+                <img alt="" border="0" src="https://www.paypal.com/fr_FR/i/scr/pixel.gif" width="1" height="1" />
+            </form>                  
+            <p class="text-muted">
+            <small>
+                &copy; {{ 'now'|date('Y') }} &middot;
+                Version 3.0 Built by YB <a href="https://www.tsvstagemaker.fr">TSV STAGE MAKER &reg;</a>                          
+            </small> 
+            </p>                          
+        </div>              
+</footer>

@@ -2,24 +2,30 @@
 
 namespace App\Controller;
 
+use App\Entity\Matchs;
 use App\Entity\Stage;
+use App\Form\CreateStageFormType;
 use App\Form\EditProfileFormType;
 use App\Repository\StageRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
 class StagesController extends AbstractController
 {
+    
     /**
-     * @Route("/stages", name="app_stages")
+     * [index description]
+     * @param  StageRepository $StageRepository [description]
+     * @return [type]                           [description]
+     * @Route("/stages", name="app_stages", methods={"GET"})
      */
     public function index(StageRepository $StageRepository): Response
     {
@@ -29,176 +35,83 @@ class StagesController extends AbstractController
         return $this->render('stages/index.html.twig', compact('stages'));
     }
 
+    
+    
     /**
+     * [createstage description]
+     * @param  Request                $request [description]
+     * @param  EntityManagerInterface $em      [description]
+     * @param  Matchs                 $Matchs  [description]
+     * @return [type]                          [description]     
      * @Route("/stages/create", name="app_stage_create", methods={"GET", "POST"})
      */
     public function createstage(Request $request, EntityManagerInterface $em): Response
     {
+    	$stage = new Stage;
+        $form = $this->createForm(CreateStageFormType::class, $stage);
+        $form->handleRequest($request);
 
-    	$stages = new Stage;
-    	$form = $this->createFormBuilder()
-    		->add('stagename', TextType::class)
-    		->add('numstage', ChoiceType::class,[
-    											'choices' =>[
-    														'1' => '1',
-	                                                        '2' => '2',
-	                                                        '3' => '3',
-	                                                        '4' => '4',
-	                                                        '5' => '5',
-	                                                        '6' => '6',
-	                                                        '7' => '7',
-	                                                        '8' => '8',
-	                                                        '9' => '9',
-	                                                        '10' => '10',
-	                                                        '11' => '11', 
-	                                                        '12' => '12',
-	                                                        '13' => '13',
-	                                                        '14' => '14',
-	                                                        '15' => '15',
-	                                                        '16' => '16',
-	                                                        '17' => '17',
-	                                                        '18' => '18',
-	                                                        '19' => '19',
-	                                                        '20' => '20',
-	                                                        '21' => '21', 
-	                                                        '22' => '22',
-	                                                        '23' => '23',
-	                                                        '24' => '24',
-	                                                        '25' => '25',
-	                                                        '26' => '26',
-	                                                        '27' => '27',
-	                                                        '28' => '28',
-	                                                        '29' => '29',
-	                                                        '30' => '30',
-	                                                        '31' => '31',
-	                                                        '31' => '32',
-                                                        	]])
+         if ($form->isSubmitted() && $form->isValid()) {
 
-            ->add('MinRounds',IntegerType::class)
-            ->add('MaxPoints',IntegerType::class)             
+         	$em->persist($user);
+            $em->flush();
 
-            ->add('TrgtPaper',IntegerType::class)
-            ->add('TrgtPopper',IntegerType::class) 
-            ->add('TrgtPlates',IntegerType::class)
-            ->add('bobber',IntegerType::class)
-            ->add('TrgtVanish',IntegerType::class) 
-            ->add('TrgtPenlty',IntegerType::class)     
-
-            ->add('filename', TextType::class)
-            ->add('fileurl', TextType::class)
-            ->add('filenameimg', TextType::class)
-            ->add('fileurlimg', TextType::class)
-            
-            ->add('Descriptn', TextType::class)
-            ->add('StartPos', TextType::class)
-
-              ->add('CourseId', ChoiceType::class,[
-    										'choices' =>[
-    													'SHORT COURSE' => '1', 
-                                                        'EDIUM COURSE' => '2',
-                                                        'LONG COURSE' => '3',                                                        
-                                                  		 ]])
-
-              ->add('StartOn', ChoiceType::class,[
-              									'choices' =>[
-              									'1' => '00', 
-                                                '2' => '10',
-                                                '3' => '20',                                                        
-                                                        ]])
-
-              ->add('ScoringId', ChoiceType::class,[
-              									'choices' =>[
-              											'Comstock' => '1', 
-                                                        'Fixed Time' => '2',
-                                                        'Virginia Count' => '3',                                                        
-                                                        ]])
-
-
-            ->add('matchlevel', ChoiceType::class,[
-              									'choices' =>[
-              											 'TRAINING'=> '0',
-                                                         'LEVEL I' => '1', 
-                                                         'LEVEL II' => '2',
-                                                         'LEVEL III' => '3',
-                                                         'LEVEL VI' => '4',
-                                                         'LEVEL V' => '5',
-                                                       ]])
-
-            ->add('ReportOn', ChoiceType::class,[
-              									'choices' =>[
-              											'Without' => '0', 
-                                                        'With' => '1',                                                                                                        
-                                                       ]])
-
-            ->add('StringCnt', ChoiceType::class,[
-              									'choices' =>[
-              											'Without' => '0', 
-                                                        'With' => '1',                                                                                                        
-                                                        ]])
-
-            ->add('TrgtTypeId', ChoiceType::class,[
-              									'choices' =>[
-              											'Classic' => '2', 
-                                                        'Metric' => '1',                                                                                                        
-                                                        ]])
-
-
-            ->add('MatchDirector', TextType::class)
-            ->add('RangeMaster', TextType::class)
-            ->add('StatsDirector', TextType::class)
-
-            ->add('FirearmId', ChoiceType::class,[
-              									'choices' =>[
-              									 		  'Handgun' => '1', 
-                                                          'Rifle' => '2',
-                                                          'Shotgun' => '3',
-                                                          'Action Air' => '5',
-                                                          'Mini-Rifle' => '6',
-                                                          'PCC' => '7',
-                                                      ]])         
-
-            ->add('matchid', ChoiceType::class,[
-              									'choices' =>[
-              											'1' => '1', 
-                                                        '2' => '2',
-                                                        '3' => '3',
-                                                        '4' => '4',
-                                                        '5' => '5',
-                                                        '6' => '6',
-                                                        '7' => '7',
-                                                        '8' => '8',
-                                                        '9' => '9',
-                                                        '10' => '10',
-                                                        ]])           
-
-            ->add('datastage', TextType::class)
-            ->add('IcsStageId', IntegerType::class)
-
-            ->getForm()
-
-    	;
-
-    	// $form->handleRequest($request);
-
-    	// if ($form->isSubmitted() && $form->isValid()) 
-     //    {
-
-     //    	}
-        	
-
+        }
+        $this->addFlash('success', 'Stage successfully created !');
+                return $this->redirectToRoute('stage_create');
 
     	return $this->render('stages/createstage.html.twig', [
-    		'form' => $form->createView()
+    		'CreateStageForm' => $form->createView()
     	]);
 
     }
 
     /**
-     * @Route("/stages/{id<[0-9]+>}", name="app_stages_show")
+     * @Route("/stages/{id<[0-9]+>}", name="app_stages_show", methods={"GET"})
      */
     public function showstage(Stage $stage): Response
     {
 		return $this->render('stages/showstage.html.twig', compact('stage'));
         
     }
+    
+
+     /**
+     * @Route("/stages/{id<[0-9]+>}/edit", name="stage_edit", methods={"GET", "PUT", "POST"})
+     */
+     public function editstage(stages $stage, Request $request, EntityManagerInterface $em): Response
+     {  
+
+     if($request->isMethod('POST'))
+        {
+            $data = $request->request->all();     
+            
+            if ($this->isCsrfTokenValid('stage_edit', $data['_token']))
+            {  
+
+                $em->flush();
+
+            }
+            $this->addFlash('success', 'Stage successfully edited !');
+                return $this->redirectToRoute('stages');
+            
+        }
+
+        return $this->render('stages/editstage.html.twig', compact('stage'));
+    }
+
+
+       /**
+     * @Route("/stages/{id<[0-9]+>}/delete", name="stage_delete", methods={"DELETE"})
+     */
+     public function deleteStage(Request $request, stages $stage, EntityManagerInterface $em): Response
+     {
+        if ($this->isCsrfTokenValid('stage_deletion_' . $stage->getId(), $request->request->get('csrf_token')))
+        {
+            $em->remove($stage);
+            $em->flush();
+        }
+        $this->addFlash('primary', 'Stage successfully deleted !');
+            return $this->redirectToRoute('stages');
+      }
 }

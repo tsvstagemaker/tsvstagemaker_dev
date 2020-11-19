@@ -6,12 +6,14 @@
 
 		<div class="container mt-4 "> 
 		<div class="example-wrapper">
-		<h1>Your Matchs</h1><br>
+		<h1 class="mb-3">Your Matchs</h1>
 
-		<a class="btn btn-info" href="{{ path('match_create') }}">Create new match</a><br><br>
+		<a class="btn btn-primary mb-5" href="{{ path('app_match_create') }}">Create new match</a>
+		<div class="d-flex justify-content-between"> 
+        <p class="h4 text-muted">{{ pluralize(matchs|length, 'match') }} created</p>
+        <input class="form-control col-md-4" id="filtre-input-stage-js" type="text" placeholder="Search..">        
+        </div>
 
-
-		<h3>{{ pluralize(matchs|length, 'match') }}</h3>
 		{% if matchs == null %}
 			<p>Sorry, No match created yet !</p>  
 			{% else %}
@@ -99,7 +101,7 @@
 				<div class="container" style="text-align: center;">
 				<hr>
 	<!--  <p>** MatchId = Changer que si vous avez deja des matchs dans la liste de votre WinMSS voir help</p>
-	<p>** MatchId = change only if you already have matches in the list of your WinMSS in tab match see help</p> -->
+	<p>** MatchId = change only if you already have matchs in the list of your WinMSS in tab match see help</p> -->
 	<button  title="CabMaker" class="btn btn-info" type="button" onclick=" window.open('doc/MSCabMaker.exe', '_blank'); return false;">Download MSCabMaker</button>
 	&nbsp;
 	<a type="button" class="btn btn-info nav-item nav-link modalhelp" data-toggle="modal" data-target="#exampleModalLong" href="#"><i class="fas fa-info 2x"></i></a>

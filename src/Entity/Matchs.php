@@ -10,7 +10,7 @@ use App\Entity\Traits\Timestampable;
 
 /**
  * @ORM\Entity(repositoryClass=MatchsRepository::class)
- * @ORM\Table(name="matches")
+ * @ORM\Table(name="matchs")
  * @ORM\HasLifecycleCallbacks
  */
 class Matchs
@@ -39,7 +39,7 @@ class Matchs
     private $matchlevel;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $startAt;
 
@@ -145,12 +145,12 @@ class Matchs
         return $this;
     }
 
-    public function getStartAt(): ?\DateTimeInterface
+    public function getStartAt(): ?string
     {
         return $this->startAt;
     }
 
-    public function setStartAt(\DateTimeInterface $startAt): self
+    public function setStartAt(?string $startAt): self
     {
         $this->startAt = $startAt;
 
