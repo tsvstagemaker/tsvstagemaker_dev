@@ -64,7 +64,7 @@ class StagesController extends AbstractController
     }
 
     /**
-     * @Route("/stages/{id<[0-9]+>}", name="app_stages_show", methods={"GET"})
+     * @Route("/stages/{id<[0-9]+>}/show", name="app_stages_show", methods={"GET"})
      */
     public function showstage(Stage $stage): Response
     {
@@ -76,7 +76,7 @@ class StagesController extends AbstractController
      /**
      * @Route("/stages/{id<[0-9]+>}/edit", name="app_stage_edit", methods={"GET", "PUT", "POST"})
      */
-     public function editstage(stages $stage, Request $request, EntityManagerInterface $em): Response
+     public function editstage(Stage $stage, Request $request, EntityManagerInterface $em): Response
      {  
 
      if($request->isMethod('POST'))

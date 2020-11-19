@@ -78,18 +78,18 @@ class CreateStageFormType extends AbstractType
                                                         'Metric' => '1',                                                                                                        
                                                         ]])
             // ->add('IcsStageId', IntegerType::class)
-            // ->add('TrgtPaper',IntegerType::class)
-            // ->add('TrgtPopper',IntegerType::class)
-            // ->add('TrgtPlates',IntegerType::class)
-            // ->add('TrgtVanish',IntegerType::class)
-            // ->add('TrgtPenlty',IntegerType::class)
-            // ->add('MinRounds',IntegerType::class)
+            ->add('TrgtPaper',IntegerType::class)
+            ->add('TrgtPopper',IntegerType::class)
+            ->add('TrgtPlates',IntegerType::class)
+            ->add('TrgtVanish',IntegerType::class)
+            ->add('TrgtPenlty',IntegerType::class)
+            ->add('MinRounds',IntegerType::class)
             ->add('ReportOn', ChoiceType::class,[
                                                 'choices' =>[
                                                         'Without' => '0', 
                                                         'With' => '1',                                                                                                        
                                                        ]])
-            // ->add('MaxPoints',IntegerType::class)
+            ->add('MaxPoints',IntegerType::class)
             ->add('StartPos',IntegerType::class)
             ->add('StartOn', ChoiceType::class,[
                                                 'choices' =>[
@@ -103,7 +103,7 @@ class CreateStageFormType extends AbstractType
                                                         'With' => '1',
                                                         ]])
             ->add('Descriptn', TextType::class)
-            // ->add('bobber',IntegerType::class)
+            ->add('bobber',IntegerType::class)
             // ->add('showall')
             // ->add('Location')
             // ->add('createdAt')

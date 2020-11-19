@@ -11,9 +11,7 @@
 	<div class="container mt-3">
 			<div class="card">
 				<div class="card-body">
-					<h1 class="card-title text-center">{{ stage.stagename|capitalize }}</h1>
-
-					
+					<h1 class="card-title text-center">{{ stage.stagename|capitalize }}</h1>					
 
                  	<div class="row mt-3 mb-3">                 		
                  		<div class="col-md-12"> 							
@@ -70,8 +68,8 @@
 							<p class="card-text">Number of Bobber: <strong></strong>{{ stage.bobber }}</strong></p>
 							<p class="card-text">Number of Disappearing Targets: <strong>{{ stage.getTrgtVanish }}</strong></p>
                  		</div>
-                 	</div>                 		
-
+                 	</div>
+                 	<a href="{{ path('app_stage_edit', {'id': stage.id}) }}" class="btn btn-info btn-block btn-sm">Go Edit</a>
 					<div class="d-flex justify-content-between text-muted">   
                      <small>
                         <p class="card-text">Created: {{ stage.createdAt|date }}</p>                    

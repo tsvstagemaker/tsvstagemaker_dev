@@ -76,8 +76,7 @@ class MatchsController extends AbstractController
      * @Route("/matchs/{id<[0-9]+>}/show", name="app_match_show", methods={"GET"})
      */
      public function showmatch(Matchs $match): Response
-     {                 
-
+     {
         return $this->render('matchs/showmatch.html.twig', compact('match'));
      }
 
@@ -89,20 +88,25 @@ class MatchsController extends AbstractController
      */
      public function editmatch(Request $request, Matchs $match, EntityManagerInterface $em): Response
      {
+
+
         if($request->isMethod('PUT')){
 
-
+ //dd($request);
             // $data = $request->request->all();             
             $data = $request->request->all();
+            //dd($data);
              
                 // if ($this->isCsrfTokenValid('match_edit_', $data['_token']))
             
                     if ($this->isCsrfTokenValid('match_edit_' . $match->getId(), $request->request->get('csrf_token')))
+                       // dd($request->request->get('csrf_token'));
 
                         // if ($this->isCsrfTokenValid('match_edit_' . $match->getId(), $request->request->get('csrf_token')))
              {           
 
                 $matchs = new Matchs;
+                $matchs->setUser($this->getUser());
                 $matchs->setName($data['name']);
                 $matchs->setFirearmtype($data['firearmtype']);
                 $matchs->setMatchlevel($data['matchlevel']);
@@ -116,10 +120,12 @@ class MatchsController extends AbstractController
                 $matchs->setMatchid($data['matchid']);
 
                 // $em->persist($matchs);
+                //dd($matchs);
                 $em->flush();
+                //dd($em);
             }
             $this->addFlash('success', 'Match successfully edited !');
-            return $this->redirectToRoute('match_show', ['id' => $match->getId()]);
+            return $this->redirectToRoute('app_match_show', ['id' => $match->getId()]);
                     }
         return $this->render('matchs/editmatch.html.twig', compact('match'));
      }

@@ -54,7 +54,7 @@
                 <p class="card-text">Statsdirector:  <strong> {{ match.statsdirector }} </strong></p>
                 <p class="card-text">Rangemaster:  <strong> {{ match.rangemaster }} </strong></p>
                 <p class="card-text">Matchdirector:  <strong> {{ match.matchdirector }} </strong></p>
-                <a href="{{ path('app_match_edit', {'id': match.id}) }}" class="btn btn-info btn-block">Go Edit</a>
+                <a href="{{ path('app_match_edit', {'id': match.id}) }}" class="btn btn-info btn-block btn-sm">Go Edit</a>
             </div>
              <div class="card-footer d-flex justify-content-between text-muted">   
                    <small>
@@ -75,7 +75,7 @@
                 </h4>
             </div>
             <table class="table table-sm">
-                  <thead>
+                  <thead class="thead-amtch-show">
                     <tr>
                       <th scope="col">#</th>
                       <th scope="col">Name</th>

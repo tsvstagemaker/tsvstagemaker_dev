@@ -12,16 +12,14 @@
         <form method="post" action="" onsubmit="return createMatch();"> 
 {#         <input value="{{ csrf_token('match_edit_') }}" name="_token" type="hidden">  #}        
           <div class="row">
-            <div class="col-md-12">        
-              <div class="col-md-12">
+            <div class="col-md-12">         
                 <label for="name">Match Name*</label>
-                <input class="form-control" name="name" type="text" value="{{ match.name }}">
-              </div>
+                <input class="form-control" name="name" type="text" value="{{ match.name }}">             
             </div>
             <div class="col-md-12">
               <label for="example-date-input" id="match_id" >Date*</label>
               <div >
-                <input class="form-control" type="date" value="{{ match.matchdate }}" name="matchdate" id="matchdate">
+                <input class="form-control" type="date" value="{{ match.startAt }}" name="startAt" id="startAt">
               </div>
             </div>
             <div class="col-md-4">
@@ -308,7 +306,7 @@
             <input type="hidden" name="csrf_token" value="{{ csrf_token('match_edit_' ~ match.id) }}">
             <input type="hidden" name="_method" value="PUT"> 
 
-             <button title="Edit match" name="editmatch" class="btn btn-info btn-block" type="submit" onclick="return confirm('Are you sure you want to edit match: {{ match.name }} ?')">Edit match</button>
+             <button title="Edit match" name="editmatch" class="btn btn-info btn-block btn-sm" type="submit" onclick="return confirm('Are you sure you want to edit match: {{ match.name }} ?')">Edit match</button>
 
             {#  <a class="btn-match btn btn-info" href="#" onclick="event.preventDefault(); confirm('Are you sure you want to edit match: {{ match.name }} ?') && document.getElementById('js-match-edit-form').submit();">Edit match</a>
                             <form id="js-match-edit-form" action="{{ path('match_edit', {'id': match.id}) }}" method="post" style="display: none;">
@@ -320,7 +318,7 @@
          </div> 
        </form>
    </div>
-    <a class="mt-3 btn btn-info btn-sm" href="{{ path('match_show', {'id': match.id}) }}">Go back</a>
+    <a class="mt-3 btn btn-info btn-sm" href="{{ path('app_match_show', {'id': match.id}) }}">Go back</a>
    <br>    
  </div>
                

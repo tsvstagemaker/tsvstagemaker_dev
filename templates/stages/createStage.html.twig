@@ -3,48 +3,97 @@
 {% block title 'Create stage' %}
 
 	{% block stylesheets %}		
+		<style>
+		.container-create-stage{
+			margin-top: 100px;
+		}
+			.main{
+				background-color: red;
+				width: 90%;
+				height: 1200px;
+
+			}
+			.menu{
+				background-color: blue;
+				width: 90%;
+				height: 1200px;
+			}
+		</style
+		</style>
 	{% endblock %}
 
 
 {% block body %}
 
-	<div class="container-fluid">
+	<div class="container-fluid container-create-stage">	
 
-	<h1>Create stage</h1>
 
-	{{ form_start(CreateStageForm) }}
-	
-		{{ form_row(CreateStageForm.stagename) }}
-		{{ form_row(CreateStageForm.stagenumber) }}
-		{{ form_row(CreateStageForm.FirearmId) }}
-		{{ form_row(CreateStageForm.CourseId) }}
-		{{ form_row(CreateStageForm.ScoringId) }}
-		{{ form_row(CreateStageForm.TrgtTypeId) }}
+		<div class="row">
+		<div class="col-md-6 main mx-auto my-auto">
+			Main
+			<div id="dropzone" class="border border-bottom-0 rounded-sm h-75 m-3">
+				<p class="text-muted text-center">
+            <small>
+                &copy; {{ 'now'|date('Y') }} &middot;
+                Version 3.0 Built by YB <a href="https://www.tsvstagemaker.fr">tsvstagemaker.fr &reg;</a>                        
+            </small> 
+            </p>      
+			</div>
+				{{ form_start(CreateStageForm) }}
+			
+				{{ form_row(CreateStageForm.stagename) }}
+				{{ form_row(CreateStageForm.stagenumber) }}
+				{{ form_row(CreateStageForm.CourseId) }}
+				{{ form_row(CreateStageForm.StartOn) }}
+				{{ form_row(CreateStageForm.StartPos) }}
+				{{ form_row(CreateStageForm.Descriptn) }}
+
+				{{ form_row(CreateStageForm.TrgtPaper) }}
+				{{ form_row(CreateStageForm.TrgtPopper) }}
+				{{ form_row(CreateStageForm.TrgtPlates) }}
+				{{ form_row(CreateStageForm.TrgtVanish) }}
+				{{ form_row(CreateStageForm.TrgtPenlty) }}
+				{{ form_row(CreateStageForm.bobber) }}
+				{{ form_row(CreateStageForm.MinRounds) }}
+				{{ form_row(CreateStageForm.MaxPoints) }} 
+		</div>
+
+		<div class="col-md-6 menu border rounded mx-auto my-auto">
+			Menu
+			<div class="row">
+				<div class="col-md-12">				
+						{{ form_row(CreateStageForm.MatchsId) }}					
+					<div class="row">
+						<div class="col-md-6">
+							{{ form_row(CreateStageForm.ReportOn) }}						
+						</div>
+						<div class="col-md-6">
+							{{ form_row(CreateStageForm.StringCnt) }}	
+						</div>
+					</div>			
+						{{ form_row(CreateStageForm.FirearmId) }}					
+					<div class="row">
+						<div class="col-md-6">
+							{{ form_row(CreateStageForm.TrgtTypeId) }}
+						</div>
+						<div class="col-md-6">
+						{{ form_row(CreateStageForm.ScoringId) }}
+						</div>
+					</div>					
+				</div>
+			</div>
+
 		{# {{ form_row(CreateStageForm.IcsStageId) }}
-		{{ form_row(CreateStageForm.TrgtPaper) }}
-		{{ form_row(CreateStageForm.TrgtPopper) }}
-		{{ form_row(CreateStageForm.TrgtPlates) }}
-		{{ form_row(CreateStageForm.TrgtVanish) }}
-		{{ form_row(CreateStageForm.TrgtPenlty) }}
-		{{ form_row(CreateStageForm.MinRounds) }} #}
-		{{ form_row(CreateStageForm.ReportOn) }}
-		{# {{ form_row(CreateStageForm.MaxPoints) }} #}
-		{{ form_row(CreateStageForm.StartPos) }}
-		{{ form_row(CreateStageForm.StartOn) }}
-		{{ form_row(CreateStageForm.StringCnt) }}
-		{{ form_row(CreateStageForm.Descriptn) }}
-		{# {{ form_row(CreateStageForm.bobber) }}
 		{{ form_row(CreateStageForm.filename) }}
 		{{ form_row(CreateStageForm.fileurl) }}
 		{{ form_row(CreateStageForm.filenameimg) }}
 		{{ form_row(CreateStageForm.fileurlimg) }}
-		{{ form_row(CreateStageForm.datastage) }} #}
-		{{ form_row(CreateStageForm.MatchsId) }}
+		{{ form_row(CreateStageForm.datastage) }} #}		
 
-	{{ form_end(CreateStageForm) }}
-
-
-			
+			{{ form_end(CreateStageForm) }}
+		</div>
+	</div>
+	
 	</div>
 
 	{% endblock %}

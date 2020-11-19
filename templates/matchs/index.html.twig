@@ -1,10 +1,6 @@
 {% extends 'base.html.twig' %}
 
 {% block title 'Your Matchs TSV STAGE MAKER !' %}
-		{% block stylesheets %}
-		<link rel="stylesheet" href="{{ asset('css/match.css') }}" />
-	{% endblock %}
-
 
 	{% block body %}
 
@@ -12,7 +8,7 @@
 		<div class="example-wrapper">
 		<h1 class="mb-3">Your Matchs</h1>
 
-		<a class="btn btn-info mb-5" href="{{ path('app_match_create') }}">Create new match</a>
+		<a class="btn btn-info btn-sm mb-5" href="{{ path('app_match_create') }}">Create new match</a>
 
 		<div class="d-flex justify-content-between mb-3"> 
         <p class="h4 text-muted">{{ pluralize(matchs|length, 'match') }} created</p>
@@ -43,10 +39,12 @@
 
 				{% for match in matchs %}					
 					<tr>                        
-						<td><a href="{{ path('app_match_show', {'id': match.id}) }}">{{ match.getName }}
-						
-						</a></td>
-						<td><span class="badge badge-info badge-pill">{{ match.getStages|length }}</span></td> 
+						<td>
+							<a href="{{ path('app_match_show', {'id': match.id}) }}">{{ match.getName }}</a>
+						</td>
+						<td>
+							<span class="badge badge-info badge-pill">{{ match.getStages|length }}</span>
+						</td> 
 						<td>{{ match.getStartAt }}</td>
 						<td>
 						{% if match.getFirearmtype == 1 %}
@@ -107,9 +105,9 @@
 				<hr>
 					<!--  <p>** MatchId = Changer que si vous avez deja des matchs dans la liste de votre WinMSS voir help</p>
 					<p>** MatchId = change only if you already have matchs in the list of your WinMSS in tab match see help</p> -->
-					<button  title="CabMaker" class="btn btn-info mb-3 my-auto" type="button" onclick=" window.open('doc/MSCabMaker.exe', '_blank'); return false;">Download MSCabMaker</button>
-					&nbsp;
-					<a class="modalhelp " data-toggle="modal" data-target="#exampleModalLong" href="#"><i class="fa fa-info fa-3x info-match"></i></a>
+					<button  title="CabMaker" class="btn btn-info btn-sm mb-3 my-auto" type="button" onclick=" window.open('doc/MSCabMaker.exe', '_blank'); return false;">Download MSCabMaker</button>
+					&nbsp;&nbsp;&nbsp;
+					<a class="modalhelp " data-toggle="modal" data-target="#exampleModalLong" href="#"><i class="fa fa-info fa-2x info-match"></i></a>
 					<hr>
 				</div>
 	</div>	
