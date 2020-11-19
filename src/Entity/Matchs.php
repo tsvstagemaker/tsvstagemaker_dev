@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\MatchsRepository;
 use App\Entity\Traits\Timestampable;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=MatchsRepository::class)
@@ -25,6 +26,8 @@ class Matchs
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Please enter a match name")
+     * @Assert\Length(min="3")
      */
     private $name;
 
@@ -39,7 +42,8 @@ class Matchs
     private $matchlevel;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Please enter a match date")
      */
     private $startAt;
 
@@ -69,22 +73,23 @@ class Matchs
     private $updatedAt;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Please enter a club name")
      */
     private $clubName;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
     private $CountryId;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="integer")
      */
     private $SquadCount;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="integer")
      */
     private $matchid;
 

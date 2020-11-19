@@ -7,6 +7,7 @@ use App\Entity\Stage;
 use App\Form\CreateStageFormType;
 use App\Form\EditProfileFormType;
 use App\Repository\StageRepository;
+use DoctrineMigrations\stages;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -37,12 +38,7 @@ class StagesController extends AbstractController
 
     
     
-    /**
-     * [createstage description]
-     * @param  Request                $request [description]
-     * @param  EntityManagerInterface $em      [description]
-     * @param  Matchs                 $Matchs  [description]
-     * @return [type]                          [description]     
+    /**   
      * @Route("/stages/create", name="app_stage_create", methods={"GET", "POST"})
      */
     public function createstage(Request $request, EntityManagerInterface $em): Response
@@ -56,9 +52,10 @@ class StagesController extends AbstractController
          	$em->persist($user);
             $em->flush();
 
+            $this->addFlash('success', 'Stage successfully created !');
+                 return $this->redirectToRoute('stage_create');
         }
-        $this->addFlash('success', 'Stage successfully created !');
-                return $this->redirectToRoute('stage_create');
+         
 
     	return $this->render('stages/createstage.html.twig', [
     		'CreateStageForm' => $form->createView()
@@ -74,10 +71,10 @@ class StagesController extends AbstractController
 		return $this->render('stages/showstage.html.twig', compact('stage'));
         
     }
-    
+
 
      /**
-     * @Route("/stages/{id<[0-9]+>}/edit", name="stage_edit", methods={"GET", "PUT", "POST"})
+     * @Route("/stages/{id<[0-9]+>}/edit", name="app_stage_edit", methods={"GET", "PUT", "POST"})
      */
      public function editstage(stages $stage, Request $request, EntityManagerInterface $em): Response
      {  
@@ -102,7 +99,7 @@ class StagesController extends AbstractController
 
 
        /**
-     * @Route("/stages/{id<[0-9]+>}/delete", name="stage_delete", methods={"DELETE"})
+     * @Route("/stages/{id<[0-9]+>}/delete", name="app_stage_delete", methods={"DELETE"})
      */
      public function deleteStage(Request $request, stages $stage, EntityManagerInterface $em): Response
      {

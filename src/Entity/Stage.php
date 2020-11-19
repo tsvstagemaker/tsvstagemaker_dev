@@ -2,9 +2,10 @@
 
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use App\Repository\StageRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 use App\Entity\Traits\Timestampable;
+use App\Repository\StageRepository;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=StageRepository::class)
@@ -23,11 +24,13 @@ class Stage
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Please enter a stage name")
      */
     private $stagename;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank(message="Please enter a stage number betwenn 1 to 32")
      */
     private $stagenumber;
 
@@ -104,7 +107,7 @@ class Stage
     /**
      * @var string|null
      *
-     * @ORM\Column(name="StartOn", type="string", length=10, nullable=true, options={"default"="00"})
+     * @ORM\Column(name="StartOn", type="string", length=10, options={"default"="00"})
      */
     private $StartOn = '00';
 
@@ -124,9 +127,9 @@ class Stage
     private $bobber;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="integer", options={"default"="0"})
      */
-    private $showall;
+    private $showall = false;
 
     /**
      * @ORM\Column(type="integer", nullable=true)

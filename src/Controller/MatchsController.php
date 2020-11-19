@@ -40,11 +40,11 @@ class MatchsController extends AbstractController
 
      			$matchs = new Matchs;
                 $matchs->setUser($this->getUser());
-                 dd($matchs);
+                 // dd($matchs);
      			$matchs->setName($data['name']);     	
      			$matchs->setFirearmtype($data['firearmtype']);
      			$matchs->setMatchlevel($data['matchlevel']);
-     			$matchs->setStartAt($data['startat']);
+     			$matchs->setStartAt($data['startAt']);
      			$matchs->setMatchdirector($data['MatchDirector']);
      			$matchs->setRangemaster($data['RangeMaster']);
      			$matchs->setStatsdirector($data['StatsDirector']);
