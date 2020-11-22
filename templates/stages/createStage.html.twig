@@ -8,17 +8,84 @@
 			margin-top: 100px;
 		}
 			.main{
-				background-color: red;
+				background-color: ;
 				width: 90%;
 				height: 1200px;
 
 			}
 			.menu{
-				background-color: blue;
+				background-color: ;
 				width: 90%;
 				height: 1200px;
 			}
-		</style
+
+			/*tableau*/
+			#warped>span[class^=w]:nth-of-type(n+0){display:block; position:absolute;
+		-moz-transform-origin:50% 100%; -webkit-transform-origin:50% 100%; -o-transform-origin:50%
+		100%; -ms-transform-origin:50% 100%; transform-origin:50% 100%; }
+
+		#warped span{font-family:'Roboto';font-size:18px;font-weight:100;font-style:normal;
+		line-height:0.55; white-space:pre; overflow:visible; padding:0px;}
+
+		#warped .w0 {-moz-transform: rotate(-0.39rad);-webkit-transform: rotate(-0.39rad);-o-transform:
+			rotate(-0.39rad);-ms-transform: rotate(-0.39rad); transform: rotate(-0.39rad);
+			width: 12px; height: 8px; left: 23px; top: -8px;}
+
+			#warped .w1 {-moz-transform: rotate(-0.05rad);-webkit-transform: rotate(-0.05rad);-o-transform:
+				rotate(-0.05rad);-ms-transform: rotate(-0.05rad); transform: rotate(-0.05rad);
+				width: 12px; height: 8px; left: 38px; top: -8px;}
+
+				#warped .w2 {-moz-transform: rotate(0.28rad);-webkit-transform: rotate(0.28rad);-o-transform:
+					rotate(0.28rad);-ms-transform: rotate(0.28rad); transform: rotate(0.28rad);
+					width: 11px; height: 8px; left: 53px; top: -8px;}
+
+					.infoi{
+						color: #ffffff;
+					}
+
+					/*newtable*/
+					.tg  {
+						border-collapse:collapse;
+						border-spacing:0;
+						width: 100%;
+						text-align: center;
+					}
+
+					.tg td{
+						border-color:black;border-style:solid;
+						border-width:1px;
+						font-family:Arial,sans-serif;
+						font-size:14px;
+						overflow:hidden;
+						padding:10px 5px;
+						word-break:normal;
+					}
+
+					.tg th{
+						border-color:black;
+						border-style:solid;border-width:1px;
+						font-family:Arial,sans-serif;
+						font-size:14px;
+						font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;
+					}
+
+					.tg .tg-0lax{
+						text-align:center;
+						vertical-align:top
+					}
+					th {
+						text-align: center;
+					}
+
+					.small-img{
+						max-width: 10%;
+						max-height: 10%;
+					}
+
+					  .dropzone{
+					  	height: 60%!important;
+					  	} 
+	
 		</style>
 	{% endblock %}
 
@@ -29,9 +96,9 @@
 
 
 		<div class="row">
-		<div class="col-md-6 main mx-auto my-auto">
-			Main
-			<div id="dropzone" class="border border-bottom-0 rounded-sm h-75 m-3">
+		<div class="col-md-6 main border border-dark rounded mx-auto my-auto">
+		
+			<div id="dropzone" class="dropzone">
 				<p class="text-muted text-center">
             <small>
                 &copy; {{ 'now'|date('Y') }} &middot;
@@ -39,39 +106,93 @@
             </small> 
             </p>      
 			</div>
-				{{ form_start(CreateStageForm) }}
-			
-				{{ form_row(CreateStageForm.stagename) }}
-				{{ form_row(CreateStageForm.stagenumber) }}
-				{{ form_row(CreateStageForm.CourseId) }}
-				{{ form_row(CreateStageForm.StartOn) }}
-				{{ form_row(CreateStageForm.StartPos) }}
-				{{ form_row(CreateStageForm.Descriptn) }}
 
-				{{ form_row(CreateStageForm.TrgtPaper) }}
-				{{ form_row(CreateStageForm.TrgtPopper) }}
-				{{ form_row(CreateStageForm.TrgtPlates) }}
-				{{ form_row(CreateStageForm.TrgtVanish) }}
-				{{ form_row(CreateStageForm.TrgtPenlty) }}
-				{{ form_row(CreateStageForm.bobber) }}
-				{{ form_row(CreateStageForm.MinRounds) }}
-				{{ form_row(CreateStageForm.MaxPoints) }} 
-		</div>
+			{# Tableau de calcule  #}		
+			{# <input value="{{ csrf_token('stage_create') }}" name="_token" type="hidden"> #}
+			{{ form_start(CreateStageForm) }}
 
-		<div class="col-md-6 menu border rounded mx-auto my-auto">
-			Menu
-			<div class="row">
-				<div class="col-md-12">				
-						{{ form_row(CreateStageForm.MatchsId) }}					
+			<div class="row text-center">
+				<div class="col-md-12">
+				<div class="form-group">
 					<div class="row">
 						<div class="col-md-6">
-							{{ form_row(CreateStageForm.ReportOn) }}						
+							{{ form_row(CreateStageForm.stagename) }}	
 						</div>
 						<div class="col-md-6">
-							{{ form_row(CreateStageForm.StringCnt) }}	
+							{{ form_row(CreateStageForm.stagenumber) }}
 						</div>
-					</div>			
-						{{ form_row(CreateStageForm.FirearmId) }}					
+					</div>
+					<div class="row">
+						<div class="col-md-4">
+							<img src="{{ asset('images/points3.png') }}" title="Points" style="max-width: 25px;">
+								{{ form_row(CreateStageForm.MaxPoints) }}
+						</div>
+						<div class="col-md-4">
+							{{ form_row(CreateStageForm.StartOn) }}	
+						</div>
+						<div class="col-md-4">
+							{{ form_row(CreateStageForm.CourseId) }}
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-2">
+							<img src="{{ asset('images/LogoBallecoups.png') }}" title="Rounds" style="max-height: 45px;">&nbsp;&nbsp;&nbsp;<p style="margin-top: 12px;font-size: 20px" class="bord MinRounds" id="nbcp"name="MinRounds" id="MinRounds"></p>
+								{{ form_row(CreateStageForm.MinRounds) }}
+						</div>
+						<div class="col-md-2">
+							<img src="{{ asset('images/LogoTarget.png') }}" title="IPSC Targets" style="max-width: 25px;"> 
+								{{ form_row(CreateStageForm.TrgtPaper) }}
+						</div>
+						<div class="col-md-2">
+						<img src="{{ asset('images/IPSC_Popper.svg') }}" title="Poppers" style="max-width: 15px;"> 
+								{{ form_row(CreateStageForm.TrgtPopper) }}
+						</div>
+						<div class="col-md-2">
+						<img src="{{ asset('images/LogoPlate.png') }}" title="PLates" style="max-width: 25px; max-height: 30px;">
+								{{ form_row(CreateStageForm.TrgtPlates) }}
+						</div>
+						<div class="col-md-2">
+							<img src="{{ asset('images/IPSC_Bobber.gif') }}" title="Bobbers" style="max-width: 25px;">
+								{{ form_row(CreateStageForm.bobber) }}
+						</div>
+						<div class="col-md-2">
+							<img src="{{ asset('images/IPSC_Target_NS.png') }}"title="No Shoot" style="max-width: 25px;"> 
+								{{ form_row(CreateStageForm.TrgtPenlty) }}
+						</div>					
+					</div>
+						<div class="row">
+							<div class="col-md-12">
+								<div style="border: none; border-color: transparent;" rows="4" cols="55" contenteditable='true'>
+									{{ form_row(CreateStageForm.StartPos) }}                        
+								</div>
+							</div>
+						
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<div style="border: none; border-color: transparent;" rows="3" cols="55"  contenteditable='true'>
+									{{ form_row(CreateStageForm.Descriptn) }}                       
+								</div>
+							</div>							
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+				
+				{# {{ form_row(CreateStageForm.TrgtVanish) }} #}				
+				 
+		</div>
+
+		<div class="col-md-6 menu mx-auto my-auto text-center">
+		
+			<div class="row">
+				<div class="col-md-12">				
+						{{ form_row(CreateStageForm.MatchsId) }}	
+						{{ form_row(CreateStageForm.FirearmId) }}						
+										
 					<div class="row">
 						<div class="col-md-6">
 							{{ form_row(CreateStageForm.TrgtTypeId) }}
@@ -79,7 +200,15 @@
 						<div class="col-md-6">
 						{{ form_row(CreateStageForm.ScoringId) }}
 						</div>
-					</div>					
+					</div>	
+					<div class="row">
+						<div class="col-md-6">
+							{{ form_row(CreateStageForm.ReportOn) }}						
+						</div>
+						<div class="col-md-6">
+							{{ form_row(CreateStageForm.StringCnt) }}	
+						</div>
+					</div>						
 				</div>
 			</div>
 

@@ -6,7 +6,7 @@
 
 {# header si le membre est connecté#} 
  {% if app.user %}    
-  <header  class="container-fluid">
+  <header  class="container-fluid mt-10">
     <div class="row">
       <div class="col-12 col-md-6 connect d-flex"> 
        <div class="mx-auto my-auto">
@@ -22,16 +22,13 @@
  {% else %}
 
 {# header si le membre n'est pas connecté#}    
-  <header  class="container-fluid">
+  <header  class="container-fluid mt-10">
     <div class="row">
       <div class="col-12 col-md-6 connect d-flex text-align"> 
        <div class="mx-auto my-auto">        
         <h1>HOME <br> {{ title }}</h1><br>
-         <h2 class="readyAnim">Hello Shooters,</h2>
-         {# <span class="psw"> Not registered ?&nbsp;
-         <a href="inscription"><i class="fa fa-arrow-circle-right log"></i></a>
-         </span>  #}             
-        {# <a class="" href="{{ path('app_register') }}"><h3 class="creatAnim">You are not registered yet ?</h3> </a>  #}       
+         <h2 class="readyAnim">Hello Shooters,</h2>                   
+        <a class="" href="#"><h3 class="creatAnim">You are not registered yet ?</h3> </a>         
       </div>
     </div>  
   </div>
