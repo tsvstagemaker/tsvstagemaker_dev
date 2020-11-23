@@ -58,10 +58,13 @@
             </div>
              <div class="card-footer d-flex justify-content-between text-muted">   
                    <small>
-                      <p class="card-text">Created: {{ match.createdAt|date }}</p>                    
-                   </small>    
+                      <p class="card-text">Created: <br> {{ match.createdAt|date }}</p>                
+                   </small>
+                     <small>
+                      <p class="card-text">Created by:<br>  {{ match.getUser.firstname|capitalize }}</p>                
+                   </small>  
                    <small>                  
-                      <p class="card-text">Updated: {{ match.updatedAt|date }}</p>
+                      <p class="card-text">Updated:<br>  {{ match.updatedAt|date }}</p>
                    </small>
                </div>       
           </div>

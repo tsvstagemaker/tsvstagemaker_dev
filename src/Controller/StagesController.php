@@ -48,7 +48,8 @@ class StagesController extends AbstractController
         $form->handleRequest($request);
 
          if ($form->isSubmitted() && $form->isValid()) {
-
+            $stage->setUser($this->getUser());
+            $stage->setMatchsId($this->getMatchsId());
          	$em->persist($user);
             $em->flush();
 

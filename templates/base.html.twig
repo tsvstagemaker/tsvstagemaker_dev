@@ -79,7 +79,7 @@
 			<a href="{{ path('app_allstage') }}" class="nav-item nav-link {% if current_menu is defined and current_menu == 'app_allstage' %}active{% endif %}"><i class="fa fa-share-alt-square"></i><span>AllStages</span></a>
 			<a href="{{ path('app_contact') }}" class="nav-item nav-link {% if current_menu is defined and current_menu == 'app_contact' %}active{% endif %}"><i class="fa fa-envelope"></i><span>Contact</span></a>
 			<a href="{{ path('app_login') }}" class="nav-item nav-link {% if current_menu is defined and current_menu == 'app_login' %}active{% endif %}"><i class="material-icons login-icon">&#xE8AC;</i><span>Login</span></a>
-			<a href="#" class="nav-item nav-link {% if current_menu is defined and current_menu == 'app_register' %}active{% endif %}"><i class="fa fa-sign-in"></i><span>Register</span></a>	
+			<a href="{{ path('app_register') }}" class="nav-item nav-link {% if current_menu is defined and current_menu == 'app_register' %}active{% endif %}"><i class="fa fa-sign-in"></i><span>Register</span></a>	
 		
 		</div>
 	</div>

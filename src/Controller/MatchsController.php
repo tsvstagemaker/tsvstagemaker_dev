@@ -57,7 +57,7 @@ class MatchsController extends AbstractController
      			$em->flush();
 
                 $this->addFlash('success', 'Match successfully created !');
-                return $this->redirectToRoute('matchs');
+                return $this->redirectToRoute('app_matchs');
 
      		}            
 
@@ -87,10 +87,12 @@ class MatchsController extends AbstractController
      * @Route("/matchs/{id<[0-9]+>}/edit", name="app_match_edit", methods={"GET", "PUT"})
      */
      public function editmatch(Request $request, Matchs $match, EntityManagerInterface $em): Response
-     {
+     { 
 
 
         if($request->isMethod('PUT')){
+
+            dd($request);
 
  //dd($request);
             // $data = $request->request->all();             

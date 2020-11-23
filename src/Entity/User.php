@@ -261,18 +261,7 @@ class User implements UserInterface
 
         return $this;
     }
-
-    public function getIsVerified(): ?bool
-    {
-        return $this->isVerified;
-    }
-
-    public function setIsVerified(bool $isVerified): self
-    {
-        $this->isVerified = $isVerified;
-
-        return $this;
-    }
+   
    
     /**
      * @return Collection|Stage[]
@@ -334,6 +323,23 @@ class User implements UserInterface
         return $this;
     }
 
+     public function getIsVerified(): ?bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(bool $isVerified): self
+    {
+        $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    public function isVerified(): bool
+    {
+        return $this->isVerified;
+    }
+
       /**
     * @ORM\PrePersist
     * @ORM\PreUpdate
@@ -345,5 +351,7 @@ class User implements UserInterface
          } 
         $this->setUpdatedAt(new \DateTimeImmutable);
     }
+
+    
 
 }
