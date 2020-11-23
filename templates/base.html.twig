@@ -55,7 +55,11 @@
 					<a href="{{ path('app_matchs') }}" class="dropdown-item {% if current_menu is defined and current_menu == 'app_matchs' %}active{% endif %}"><i class="fa fa-list"></i> Matchs</a>
 					<a href="{{ path('app_stages') }}" class="dropdown-item {% if current_menu is defined and current_menu == 'app_stages' %}active{% endif %}"><i class="fa fa-list-ol"></i> Stages</a>
 					<div class="divider dropdown-divider"></div>
-					<a href="{{ path('app_logout') }}" class="dropdown-item"><i class="material-icons logout-icon">&#xE8AC;</i> Logout</a>
+
+					<a href="#" onclick="event.preventDefault(); document.getElementById('js-logout-form').submit();" class="dropdown-item"><i class="material-icons logout-icon">&#xE8AC;</i> Logout</a>
+					<form id="js-logout-form" action="{{ path('app_logout') }}" method="POST" style="display: none;">
+						<input type="hidden" name="_csrf_token" value="{{ csrf_token('logout') }}">
+					</form>
 				</div>
 			</div>
 		</div>

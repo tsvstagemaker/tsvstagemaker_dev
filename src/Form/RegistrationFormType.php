@@ -37,7 +37,7 @@ class RegistrationFormType extends AbstractType
                                         'PCC' => 'PCC',
                                         'Rifle' => 'Rifle',
                                         'Shotgun' => 'Shotgun',
-                                        'Action Ai' => 'Action Air',
+                                        'Action Air' => 'Action Ai',
                                         'Mini-Rifle' => 'Mini-Rifle',
                                         ]   
                                      ])
