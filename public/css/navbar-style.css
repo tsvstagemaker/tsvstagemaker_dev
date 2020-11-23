@@ -168,3 +168,57 @@ body {
 		width: 100%;
 	}
 }
+
+.login-icon{
+	color: #17a2b8;
+}
+
+.logout-icon{
+	color: #ff0000;
+}
+
+  /*******************************
+ **		Alert message	    **
+ **							**
+ *******************************/
+ .mt-6{
+ 	margin-top: 66px;
+ }
+.alert{
+	padding: 10px;	
+	text-align: center;
+	border-radius: 0;
+	border-color: 0;
+}
+
+.alert-success {
+	color: #000000;
+	background-color: #d4edda;
+	border-color: 0;
+	text-align: center;
+	border-radius: 0;
+}
+
+.alert-danger {
+	color: #000000;
+	background-color: #f8d7da;
+	border-color: 0;
+	text-align: center;
+	border-radius: 0;
+}
+
+.alert-primary {
+	color: #000000;
+	background-color: #cce5ff;
+	border-color: 0;
+	text-align: center;
+	border-radius: 0;
+}
+
+.alert-info {
+    color: #000000;
+    background-color: #d1ecf1;
+    border-color: 0;
+    text-align: center;
+    border-radius: 0;
+}

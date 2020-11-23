@@ -105,8 +105,11 @@
 
                  <div class="d-flex justify-content-between text-muted">   
                      <small>
-                        <p class="card-text">Created: {{ stage.createdAt|date }}</p>                    
-                     </small>    
+                        <p class="card-text">Created: {{ stage.createdAt|date }}</p>                 
+                     </small>  
+                      <small>
+                        <p class="card-text">Created by: {{ stage.user.firstName }}</p>              
+                     </small>  
                      <small>                  
                         <p class="card-text">Updated: {{ stage.updatedAt|date }}</p>
                      </small>
