@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{# {% block title 'Profil' {{ app.user.username|capitalize }} %} #}
+	{% block title %}{{ app.user.pseudo|capitalize }} Profile{% endblock %}
+
+{% block body %}
+ {#    {% for flashError in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+    {% endfor %} #}
+
+    
+<div class="container mt-10">
+
+<div class="row mx-auto my-auto text-center">
+    <div class="col-md-12">
+       <h1 class="my-5">{{ app.user.firstName|capitalize }} Profile</h1>
+    <div class="form-group text-align">
+        <div class="border border-info rounded pt-3 pb-3">
+        	<div class="row">
+            <div class="col-md-12">
+               <p class="mt-3 mb-3 h5">Pseudo: {{ app.user.pseudo|capitalize }}</p>
+            </div>
+              <div class="col-md-12">
+               <p class="mt-3 mb-3 h5">Firstname: {{ app.user.firstname|capitalize }}</p> 
+            </div>
+        </div>
+
+         <div class="row">
+            <div class="col-md-12">
+                <p class="mt-3 mb-3 h5">Club: {{ app.user.club}}</p>
+            </div>
+              <div class="col-md-12">
+                <p class="mt-3 mb-3 h5">Country : {{ app.user.region }}</p>
+            </div>
+        </div>        
+
+        <div class="row">
+            <div class="col-md-12">
+               <p class="mt-3 mb-3 h5">Division: {{ app.user.division }} </p>
+            </div>
+              <div class="col-md-12">
+               <p class="mt-3 mb-3 h5">Email: {{ app.user.email }}</p>
+            </div>
+        </div>
+        <hr>
+         <div class="d-flex justify-content-around text-muted">   
+                     <small>
+                        <p class="card-text">Created: {{ app.user.createdAt|date }}</p>                 
+                     </small>
+                     <small>                  
+                        <p class="card-text">Updated: {{ app.user.updatedAt|date }}</p>
+                     </small>
+                 </div>             
+        </div>
+
+        <a class="mt-5 mb-5 btn btn-info btn-lg btn-block" href="{{ path('edit_profile') }}">Edit Profile</a>
+    
+    <p class="mt-3 text-center text-muted">
+       <a href="#">Click here</a> to unsubscribe
+    </p>
+    </div>  
+    </div>
+</div>
+   
+    
+</div>
+    
+{% endblock %}

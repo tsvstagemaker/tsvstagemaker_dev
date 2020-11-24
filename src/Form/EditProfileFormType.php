@@ -5,27 +5,23 @@ namespace App\Form;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+// use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
-use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints\NotBlank;
+// use Symfony\Component\Validator\Constraints\Length;
+// use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\AvatarField;
 
-class RegistrationFormType extends AbstractType
+
+class EditProfileFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('pseudo',TextType::class,[
-                'required'   => true,                  
-            ])
-            ->add('firstName', TextType::class)
-            ->add('email', EmailType::class)
+            ->add('pseudo',TextType::class)
+            ->add('firstName',TextType::class)
             ->add('division', ChoiceType::class,[
                           'choices' =>[
                                         'HG Open' => 'HG Open', 
@@ -37,7 +33,7 @@ class RegistrationFormType extends AbstractType
                                         'PCC' => 'PCC',
                                         'Rifle' => 'Rifle',
                                         'Shotgun' => 'Shotgun',
-                                        'Action Air' => 'Action Ai',
+                                        'Action Ai' => 'Action Air',
                                         'Mini-Rifle' => 'Mini-Rifle',
                                         ]   
                                      ])
@@ -283,37 +279,8 @@ class RegistrationFormType extends AbstractType
                                                     'VEN Venezuela' => 'VEN Venezuela',
                                                     'ZIM Zimbabwe' => 'ZIM Zimbabwe',
                                                     ]
-                                             ])
-            // ->add('avatar',AvatarField::class, [
-            //     'attr' =>[
-            //         'placeholder' => "Avatar"]
-            //             ]) 
-            ->add('agreeTerms', CheckboxType::class, [
-                'mapped' => false,
-                'label' => 'I consent to the privacy policy of terms of service.',
-                'constraints' => [
-                    new IsTrue([
-                        'message' => 'You should agree to our privacy policy and terms of service.',
-                    ]),
-                ],
-            ])
-            ->add('plainPassword', PasswordType::class, [
-                // instead of being set onto the object directly,
-                // this is read and encoded in the controller
-                'mapped' => false,
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Please enter a password',
-                    ]),
-                    new Length([
-                        'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
-                        // max length allowed by Symfony for security reasons
-                        'max' => 4096,
-                    ]),
-                ],
-            ])
-        ;
+                                             ])  ;        
+          
     }
 
     public function configureOptions(OptionsResolver $resolver)

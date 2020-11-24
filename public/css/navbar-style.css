@@ -189,11 +189,12 @@ body {
 	text-align: center;
 	border-radius: 0;
 	border-color: 0;
+	margin-bottom: 0;
 }
 
 .alert-success {
 	color: #000000;
-	background-color: #d4edda;
+	background-color: #17a2b8;
 	border-color: 0;
 	text-align: center;
 	border-radius: 0;
@@ -221,4 +222,12 @@ body {
     border-color: 0;
     text-align: center;
     border-radius: 0;
+}
+
+.alert-error {
+    color: #000000;
+	background-color: #f8d7da;
+	border-color: 0;
+	text-align: center;
+	border-radius: 0;
 }

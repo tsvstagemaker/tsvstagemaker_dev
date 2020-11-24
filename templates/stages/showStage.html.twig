@@ -72,13 +72,13 @@
                  	<a href="{{ path('app_stage_edit', {'id': stage.id}) }}" class="btn btn-info btn-block btn-sm">Go Edit</a>
 					<div class="d-flex justify-content-between text-muted mt-3">   
                      <small>
-                        <p class="card-text">Created: {{ stage.createdAt|date }}</p>                  
+                        <p class="card-text">Created at: {{ stage.createdAt|date }}</p>                  
                      </small>
                       <small>
                         <p class="card-text">Created by: {{ stage.user.firstName }}</p>              
                      </small>
                      <small>                  
-                        <p class="card-text">Updated: {{ stage.updatedAt|date }}</p>
+                        <p class="card-text">Updated at: {{ stage.updatedAt|date }}</p>
                      </small>
                  	</div>
 				</div>

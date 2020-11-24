@@ -6,15 +6,15 @@
 
 {# header si le membre est connecté#} 
  {% if app.user %}    
-  <header  class="container-fluid mt-10">
+  <header  class="container-fluid">
     <div class="row">
       <div class="col-12 col-md-6 connect d-flex"> 
        <div class="mx-auto my-auto">
-       <h1>HOME <br> {{ title }}</h1><br>       
+       <h1 class="mb-5">{{ title }}</h1>     
          <h2 class="creatAnim">Hello {{ app.user.firstname|capitalize }},</h2>             
          <h3 class="readyAnim">Are you ready?</h3>
-         <h4 class="readyAnim">Standby!</h4>               
-         <a href="{{ path('app_stage_create') }}"><h4 class="creatAnim">Stage make ready !</h4></a>          
+         <h4 class="readyAnim mb-3">Standby!</h4>               
+         <a class="text-style-shooter" href="{{ path('app_stage_create') }}"><h4 class="creatAnim h1">Stage make ready !</h4></a>          
       </div>
     </div>  
   </div>
@@ -22,13 +22,15 @@
  {% else %}
 
 {# header si le membre n'est pas connecté#}    
-  <header  class="container-fluid mt-10">
+  <header  class="container-fluid">
     <div class="row">
       <div class="col-12 col-md-6 connect d-flex text-align"> 
        <div class="mx-auto my-auto">        
-        <h1>HOME <br> {{ title }}</h1><br>
-         <h2 class="readyAnim">Hello Shooters,</h2>                   
-        <a class="" href="{{ path('app_register') }}"><h3 class="creatAnim">You are not registered yet ?</h3> </a>         
+        <h1 class="mb-5">{{ title }}</h1>
+         <h2 class="readyAnim">Hello Shooters,</h2> 
+         <h3 class="readyAnim">Are you ready?</h3> 
+         <h4 class="readyAnim mb-3">Standby!</h4>                  
+        <a class="text-style-shooter" href="{{ path('app_register') }}"><h3 class="creatAnim h1">Go to register !</h3> </a>         
       </div>
     </div>  
   </div>

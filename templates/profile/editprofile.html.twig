@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit {{ app.user.pseudo|capitalize }} Profil{% endblock %}
+
+{% block body %}
+  {#   {% for flashError in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+    {% endfor %} #}
+
+    
+<div class="container mt-10">
+
+<div class="row">
+    <div class="col-md-6 mx-auto">
+       <h1 class="my-5 text-center">Edit {{ app.user.pseudo|capitalize }} profil</h1>
+    <div class="form-group">
+        {{ form_start(EditProfileForm) }}
+        <div class="row">
+            <div class="col-md-6">
+                {{ form_row(EditProfileForm.pseudo,{
+                'help' : 'Will be displayed in navbar'}) }}
+            </div>
+              <div class="col-md-6">
+                {{ form_row(EditProfileForm.firstName) }}
+            </div>
+        </div>
+
+         <div class="row">
+            <div class="col-md-6">
+                {{ form_row(EditProfileForm.club) }}
+            </div>
+              <div class="col-md-6">
+                {{ form_row(EditProfileForm.region) }}
+            </div>
+        </div>
+
+        {{ form_row(EditProfileForm.division) }}
+
+      {#   <div class="row">           
+              <div class="col-md-12">
+                 {{ form_row(EditProfileForm.plainPassword, {
+            label: 'Password'
+        }) }}
+            </div>
+        </div>  #}     
+
+        <button class="btn btn-info btn-lg btn-block" type="submit">Edit</button>
+    {{ form_end(EditProfileForm) }}
+    <p class="mt-3 text-center text-muted">
+       To unsubscribe <a href="#">click here</a>
+    </p>
+    </div>  
+    </div>
+</div>
+   
+    
+</div>
+    
+{% endblock %}

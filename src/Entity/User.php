@@ -15,7 +15,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\Table(name="users")
  * @ORM\HasLifecycleCallbacks
- * @UniqueEntity(fields={"username"}, message="There is already an account with this username")
+ * @UniqueEntity(fields={"pseudo"}, message="There is already an account with this pseudo")
  * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  * 
  */
@@ -46,12 +46,6 @@ class User implements UserInterface
      * @ORM\Column(type="string")
      */
     private $password;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="Please enter your username")
-     */
-    private $username;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -98,6 +92,12 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity=Matchs::class, mappedBy="user", orphanRemoval=true)
      */
     private $matchs;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Please enter your pseudo")
+     */
+    private $pseudo;
 
     public function __construct()
     {
@@ -182,13 +182,7 @@ class User implements UserInterface
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
-
-    public function setUsername(?string $username): self
-    {
-        $this->username = $username;
-
-        return $this;
-    }
+ 
 
     public function getFirstName(): ?string
     {
@@ -339,8 +333,21 @@ class User implements UserInterface
     {
         return $this->isVerified;
     }
+   
 
-      /**
+    public function getPseudo(): ?string
+    {
+        return $this->pseudo;
+    }
+
+    public function setPseudo(string $pseudo): self
+    {
+        $this->pseudo = $pseudo;
+
+        return $this;
+    }
+
+    /**
     * @ORM\PrePersist
     * @ORM\PreUpdate
     */

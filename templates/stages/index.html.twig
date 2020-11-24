@@ -9,7 +9,7 @@
 
 		<a class="btn btn-info btn-sm mb-5" href="{{ path('app_stage_create') }}">Create new stage</a>
 		<div class="d-flex justify-content-between"> 
-        <p class="h4 text-muted">{{ pluralize(stages|length, 'stage') }} created</p>
+        <p class="h4 text-muted">{{ pluralize(app.user.stages|length, 'stage') }} created</p>
         <input class="form-control col-md-4" id="filtre-input-stage-js" type="text" placeholder="Search..">        
         </div>
 
@@ -17,7 +17,7 @@
             <p>Sorry, No stage created yet !</p>  
             {% else %}	
 
-			{% for stage in stages %}
+			{% for stage in app.user.stages %}
                 <div class="p-3 mb-3 mt-3 border border-info rounded">
                    <div class="rounded">
                    {# <img src="{{ stage.getfileurlimg }}" width=230 height=330 title="{{ stage.getfileurlimg }}"> #}
@@ -105,13 +105,13 @@
 
                  <div class="d-flex justify-content-between text-muted">   
                      <small>
-                        <p class="card-text">Created: {{ stage.createdAt|date }}</p>                 
+                        <p class="card-text">Created at: {{ stage.createdAt|date }}</p>                 
                      </small>  
                       <small>
                         <p class="card-text">Created by: {{ stage.user.firstName }}</p>              
                      </small>  
                      <small>                  
-                        <p class="card-text">Updated: {{ stage.updatedAt|date }}</p>
+                        <p class="card-text">Updated at: {{ stage.updatedAt|date }}</p>
                      </small>
                  </div>                
            {#   </div> #}

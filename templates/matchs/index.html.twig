@@ -11,7 +11,7 @@
 		<a class="btn btn-info btn-sm mb-5" href="{{ path('app_match_create') }}">Create new match</a>
 
 		<div class="d-flex justify-content-between mb-3"> 
-        <p class="h4 text-muted">{{ pluralize(matchs|length, 'match') }} created</p>
+        <p class="h4 text-muted">{{ pluralize(app.user.matchs|length, 'match') }} created</p>
         <input class="form-control col-md-4" id="filtre-input-stage-js" type="text" placeholder="Search..">        
         </div>
 
@@ -37,7 +37,7 @@
 				</thead>
 				<tbody>
 
-				{% for match in matchs %}					
+				{% for match in app.user.matchs %}					
 					<tr>                        
 						<td>
 							<a href="{{ path('app_match_show', {'id': match.id}) }}">{{ match.getName }}</a>
@@ -58,7 +58,7 @@
 							{% elseif  match.getFirearmtype == 6 %}
 							Mini-Rifle
 							{% elseif  match.getFirearmtype == 7 %}
-							Pistol Caliber Carbine %}
+							Pistol Caliber Carbine
 						{% endif %}
 						</td>
 						<td>
@@ -100,15 +100,13 @@
 				</tbody>
 				</table>	
 				</div>			
-				</div>
-				<div class="d-flex d-flex justify-content-center">
-				<hr>
+				</div>			
+				<div class="d-flex justify-content-center mt-3">				
 					<!--  <p>** MatchId = Changer que si vous avez deja des matchs dans la liste de votre WinMSS voir help</p>
 					<p>** MatchId = change only if you already have matchs in the list of your WinMSS in tab match see help</p> -->
-					<button  title="CabMaker" class="btn btn-info btn-sm mb-3 my-auto" type="button" onclick=" window.open('doc/MSCabMaker.exe', '_blank'); return false;">Download MSCabMaker</button>
+					<button  title="CabMaker" class="btn btn-info btn-sm my-auto" type="button" onclick=" window.open('doc/MSCabMaker.exe', '_blank'); return false;">Download MSCabMaker</button>
 					&nbsp;&nbsp;&nbsp;
-					<a class="modalhelp " data-toggle="modal" data-target="#exampleModalLong" href="#"><i class="fa fa-info fa-2x info-match"></i></a>
-					<hr>
+					<a class="modalhelp " data-toggle="modal" data-target="#exampleModalLong" href="#"><i class="fa fa-info fa-2x info-match"></i></a>					
 				</div>
 	</div>	
 {% endif %}		

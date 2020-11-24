@@ -92,7 +92,6 @@ class MatchsController extends AbstractController
 
         if($request->isMethod('PUT')){
 
-            dd($request);
 
  //dd($request);
             // $data = $request->request->all();             

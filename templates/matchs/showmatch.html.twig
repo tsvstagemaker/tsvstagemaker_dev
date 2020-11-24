@@ -58,13 +58,13 @@
             </div>
              <div class="card-footer d-flex justify-content-between text-muted">   
                    <small>
-                      <p class="card-text">Created: <br> {{ match.createdAt|date }}</p>                
+                      <p class="card-text">Created at: <br> {{ match.createdAt|date }}</p>                
                    </small>
                      <small>
                       <p class="card-text">Created by:<br>  {{ match.getUser.firstname|capitalize }}</p>                
                    </small>  
                    <small>                  
-                      <p class="card-text">Updated:<br>  {{ match.updatedAt|date }}</p>
+                      <p class="card-text">Updated at:<br>  {{ match.updatedAt|date }}</p>
                    </small>
                </div>       
           </div>
@@ -77,14 +77,14 @@
                 <span class="badge badge-info badge-pill">{{ match.getStages|length }}</span>       
                 </h4>
             </div>
-            <table class="table table-sm">
+            <table class="table table-striped table-sm">
                   <thead class="thead-amtch-show">
                     <tr>
-                      <th scope="col">#</th>
+                      <th scope="col">Number</th>
                       <th scope="col">Name</th>
                       <th scope="col">FirearmType</th>
                       <th scope="col">MinRounds</th>
-                      <th scope="col">MxPoints</th>
+                      <th scope="col">MaxPoints</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -103,7 +103,7 @@
                                 {% elseif  stagelist.firearmid == 6 %}
                                 Mini-Rifle
                                 {% elseif  stagelist.firearmid == 7 %}
-                                Pistol Caliber Carbine
+                                PCC
                             {% endif %}
                       </td>                 
                       <td>{{ stagelist.minrounds }}</td>

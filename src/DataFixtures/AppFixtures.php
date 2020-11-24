@@ -21,6 +21,7 @@ class AppFixtures extends Fixture
         	$user = (new User())
 
         	->setUsername($generator->Username())
+            ->setPseudo($generator->lastName)
         	->setFirstName($generator->FirstName)
         	->setEmail($generator->email)
         	->setDivision('Standard')

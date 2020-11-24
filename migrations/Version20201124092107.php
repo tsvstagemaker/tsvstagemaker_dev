@@ -10,22 +10,22 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20201119010833 extends AbstractMigration
+final class Version20201124092107 extends AbstractMigration
 {
     public function getDescription() : string
     {
-        return 'Modify startAt to sting';
+        return 'Remove username';
     }
 
     public function up(Schema $schema) : void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE matchs CHANGE start_at start_at VARCHAR(255) DEFAULT NULL');
+        $this->addSql('ALTER TABLE users DROP username');
     }
 
     public function down(Schema $schema) : void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE matchs CHANGE start_at start_at DATE NOT NULL');
+        $this->addSql('ALTER TABLE users ADD username VARCHAR(255) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`');
     }
 }
