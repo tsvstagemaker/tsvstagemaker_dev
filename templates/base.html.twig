@@ -52,7 +52,15 @@
 			<a href="{{ path('app_contact') }}" class="nav-item nav-link {% if current_menu is defined and current_menu == 'app_contact' %}active{% endif %}"><i class="fa fa-envelope"></i><span>Contact</span></a>		
 			{# <a href="#" class="nav-item nav-link"><i class="fa fa-bell"></i><span>Notifications</span></a> #}
 			<div class="nav-item dropdown">
-				<a href="#" data-toggle="dropdown" class="nav-item nav-link dropdown-toggle user-action"><img src="{{ asset('images/logo_navbar.png') }}" alt="profile ipsc tsv stage maker" class="avatar" alt="Avatar"> {{ app.user.firstname|capitalize }} <b class="caret"></b></a>
+			<a href="#" data-toggle="dropdown" class="nav-item nav-link dropdown-toggle user-action">
+				 {% if app.user.avatarName == null %}
+			        <img src="{{ asset('images/logo_navbar.png') | imagine_filter('thumb') }}" alt="Avatar user" class="avatar" alt="Avatar"> {{ app.user.firstname|capitalize }} 
+			        {% else %}
+			          <img src="{{ vich_uploader_asset(app.user,'avatarFile') | imagine_filter('thumb') }}" alt="Avatar user" class="avatar" alt="Avatar"> {{ app.user.firstname|capitalize }} 
+			     {% endif %}				
+				<b class="caret"></b>
+				</a>
+
 				<div class="dropdown-menu">
 					<a href="{{ path('profile') }}" class="dropdown-item"><i class="fa fa-user-o"></i> Profile</a>
 					<a href="{{ path('app_matchs') }}" class="dropdown-item {% if current_menu is defined and current_menu == 'app_matchs' %}active{% endif %}"><i class="fa fa-list"></i> Matchs</a>

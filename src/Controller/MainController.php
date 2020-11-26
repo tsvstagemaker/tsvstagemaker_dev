@@ -19,18 +19,6 @@ class MainController extends AbstractController
         ]);
     }
 
-     /**
-     * @Route("/contact", name="app_contact")
-     */
-    public function contact(): Response
-    {
-        return $this->render('main/contact.html.twig', [
-            'title' => "Contact",
-            'current_menu' => "app_contact",
-            
-            
-        ]);
-    }
 
     /**
      * @Route("/about", name="app_about")

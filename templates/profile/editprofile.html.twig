@@ -2,17 +2,26 @@
 
 {% block title %}Edit {{ app.user.pseudo|capitalize }} Profil{% endblock %}
 
+{% block stylesheets %}
+  <link rel="stylesheet" href="{{ asset('css/edit-profile-style.css') }}" />
+{% endblock %}
+
 {% block body %}
   {#   {% for flashError in app.flashes('verify_email_error') %}
         <div class="alert alert-danger" role="alert">{{ flashError }}</div>
     {% endfor %} #}
 
     
-<div class="container mt-10">
+{# <div class="container mt-10">
 
 <div class="row">
-    <div class="col-md-6 mx-auto">
+    <div class="col-md-6 mx-auto text-center">
        <h1 class="my-5 text-center">Edit {{ app.user.pseudo|capitalize }} profil</h1>
+        {% if app.user.avatarName == null %}
+        <img src="{{ asset('images/logo_navbar.png') | imagine_filter('thumb') }}" alt="Avatar user" class="rounded-circle mb-3">
+        {% else %}
+          <img src="{{ vich_uploader_asset(app.user,'avatarFile') | imagine_filter('thumb') }}" alt="Avatar user" class="rounded-circle mb-3">
+       {% endif %}   
     <div class="form-group">
         {{ form_start(EditProfileForm) }}
         <div class="row">
@@ -34,7 +43,17 @@
             </div>
         </div>
 
-        {{ form_row(EditProfileForm.division) }}
+         <div class="row">
+            <div class="col-md-6">
+                {{ form_row(EditProfileForm.division) }}
+            </div>
+              <div class="col-md-6">
+                {{ form_row(EditProfileForm.avatarFile,{
+                'help' : 'Will be displayed in navbar, otherwise a default image will be displayed, accepted format is jpeg only'}) }}
+            </div>
+        </div>
+ #}
+        
 
       {#   <div class="row">           
               <div class="col-md-12">
@@ -44,7 +63,7 @@
             </div>
         </div>  #}     
 
-        <button class="btn btn-info btn-lg btn-block" type="submit">Edit</button>
+ {#    <button class="btn btn-info btn-lg btn-block" type="submit">Edit</button>
     {{ form_end(EditProfileForm) }}
     <p class="mt-3 text-center text-muted">
        To unsubscribe <a href="#">click here</a>
@@ -54,6 +73,100 @@
 </div>
    
     
+</div>  #}
+
+
+
+
+
+<div class="container mt-10 bootstrap snippets bootdey">
+
+ <!-- Breadcrumb -->
+          <nav aria-label="breadcrumb" class="main-breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="{{ path('app_home') }}">Home</a></li>
+              <li class="breadcrumb-item"><a href="{{ path('profile') }}">Profile</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Edit {{ app.user.firstName|capitalize }}</li>
+            </ol>
+          </nav>
+  <!-- /Breadcrumb -->
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="panel">
+            <div class="panel-body text-center">             
+
+                <div class="pv-lg">
+                 {% if app.user.avatarName == null %}
+                <img class="rounded-circle mb-3" src="{{ asset('images/logo_navbar.png') | imagine_filter('thumb') }}" alt="Avatar user">
+                {% else %}
+                <img class="rounded-circle mb-3" src="{{ vich_uploader_asset(app.user,'avatarFile') | imagine_filter('thumb') }}" alt="Avatar user">
+             {% endif %}
+                </div>
+                <h3 class="m0 text-bold">{{ app.user.firstName|capitalize }}</h3>
+                <div class="mv-lg">
+                    <p>Hello, I'm a just a dummy contact in your contact list and this is my presentation text. Have fun!</p>
+                </div>
+                <div class="text-center"><a class="btn btn-primary" href="">Send message</a></div>
+            </div>
+        </div>   
+    </div>
+    <div class="col-md-8 form-row">
+      <div class="row panel text-center">
+        <h4 class="mt-3 mb-3 text-center">Contact Information</h4>
+                   
+          <div class="form-group">
+          <div class="mx-auto my-auto">
+              {{ form_start(EditProfileForm) }}
+           
+                  <div class="col-md-12">
+                      {{ form_row(EditProfileForm.pseudo,{
+                      'help' : 'Will be displayed in navbar'}) }}
+                  </div>
+                    <div class="col-md-12">
+                      {{ form_row(EditProfileForm.firstName) }}
+                  </div>
+            
+
+    
+                  <div class="col-md-12">
+                      {{ form_row(EditProfileForm.club) }}
+                  </div>
+                    <div class="col-md-12">
+                      {{ form_row(EditProfileForm.region) }}
+                  </div>
+
+
+        
+                  <div class="col-md-12">
+                      {{ form_row(EditProfileForm.division) }}
+                  </div>
+                    <div class="col-md-12">
+                      {{ form_row(EditProfileForm.avatarFile,{
+                      'help' : 'Will be displayed in navbar, otherwise a default image will be displayed, accepted format is jpeg only'}) }}
+                  </div>
+   
+
+        
+
+      {#   <div class="row">           
+              <div class="col-md-12">
+                 {{ form_row(EditProfileForm.plainPassword, {
+            label: 'Password'
+        }) }}
+            </div>
+        </div>  #}     
+
+    <button class="btn btn-info btn-lg btn-block" type="submit">Edit</button>
+    {{ form_end(EditProfileForm) }}
+    <p class="mt-3 text-center text-muted">
+       To unsubscribe <a href="#">click here</a>
+    </p>
+    </div>
+    </div>   
+</div>
+</div>
+</div>
 </div>
     
 {% endblock %}

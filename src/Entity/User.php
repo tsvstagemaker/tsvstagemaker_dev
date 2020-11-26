@@ -2,14 +2,19 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use Monolog\DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\UserRepository;
 use App\Entity\Traits\Timestampable;
+use Symfony\Component\HttpFoundation\File\File;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -17,9 +22,10 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\HasLifecycleCallbacks
  * @UniqueEntity(fields={"pseudo"}, message="There is already an account with this pseudo")
  * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
+ * @Vich\Uploadable
  * 
  */
-class User implements UserInterface
+class User implements UserInterface, \Serializable
 {
     use Timestampable;
     /**
@@ -29,12 +35,30 @@ class User implements UserInterface
      */
     private $id;
 
+    /**     
+     * @Assert\File(mimeTypes={ "image/png", "image/jpeg" })
+     * @Vich\UploadableField(mapping="user_avatar", fileNameProperty="avatarName")
+     */
+    private $avatarFile;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @var string|null
+     */
+    private $avatarName;
+
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\NotBlank(message="Please enter your email")
      * @Assert\Email(message="Please enter a valid email address")
      */
     private $email;
+
+    /**
+     *
+     * @ORM\Column(type="string", length=64, nullable=true)
+     */
+    private $userName;
 
     /**
      * @ORM\Column(type="json")
@@ -181,8 +205,7 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
-    }
- 
+    } 
 
     public function getFirstName(): ?string
     {
@@ -254,8 +277,7 @@ class User implements UserInterface
         $this->updatedAt = $updatedAt;
 
         return $this;
-    }
-   
+    }   
    
     /**
      * @return Collection|Stage[]
@@ -345,9 +367,66 @@ class User implements UserInterface
         $this->pseudo = $pseudo;
 
         return $this;
+    }   
+
+    public function getAvatarName()
+    {
+        return $this->avatarName;
+    }
+
+    public function setAvatarName($avatarName)
+    {
+        $this->avatarName = $avatarName;
+        return $this->avatarName;
+
+        
+    }
+
+      public function getAvatarFile(): ?File
+    {
+        return $this->avatarFile;
     }
 
     /**
+     * [setAvatarFile description]
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $avatarFile
+     */
+    public function setAvatarFile(?File $avatarFile = null): void
+    {
+        $this->avatarFile = $avatarFile;
+         if (null !== $avatarFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+        
+    }
+
+      public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->userName,
+            $this->password,
+            $this->email,
+            // see section on salt below
+            // $this->salt,
+        ));
+    }
+
+    public function unserialize($serialized)
+    {
+        list(
+            $this->id,
+            $this->userName,
+            $this->password,
+            $this->email,
+            // see section on salt below
+            // $this->salt
+        ) = unserialize($serialized, array('allowed_classes' => false));
+    }
+
+     /**
     * @ORM\PrePersist
     * @ORM\PreUpdate
     */

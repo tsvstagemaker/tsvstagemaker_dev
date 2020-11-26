@@ -231,3 +231,13 @@ body {
 	text-align: center;
 	border-radius: 0;
 }
+
+.navbar-light .navbar-nav .nav-link:focus, 
+.navbar-light .navbar-nav .nav-link:hover 
+{
+    color: rgb(23 162 184) !important;
+}
+
+.active {
+    color: rgb(23 162 184);
+}
