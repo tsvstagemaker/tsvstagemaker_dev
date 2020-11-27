@@ -41,28 +41,158 @@ class StagesController extends AbstractController
     /**   
      * @Route("/stages/create", name="app_stage_create", methods={"GET", "POST"})
      */
-    public function createstage(Request $request, EntityManagerInterface $em): Response
-    {
-    	$stage = new Stage;
-        $form = $this->createForm(CreateStageFormType::class, $stage);
-        $form->handleRequest($request);
+      public function create(Request $request, EntityManagerInterface $em, Matchs $Matchs)
+      {       
+        // $matchs = $repomatchlist->findAll([]);
+        // dd($request);        
 
-         if ($form->isSubmitted() && $form->isValid()) {
-            $stage->setUser($this->getUser());
-            $stage->setMatchsId($this->getMatchsId());
-         	$em->persist($user);
-            $em->flush();
+        if($request->isMethod('POST'))
+        { 
 
+            $data = $request->request->all();  
+            // dd($data['MatchId']);
+
+            // dd($data['MatchId']);
+             // $data['MatchId'] = getMatchId(Entity::class,[
+             //    'class' => Matchs::class]);
+          
+            if ($this->isCsrfTokenValid('stage_create', $data['_token']))
+            {     
+
+                 // dd($_SERVER['DOCUMENT_ROOT']);
+
+                $file = $request->files->get('file');
+
+
+                 $stages = new Stage;       
+
+
+        //  traitement image recu
+
+                $file = $data["jpeg"];
+                $file = explode(";", $file)[1];
+                $file = explode(",", $file)[1];
+                $file = str_replace(" ", "+", $file);
+                $file = base64_decode($file);  
+                // dd($file); 
+                // $file  = $_FILES['file']['tmp_name'];
+                            
+
+        // traitement infos recu
+                $nomstage = $data['nomstage'];
+                $nomstage = preg_replace("# #", "_", $nomstage);                    
+                $nomstage = preg_replace( "# #", "_", $data['nomstage']); 
+                $numstage = $data['numstage'];       
+
+                
+         // chemin move pdf et image                
+                $path_pdf = "uploads/pdf/";
+                $path_img = "uploads/img/";
+
+        // nommage des fichiers image et pdf
+                $filename = $nomstage ." _ ". $numstage ." _ ". "1" ." _ ". md5(uniqid()) . "." . "pdf";
+                $filenameimg = $nomstage ." _ ". $numstage ." _ ". "1" ." _ ". md5(uniqid()) . "." . "jpeg";
+
+        // nommage des chemins de fichier image et pdf                
+                $fileurl = $path_pdf . $filename;                
+                $fileurlimg = $path_img . $filenameimg;
+
+                // file_put_contents($fileurl, $file);
+                file_put_contents($fileurlimg, $file);
+
+                move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . $fileurl);
+
+                // $file->move($path_pdf,$filename);  
+                // $file->move($path_img,$filenameimg);         
+       
+                // $image->move($this->getParameter('upload_directory'), $filename);
+                 // dd($data);
+
+                $stages->setUser($this->getUser());
+
+                // match id                        
+                // $stages->setMatchsId($data['matchs_id']); 
+                // $stages->setMatchsId($data['matchs_id'],$Matchs);
+                // $stages->setMatchsId($this->getMatchsId($data['matchs_id']));
+                // $stages->setMatchsId($this->getMatchsId());               
+           
+
+
+                $stages->setNumstage($numstage);
+                $stages->setNomstage($nomstage);
+
+                $stages->setFilename($filename);
+                $stages->setFileurl($fileurl);
+                $stages->setFilenameimg($filenameimg);
+                $stages->setFileurlimg($fileurlimg);
+
+                $stages->setStartOn($data['StartOn']);
+                $stages->setCourseId($data['CourseId']);
+                $stages->setReportOn($data['ReportOn']);
+                $stages->setStringCnt($data['StringCnt']);
+                $stages->setFirearmId($data['FirearmId']);
+                $stages->setTrgtTypeId($data['TrgtTypeId']);
+                $stages->setScoringId($data['ScoringId']);
+
+                // $stages->setCreatedAt(new \DateTime()); 
+                // $stages->setUpdatedAt(new \DateTime());               
+                
+            //  stages->setIcsStageId($data['ics_stage_id']);
+                $stages->setTrgtPaper($data['TrgtPaper']);
+                $stages->setTrgtPopper($data['TrgtPopper']);
+                $stages->setTrgtPlates($data['TrgtPlates']);
+                $stages->setTrgtVanish(0);
+                $stages->setTrgtPenlty($data['TrgtPenlty']);
+                $stages->setMaxPoints($data['MaxPoints']);
+                $stages->setMinRounds($data['MinRounds']);
+                $stages->setStartPos($data['StartPos']);
+                $stages->setDescriptn($data['Descriptn']);
+                $stages->setBobber($data['bobber']);
+                $stages->setShowall(0);
+                $stages->setLocation(0);
+                $stages->setDatastage($data['datastage']);
+
+                $em->persist($stages);
+                $em->flush();
+
+            }
             $this->addFlash('success', 'Stage successfully created !');
-                 return $this->redirectToRoute('stage_create');
+                return $this->redirectToRoute('app_stage_create');
+            
         }
+
+        return $this->render('stages/createstage.html.twig', [
+            'title' => 'Create stage TSV STAGE MAKER',
+            'current_menu' => "create", 
+            // 'matchs' => $matchs,           
+        ]);
+    }
+    
+
+
+
+    // public function createstage(Request $request, EntityManagerInterface $em): Response
+    // {
+    // 	$stage = new Stage;
+    //     $form = $this->createForm(CreateStageFormType::class, $stage);
+    //     $form->handleRequest($request);
+
+    //      if ($form->isSubmitted() && $form->isValid()) {
+    //         $stage->setUser($this->getUser());
+    //         $stage->setMatchsId($this->getMatchsId());
+    //      	$em->persist($user);
+    //         $em->flush();
+
+    //         $this->addFlash('success', 'Stage successfully created !');
+    //              return $this->redirectToRoute('stage_create');
+    //     }
          
 
-    	return $this->render('stages/createstage.html.twig', [
-    		'CreateStageForm' => $form->createView()
-    	]);
+    // 	return $this->render('stages/createstage.html.twig', [
+    // 		'CreateStageForm' => $form->createView()
+    // 	]);
 
-    }
+    // }
 
     /**
      * @Route("/stages/{id<[0-9]+>}/show", name="app_stages_show", methods={"GET"})

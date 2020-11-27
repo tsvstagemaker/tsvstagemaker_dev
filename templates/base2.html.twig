@@ -46,10 +46,12 @@
 		<div class="navbar-nav ml-auto">
 			<a href="{{ path('app_home') }}" class="nav-item nav-link {% if current_menu is defined and current_menu == 'app_home' %}active{% endif %}"><i class="fa fa-home"></i><span>Home</span></a>
 			<a href="{{ path('app_about') }}" class="nav-item nav-link {% if current_menu is defined and current_menu == 'app_about' %}active{% endif %}"><i class="fa fa-info-circle"></i><span>About</span></a>
+            <a href="{{ path('app_contact') }}" class="nav-item nav-link {% if current_menu is defined and current_menu == 'app_contact' %}active{% endif %}"><i class="fa fa-envelope"></i><span>Contact</span></a>
 			<a href="{{ path('app_allstage') }}" class="nav-item nav-link {% if current_menu is defined and current_menu == 'app_allstage' %}active{% endif %}"><i class="fa fa-share-alt-square"></i><span>AllStages</span></a>
+            <a href="{{ path('app_match_create') }}" class="nav-item nav-link {% if current_menu is defined and current_menu == 'app_match_create' %}active{% endif %}"><i class="fa fa-share-alt-square"></i><span>New Match</span></a>
+            <a href="{{ path('app_stage_create') }}" class="nav-item nav-link {% if current_menu is defined and current_menu == 'app_stage_create' %}active{% endif %}"><i class="fa fa-share-alt-square"></i><span>New Stage</span></a>
 			{# <a href="{{ path('app_home') }}" class="nav-item nav-link"><i class="fa fa-pie-chart"></i><span>Reports</span></a> #}
-			<a href="#" class="nav-item nav-link"><i class="fa fa-gears"></i><span>Admin</span></a>
-			<a href="{{ path('app_contact') }}" class="nav-item nav-link {% if current_menu is defined and current_menu == 'app_contact' %}active{% endif %}"><i class="fa fa-envelope"></i><span>Contact</span></a>		
+			<a href="#" class="nav-item nav-link"><i class="fa fa-gears"></i><span>Admin</span></a>					
 			{# <a href="#" class="nav-item nav-link"><i class="fa fa-bell"></i><span>Notifications</span></a> #}
 			<div class="nav-item dropdown">
 			<a href="#" data-toggle="dropdown" class="nav-item nav-link dropdown-toggle user-action">
@@ -91,8 +93,8 @@
 		<div class="navbar-nav ml-auto">
 			<a href="{{ path('app_home') }}" class="nav-item nav-link {% if current_menu is defined and current_menu == 'app_home' %}active{% endif %}"><i class="fa fa-home"></i><span>Home</span></a>
 			<a href="{{ path('app_about') }}" class="nav-item nav-link {% if current_menu is defined and current_menu == 'app_about' %}active{% endif %}"><i class="fa fa-info-circle"></i><span>About</span></a>
-			<a href="{{ path('app_allstage') }}" class="nav-item nav-link {% if current_menu is defined and current_menu == 'app_allstage' %}active{% endif %}"><i class="fa fa-share-alt-square"></i><span>AllStages</span></a>
-			<a href="{{ path('app_contact') }}" class="nav-item nav-link {% if current_menu is defined and current_menu == 'app_contact' %}active{% endif %}"><i class="fa fa-envelope"></i><span>Contact</span></a>
+            <a href="{{ path('app_contact') }}" class="nav-item nav-link {% if current_menu is defined and current_menu == 'app_contact' %}active{% endif %}"><i class="fa fa-envelope"></i><span>Contact</span></a>
+			<a href="{{ path('app_allstage') }}" class="nav-item nav-link {% if current_menu is defined and current_menu == 'app_allstage' %}active{% endif %}"><i class="fa fa-share-alt-square"></i><span>AllStages</span></a>			
 			<a href="{{ path('app_login') }}" class="nav-item nav-link {% if current_menu is defined and current_menu == 'app_login' %}active{% endif %}"><i class="material-icons login-icon">&#xE8AC;</i><span>Login</span></a>
 			<a href="{{ path('app_register') }}" class="nav-item nav-link {% if current_menu is defined and current_menu == 'app_register' %}active{% endif %}"><i class="fa fa-sign-in"></i><span>Register</span></a>	
 		
@@ -169,7 +171,7 @@ window.scrollTo(0, 0); //scroll page entiere du haut en bas
                     var Descriptn = document.getElementById("Descriptn"); 
                     var Descriptn = document.querySelector('[name="Descriptn"]');
                     var CourseId = document.querySelector('[name="CourseId"]');
-                    var matchs_id = document.querySelector('[name="matchs_id"]'); 
+                    var MatchsId = document.querySelector('[name="MatchsId"]'); 
                     var MaxPoints = document.querySelector('[name="MaxPoints"]');
                     var MinRounds = document.querySelector('[name="MinRounds"]');   
                     var TrgtPaper = document.querySelector('[name="TrgtPaper"]');
@@ -195,7 +197,7 @@ window.scrollTo(0, 0); //scroll page entiere du haut en bas
                     formData.append('Descriptn', Descriptn.value);
                     formData.append('Descriptn', Descriptn.innerText);
                     formData.append('CourseId', CourseId.value);
-                    formData.append('matchs_id', matchs_id.value);
+                    formData.append('MatchsId', MatchsId.value);
                     formData.append('MaxPoints', MaxPoints.innerText);
                     formData.append('MinRounds', MinRounds.innerText);
                     formData.append('TrgtPaper', TrgtPaper.innerText);
@@ -237,7 +239,7 @@ function savPDF(){
 };
 </script>
 
-<!--    <script>
+        <!--    <script>
             // COULEURS PANNEAU
 
             $('#btn-orange').on("click", function() {
@@ -357,17 +359,19 @@ setTimeout(loaderspiner, 3000);
 
     });
 </script>
+
 {# Button grid #}
     <script>
         function actveGrid() {
-            document.getElementById("dropzone").style.background = "url('images/grillebleu.png') round";
+            document.getElementById("dropzone").style.background = "url( {{ asset('images/grillebleu.png') }} ) round";
+
         }
         function actveGrid1() {
-            document.getElementById("dropzone").style.background = "url('images/grille2.png') round";
+            document.getElementById("dropzone").style.background = "url( {{ asset('images/grille2.png') }} ) round";
         }
 
         function actveGrid2() {
-            document.getElementById("dropzone").style.background = "url('images/grille3.png') round";
+            document.getElementById("dropzone").style.background = "url( {{ asset('images/grille3.png') }} ) round";
         }
 
         function dactveGrid() {

@@ -437,13 +437,7 @@
 								?>										
 							</div>
 						</div>
-						<!-- Uploader des objets -->
-
-						<?php
-						$membre = $userinfo['id'];   
-						$matchslist = $bdd->prepare("SELECT * FROM matchs WHERE matchiduser = ? ORDER BY id  DESC");
-						$matchslist->execute(array($membre));            
-						?>
+						<!-- Uploader des objets -->				
 
 						<hr class="style-one">
 						<!-- debut Grille fond de stage -->
@@ -473,7 +467,7 @@
 												<i class="fa fa-info 2x iconinfo"></i>			
 											</a>
 										</label>										
-											<select class="form-control" name="matchs_id" id="matchs_id">	
+											<select class="form-control" name="MatchsId" id="MatchsId">	
 													<option value="0">Training</option>
 												{% for matchList in app.user.matchs %}	
 													<option value="{{ matchList.getId }}">{{ matchList.getName }}</option>
@@ -556,10 +550,21 @@
 							<!-- Document PDF IPSC -->
 							<fieldset>
 								<legend> <h4>Documents (PDF)</h4> </legend>					
-								<!-- <input class="btn btn-info" type="button" value="Instructions" onclick="window.location='doc/Instructions.html';">	 -->				
-								<button   title="IPSC Target Guide en PDF" class="btn btn-info" type="button" onclick=" window.open('doc/IPSC_Target_Array_Book_2019_EN_FR_V1.pdf', '_blank'); return false;">IPSC Targer Guide</button>
+								<!-- <input class="btn btn-info" type="button" value="Instructions" onclick="window.location='doc/Instructions.html';">	 -->			
+								<a href="{{ asset('doc/IPSC_Target_Array_Book_2019_EN_FR_V1.pdf') }}"target="_blank" title="IPSC Target Guide en PDF" class="btn btn-info abutton">IPSC Targer Guide</a>
 
-								<button  title="IPSC Rules Book 2019 en PDF" class="btn btn-info" type="button" onclick=" window.open('doc/IPSC_Rule_Books_2019.pdf', '_blank'); return false;">IPSC Rule Books HG 2019</button>
+								<a href="{{ asset('doc/IPSC_Rule_Books_2019.pdf') }}"target="_blank" title="IPSC Target Guide en PDF" class="btn btn-info abutton">IPSC Rule Books HG 2019</a>
+
+								<a href="{{ asset('doc/RulesPCC.pdf') }}"target="_blank" title="IPSC Target Guide en PDF" class="btn btn-info abutton">IPSC Rule Books PCC 2019</a>
+
+								<a href="{{ asset('doc/RulesShotgunFREN.pdf') }}"target="_blank" title="IPSC Target Guide en PDF" class="btn btn-info abutton">IPSC Rule Books Shotgun 2017</a>
+
+								<a href="{{ asset('doc/RulesRifleFREN.pdf') }}"target="_blank" title="IPSC Target Guide en PDF" class="btn btn-info abutton">IPSC Rule Books Rifle 2017</a>
+
+								<a href="{{ asset('doc/HandGunEquipementCheck.pdf') }}"target="_blank" title="IPSC Target Guide en PDF" class="btn btn-info abutton">HandGun Equipement Check</a>
+								
+
+								{# <button  title="IPSC Rules Book 2019 en PDF" class="btn btn-info" type="button" onclick=" window.open('doc/IPSC_Rule_Books_2019.pdf', '_blank'); return false;">IPSC Rule Books HG 2019</button>
 
 								<button   title="HandGun Equipement Check en PDF" class="btn btn-info" type="button" onclick=" window.open('doc/RulesPCC.pdf', '_blank'); return false;">IPSC Rule Books PCC 2019</button>	
 
@@ -567,7 +572,7 @@
 
 								<button   title="HandGun Equipement Check en PDF" class="btn btn-info" type="button" onclick=" window.open('doc/RulesRifleFREN.pdf', '_blank'); return false;">IPSC Rule Books Rifle 2017</button>	
 
-								<button   title="HandGun Equipement Check en PDF" class="btn btn-info" type="button" onclick=" window.open('doc/HandGunEquipementCheck.pdf', '_blank'); return false;">HandGun Equipement Check</button>							
+								<button   title="HandGun Equipement Check en PDF" class="btn btn-info" type="button" onclick=" window.open('doc/HandGunEquipementCheck.pdf', '_blank'); return false;">HandGun Equipement Check</button> #}							
 							</fieldset>									
 						</div>	
 					</div>

@@ -300,6 +300,12 @@ div.section0, div.section1 {
 				border: 1px solid;
 			}
 
+			.abutton{
+				max-width: 500px; 
+				min-width: 450px; 
+				border: 1px solid;
+			}
+
 			#draggable .grid-btn{
 				max-width: 100px; 
 				min-width: 75px; 
