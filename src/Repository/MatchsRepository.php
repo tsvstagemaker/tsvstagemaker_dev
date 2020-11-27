@@ -19,6 +19,19 @@ class MatchsRepository extends ServiceEntityRepository
         parent::__construct($registry, Matchs::class);
     }
 
+     /**
+     * [countAllMatchs description]
+     * @return [type] [description]
+     */
+        public function countAllMatchs()
+        {
+            $queryBuilder = $this->createQueryBuilder('a');
+            $queryBuilder->select('COUNT(a.id) as value');
+            return $queryBuilder->getQuery()->getOneOrNullResult();        
+        }
+
+        
+
     // /**
     //  * @return Matchs[] Returns an array of Matchs objects
     //  */

@@ -312,6 +312,11 @@ class Matchs
         return $this;
     }
 
+     public function __toString()
+    {
+        return $this->getname();
+    }
+
       /**
     * @ORM\PrePersist
     * @ORM\PreUpdate

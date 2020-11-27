@@ -19,6 +19,20 @@ class StageRepository extends ServiceEntityRepository
         parent::__construct($registry, Stage::class);
     }
 
+    /**
+     * [countAllStages description]
+     * @return [type] [description]
+     */
+        public function countAllStages()
+        {
+            $queryBuilder = $this->createQueryBuilder('a');
+            $queryBuilder->select('COUNT(a.id) as value');
+            return $queryBuilder->getQuery()->getOneOrNullResult();        
+        }
+
+
+
+
     // /**
     //  * @return Stage[] Returns an array of Stage objects
     //  */

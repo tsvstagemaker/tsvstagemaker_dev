@@ -1,0 +1,177 @@
+{# @var ea \EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext #}
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block page_title 'Admin' %}
+
+{% block page_content %}
+    
+   <div class="container text-align">
+       <div class="row">
+           <div class="col-md-4 alert-success rounded-left">
+               <p class="h4 count-data"><span class="display-3">{{ countAllUsers['value'] }}</span>Users</p>
+           </div>
+            <div class="col-md-4 alert-info">
+               <p class="h4 count-data"><span class="display-3">{{ countAllMatchs['value'] }}</span>Matchs</p>
+           </div>
+           <div class="col-md-4 alert-primary rounded-right">
+              <p class="h4 count-data"><span class="display-3">{{ countAllStages['value'] }}</span>Stages</p>
+           </div>
+        {#    {{ dump(countAllUsers['value'], countAllMatchs['value'], countAllStages['value'] ) }} #}
+        {#    countAllUsers
+            countAllMatchs
+            countAllStages #}
+       </div> 
+     {# matchs table #}
+
+
+     <div class="table-responsive mt-5 text-align">
+        <p class="mb-3 h3">Matchs List</p>
+                <table class="table table-striped tftable table-match table-sm">
+                <thead>
+                <tr>             
+                <th>Match name</th>
+                <th>Nbr stages</th>
+                <th>Match date</th>
+                <th>Firearm type</th>
+                <th>Match level</th>
+                <th>Created date</th>  
+                <th>Updated date</th>               
+                <th>Download all stages</th>   
+                <th>Download all WinMSS files</th>
+                <th>Edit</th>   
+                <th>Delete</th>               
+                </tr>
+                </thead>
+                <tbody>
+
+                {% for match in showAllMatchs %}                   
+                    <tr>                        
+                        <td><a href="{{ path('app_match_show', {'id': match.id}) }}">{{ match.name }}
+                        
+                        </a></td>
+                        <td><span class="badge badge-primary badge-pill">{{ match.getStages|length }}</span></td> 
+                        <td>{{ match.getstartAt }}</td>
+                        <td>
+                        {% if match.getFirearmtype == 1 %}
+                            Handgun
+                            {% elseif  match.getFirearmtype == 2 %}
+                            Rifle
+                            {% elseif  match.getFirearmtype == 3 %}
+                            Shotgun
+                            {% elseif  match.getFirearmtype == 5 %}
+                            Action Air
+                            {% elseif  match.getFirearmtype == 6 %}
+                            Mini-Rifle
+                            {% elseif  match.getFirearmtype == 7 %}
+                            Pistol Caliber Carbine %}
+                        {% endif %}
+                        </td>
+                        <td>
+                            {% if match.getMatchlevel == 0 %}
+                                TRAINING
+                                {% elseif  match.getMatchlevel == 1 %}
+                                LEVEL I
+                                {% elseif  match.getMatchlevel == 2 %}
+                                LEVEL II
+                                {% elseif  match.getMatchlevel == 3 %}
+                                LEVEL III
+                                {% elseif  match.getMatchlevel == 4 %}
+                                LEVEL IV
+                                {% elseif  match.getMatchlevel == 5 %}
+                                LEVEL V           
+                            {% endif %}              
+                        </td>                   
+                        <td>{{ match.createdAt|ago }}</td>
+                        <td>{{ match.updatedAt|ago }}</td>
+
+                        <td>                            
+                            {# <a class="btn-match btn btn-info btn-sm" href="#">Stages</a> #} 
+                            {# <button class="btn-match btn btn-info btn-sm" type="button" data-toggle="modal" data-target="#myModal">Stages</button> #}
+                            <button type="button" class="btn-match btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModalLong">Stages</button>               
+                        </td>
+                        <td>
+                            <a class="btn-match btn btn-info btn-sm" href="#">WinMSS</a>
+                        </td>    
+                        <td>                            
+                            <a class="btn-match btn btn-warning btn-sm" href="{{ path('app_match_edit', {'id': match.id}) }}">Edit</a>       
+                        </td> 
+                        <td>                    
+                            <a class="btn-match btn btn-danger btn-sm" href="#" onclick="event.preventDefault(); confirm('Are you sure you want to delete match: {{ match.getName }} with all associated stages ?') && document.getElementById('js-match-delete-form-{{ match.id }}').submit();">Delete</a>
+                            <form id="js-match-delete-form-{{ match.id }}" action="{{ path('app_match_delete', {'id': match.id}) }}" method="post" style="display: none;">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token('match_deletion_' ~ match.id) }}">
+                            <input type="hidden" name="_method" value="DELETE">                     
+                            </form>             
+                        </td>                 
+                    </tr>   
+                {% endfor %}
+                </tbody>
+                </table>    
+
+
+      {#   <div class="row">
+           <div class="col-12">
+               <ul class="list-group">
+               {% for stages in countAllStages %}
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ stages.getNomstage}}
+                    <span class="badge badge-primary badge-pill"><i class="fas fa-list-ol"></i></span>
+                  </li> 
+                  {% endfor %}                 
+                </ul>
+           </div>
+       </div> #}
+
+
+
+
+<!-- Modal for stages-->
+<div class="modal fade bd-example-modal-lg" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">stages list</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+           <div class="col-12">
+               <ul class="list-group">
+               {% for stages in showAllStages %}
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ stages.getstagename}}
+                    <span class="badge badge-primary badge-pill"><i class="fas fa-list-ol"></i></span>
+                  </li> 
+                  {% endfor %}                 
+                </ul>
+           </div>
+       </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     <div>
+   
+{% endblock %}

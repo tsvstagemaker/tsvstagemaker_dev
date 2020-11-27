@@ -559,6 +559,11 @@ class Stage
         return $this;
     }
 
+      public function __toString()
+    {
+        return $this->getStagename();
+    }
+
        /**
     * @ORM\PrePersist
     * @ORM\PreUpdate

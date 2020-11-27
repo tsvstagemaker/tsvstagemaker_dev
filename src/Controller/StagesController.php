@@ -6,6 +6,7 @@ use App\Entity\Matchs;
 use App\Entity\Stage;
 use App\Form\CreateStageFormType;
 use App\Form\EditProfileFormType;
+use App\Repository\MatchsRepository;
 use App\Repository\StageRepository;
 use DoctrineMigrations\stages;
 use Doctrine\ORM\EntityManagerInterface;
@@ -41,7 +42,7 @@ class StagesController extends AbstractController
     /**   
      * @Route("/stages/create", name="app_stage_create", methods={"GET", "POST"})
      */
-      public function create(Request $request, EntityManagerInterface $em, Matchs $Matchs)
+      public function create(Request $request, EntityManagerInterface $em, MatchsRepository $matchsrepo)
       {       
         // $matchs = $repomatchlist->findAll([]);
         // dd($request);        
@@ -111,8 +112,8 @@ class StagesController extends AbstractController
                 $stages->setUser($this->getUser());
 
                 // match id                        
-                // $stages->setMatchsId($data['matchs_id']); 
-                // $stages->setMatchsId($data['matchs_id'],$Matchs);
+                 // $stages->setMatchsId($data['MatchsId']); 
+                 //$stages->setMatchsId($data['MatchsId'],$matchsrepo);
                 // $stages->setMatchsId($this->getMatchsId($data['matchs_id']));
                 // $stages->setMatchsId($this->getMatchsId());               
            
