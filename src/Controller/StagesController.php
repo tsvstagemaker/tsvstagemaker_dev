@@ -80,10 +80,10 @@ class StagesController extends AbstractController
                             
 
         // traitement infos recu
-                $nomstage = $data['nomstage'];
-                $nomstage = preg_replace("# #", "_", $nomstage);                    
-                $nomstage = preg_replace( "# #", "_", $data['nomstage']); 
-                $numstage = $data['numstage'];       
+                $stagename = $data['stagename'];
+                $stagename = preg_replace("# #", "_", $stagename);                    
+                $stagename = preg_replace( "# #", "_", $data['stagename']); 
+                $stagenumber = $data['stagenumber'];       
 
                 
          // chemin move pdf et image                
@@ -91,8 +91,8 @@ class StagesController extends AbstractController
                 $path_img = "uploads/img/";
 
         // nommage des fichiers image et pdf
-                $filename = $nomstage ." _ ". $numstage ." _ ". "1" ." _ ". md5(uniqid()) . "." . "pdf";
-                $filenameimg = $nomstage ." _ ". $numstage ." _ ". "1" ." _ ". md5(uniqid()) . "." . "jpeg";
+                $filename = $stagename ." _ ". $stagenumber ." _ ". "1" ." _ ". md5(uniqid()) . "." . "pdf";
+                $filenameimg = $stagename ." _ ". $stagenumber ." _ ". "1" ." _ ". md5(uniqid()) . "." . "jpeg";
 
         // nommage des chemins de fichier image et pdf                
                 $fileurl = $path_pdf . $filename;                
@@ -119,8 +119,8 @@ class StagesController extends AbstractController
            
 
 
-                $stages->setNumstage($numstage);
-                $stages->setNomstage($nomstage);
+                $stages->setstagenumber($stagenumber);
+                $stages->setstagename($stagename);
 
                 $stages->setFilename($filename);
                 $stages->setFileurl($fileurl);
@@ -194,6 +194,9 @@ class StagesController extends AbstractController
     // 	]);
 
     // }
+    
+    
+
 
     /**
      * @Route("/stages/{id<[0-9]+>}/show", name="app_stages_show", methods={"GET"})
@@ -217,6 +220,96 @@ class StagesController extends AbstractController
             
             if ($this->isCsrfTokenValid('stage_edit', $data['_token']))
             {  
+                 // dd($_SERVER['DOCUMENT_ROOT']);
+
+                $file = $request->files->get('file');
+
+
+                 $stages = new Stages;       
+
+
+        //  traitement image recu
+
+                $file = $data["jpeg"];
+                $file = explode(";", $file)[1];
+                $file = explode(",", $file)[1];
+                $file = str_replace(" ", "+", $file);
+                $file = base64_decode($file);  
+                // dd($file); 
+                // $file  = $_FILES['file']['tmp_name'];
+                            
+
+        // traitement infos recu
+                $stagename = $data['stagename'];
+                $stagename = preg_replace("# #", "_", $stagename);                    
+                $stagename = preg_replace( "# #", "_", $data['stagename']); 
+                $stagenumber = $data['stagenumber'];       
+
+                
+         // chemin move pdf et image                
+                $path_pdf = "uploads/pdf/";
+                $path_img = "uploads/img/";
+
+        // nommage des fichiers image et pdf
+                $filename = $stagename ." _ ". $stagenumber ." _ ". "1" ." _ ". md5(uniqid()) . "." . "pdf";
+                $filenameimg = $stagename ." _ ". $stagenumber ." _ ". "1" ." _ ". md5(uniqid()) . "." . "jpeg";
+
+        // nommage des chemins de fichier image et pdf                
+                $fileurl = $path_pdf . $filename;                
+                $fileurlimg = $path_img . $filenameimg;
+
+                // file_put_contents($fileurl, $file);
+                file_put_contents($fileurlimg, $file);
+
+                move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . $fileurl);
+
+                // $file->move($path_pdf,$filename);  
+                // $file->move($path_img,$filenameimg);         
+       
+                // $image->move($this->getParameter('upload_directory'), $filename);
+                 // dd($stages);
+
+                $stages->setUser($this->getUser());
+
+                // match id 
+                $matchs = $data['matchs_id'];                
+                // $stages->setMatchs($this->getMatchs());
+
+                $stages->setstagenumber($stagenumber);
+                $stages->setstagename($stagename);
+
+                $stages->setFilename($filename);
+                $stages->setFileurl($fileurl);
+                $stages->setFilenameimg($filenameimg);
+                $stages->setFileurlimg($fileurlimg);
+
+                $stages->setStartOn($data['StartOn']);
+                $stages->setCourseId($data['CourseId']);
+                $stages->setReportOn($data['ReportOn']);
+                $stages->setStringCnt($data['StringCnt']);
+                $stages->setFirearmId($data['FirearmId']);
+                $stages->setTrgtTypeId($data['TrgtTypeId']);
+                $stages->setScoringId($data['ScoringId']);
+
+                // $stages->setCreatedAt(new \DateTime()); 
+                // $stages->setUpdatedAt(new \DateTime());               
+                
+            //  stages->setIcsStageId($data['ics_stage_id']);
+                $stages->setTrgtPaper($data['TrgtPaper']);
+                $stages->setTrgtPopper($data['TrgtPopper']);
+                $stages->setTrgtPlates($data['TrgtPlates']);
+                $stages->setTrgtVanish(0);
+                $stages->setTrgtPenlty($data['TrgtPenlty']);
+                $stages->setMaxPoints($data['MaxPoints']);
+                $stages->setMinRounds($data['MinRounds']);
+                $stages->setStartPos($data['StartPos']);
+                $stages->setDescriptn($data['Descriptn']);
+                $stages->setBobber($data['bobber']);
+                $stages->setShowall(0);
+                $stages->setLocation(0);
+                $stages->setDatastage($data['datastage']);
+
+                $em->persist($stages);
 
                 $em->flush();
 

@@ -160,8 +160,8 @@ window.scrollTo(0, 0); //scroll page entiere du haut en bas
                     var blob = doc.output('blob');  
 
                     var image = ("image=" + canvas.toDataURL("image/jpeg", 0.9));
-                    var nomstage = document.querySelector('[name="nomstage"]');
-                    var numstage = document.querySelector('[name="numstage"]');
+                    var stagename = document.querySelector('[name="stagename"]');
+                    var stagenumber = document.querySelector('[name="stagenumber"]');
                     var FirearmId = document.querySelector('[name="FirearmId"]');
                     var TrgtTypeId = document.querySelector('[name="TrgtTypeId"]');
                     var ScoringId = document.querySelector('[name="ScoringId"]');
@@ -186,8 +186,8 @@ window.scrollTo(0, 0); //scroll page entiere du haut en bas
                     var formData = new FormData();
                     formData.append('file', blob);
                     formData.append('jpeg', image);                     
-                    formData.append('nomstage', nomstage.value);
-                    formData.append('numstage', numstage.value);
+                    formData.append('stagename', stagename.value);
+                    formData.append('stagenumber', stagenumber.value);
                     formData.append('FirearmId', FirearmId.value);
                     formData.append('TrgtTypeId', TrgtTypeId.value);
                     formData.append('ScoringId', ScoringId.value);

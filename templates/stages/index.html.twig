@@ -21,7 +21,7 @@
                 <div class="p-3 mb-3 mt-3 border border-info rounded">
                    <div class="rounded">
                    {# <img src="{{ stage.getfileurlimg }}" width=230 height=330 title="{{ stage.getfileurlimg }}"> #}
-                   <img src="{{ stage.getfileurlimg }}" width=200 height=280 class="rounded float-right stageimg" alt="{{ stage.getfileurlimg }}">
+                   <a href="{{ path('app_stages_show', {id: stage.id}) }}"><img src="{{ asset(stage.getfileurlimg) }}" width=200 height=280 class="float-right stageimg" alt="{{ stage.getfileurlimg }}"></a>
                    </div>
 
                   

@@ -5,5 +5,10 @@ ul, li, ol{
 
 .stageimg{
 	margin-top: 53px;
-
+	box-shadow: 6px 6px 6px -1px rgb(95 95 95);
 	}
+.stage-img-show{
+	max-width:60%;
+	height: auto;
+	box-shadow: 6px 6px 6px -1px rgb(95 95 95);
+}
