@@ -18,8 +18,8 @@
 		{% if matchs == null %}
 			<p>Sorry, No match created yet !</p>  
 			{% else %}
-				<div class="table-responsive">
-				<table class="table table-striped tftable table-match table-sm">
+				<div class="table-responsive" id="fonction2">
+				<table class="table tftable table-match table-sm">
 				<thead>
 				<tr>             
 				<th>Match name</th>
@@ -38,7 +38,7 @@
 				<tbody>
 
 				{% for match in app.user.matchs %}					
-					<tr>                        
+					<tr class="media2">                        
 						<td>
 							<a href="{{ path('app_match_show', {'id': match.id}) }}">{{ match.getName }}</a>
 						</td>
@@ -80,16 +80,16 @@
 						<td>{{ match.updatedAt|ago }}</td>
 
 						<td>							
-							<a class="btn-match btn btn-info btn-sm" href="#">Stages</a>				
+							<a class="" href="#"><i class="material-icons iconindex">cloud_download</i></a>				
 						</td>
 						<td>
-							<a class="btn-match btn btn-info btn-sm" href="#">WinMSS</a>
+							<a class="" href="#"><span><img style="max-width: 35px;" src="{{ asset("images/winmss.jpg") }}" alt="logo WINMSS" class="rounded" title="logo WINMSS"></span></a>
 						</td>    
 						<td>							
-							<a class="btn-match btn btn-warning btn-sm" href="{{ path('app_match_edit', {'id': match.id}) }}">Edit</a>       
+							<a class="btn-sm" href="{{ path('app_match_edit', {'id': match.id}) }}"><i class="material-icons iconindex_warning">create</i></a>       
 						</td> 
 						<td>					
-							<a class="btn-match btn btn-danger btn-sm" href="#" onclick="event.preventDefault(); confirm('Are you sure you want to delete match: {{ match.getName }} with all associated stages ?') && document.getElementById('js-match-delete-form-{{ match.id }}').submit();">Delete</a>
+							<a class="" href="#" onclick="event.preventDefault(); confirm('Are you sure you want to delete match: {{ match.getName }} with all associated stages ?') && document.getElementById('js-match-delete-form-{{ match.id }}').submit();"><i class="material-icons iconindex_danger">delete</i></a>
 							<form id="js-match-delete-form-{{ match.id }}" action="{{ path('app_match_delete', {'id': match.id}) }}" method="post" style="display: none;">
 							<input type="hidden" name="csrf_token" value="{{ csrf_token('match_deletion_' ~ match.id) }}">
 							<input type="hidden" name="_method" value="DELETE">						

@@ -87,47 +87,32 @@ class MatchsController extends AbstractController
      * @Route("/matchs/{id<[0-9]+>}/edit", name="app_match_edit", methods={"GET", "PUT"})
      */
      public function editmatch(Request $request, Matchs $match, EntityManagerInterface $em): Response
-     { 
-
-
-        if($request->isMethod('PUT')){
-
-
- //dd($request);
-            // $data = $request->request->all();             
-            $data = $request->request->all();
-            //dd($data);
-             
-                // if ($this->isCsrfTokenValid('match_edit_', $data['_token']))
+     {
+        if($request->isMethod('PUT'))
+        {
             
-                    if ($this->isCsrfTokenValid('match_edit_' . $match->getId(), $request->request->get('csrf_token')))
-                       // dd($request->request->get('csrf_token'));
+            $data = $request->request->all();    
+            
+                if ($this->isCsrfTokenValid('match_edit_' . $match->getId(), $request->request->get('csrf_token')))                
+             {
+                $match->setUser($this->getUser());
+                $match->setName($data['name']);
+                $match->setFirearmtype($data['firearmtype']);
+                $match->setMatchlevel($data['matchlevel']);
+                $match->setStartAt($data['startAt']);
+                $match->setMatchdirector($data['MatchDirector']);
+                $match->setRangemaster($data['RangeMaster']);
+                $match->setStatsdirector($data['StatsDirector']);
+                $match->setClubname($data['clubName']);
+                $match->setCountryid($data['CountryId']);
+                $match->setSquadcount($data['SquadCount']);
+                $match->setMatchid($data['matchid']);
 
-                        // if ($this->isCsrfTokenValid('match_edit_' . $match->getId(), $request->request->get('csrf_token')))
-             {           
-
-                $matchs = new Matchs;
-                $matchs->setUser($this->getUser());
-                $matchs->setName($data['name']);
-                $matchs->setFirearmtype($data['firearmtype']);
-                $matchs->setMatchlevel($data['matchlevel']);
-                $matchs->setStartAt($data['startAt']);
-                $matchs->setMatchdirector($data['MatchDirector']);
-                $matchs->setRangemaster($data['RangeMaster']);
-                $matchs->setStatsdirector($data['StatsDirector']);
-                $matchs->setClubname($data['clubName']);
-                $matchs->setCountryid($data['CountryId']);
-                $matchs->setSquadcount($data['SquadCount']);
-                $matchs->setMatchid($data['matchid']);
-
-                // $em->persist($matchs);
-                //dd($matchs);
-                $em->flush();
-                //dd($em);
+                $em->flush();               
             }
             $this->addFlash('success', 'Match successfully edited !');
             return $this->redirectToRoute('app_match_show', ['id' => $match->getId()]);
-                    }
+        }
         return $this->render('matchs/editmatch.html.twig', compact('match'));
      }
 
@@ -144,7 +129,7 @@ class MatchsController extends AbstractController
             $em->flush();
         }
         $this->addFlash('primary', 'Match successfully deleted !');
-            return $this->redirectToRoute('matchs');
+            return $this->redirectToRoute('app_matchs');
       }
 
 

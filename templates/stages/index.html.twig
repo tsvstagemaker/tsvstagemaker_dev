@@ -120,6 +120,13 @@
 
              </div>
          {% endfor %}
+
+         <nav aria-label="...">
+          <ul class="pagination">
+            <li>{{ knp_pagination_render(stages) }}</li>
+          </ul>
+        </nav>
+         
      {% endif %}
 
 

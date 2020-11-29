@@ -10,6 +10,7 @@ use App\Repository\MatchsRepository;
 use App\Repository\StageRepository;
 use DoctrineMigrations\stages;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -29,12 +30,21 @@ class StagesController extends AbstractController
      * @return [type]                           [description]
      * @Route("/stages", name="app_stages", methods={"GET"})
      */
-    public function index(StageRepository $StageRepository): Response
+    public function index(Request $request, PaginatorInterface $paginator): Response
     {
 
-    	$stages = $StageRepository->findBy([], ['createdAt' => 'DESC']);
+    	$datastages = $this->getDoctrine()->getRepository(Stage::class)->findBy([], 
+            ['createdAt' => 'desc']);
 
-        return $this->render('stages/index.html.twig', compact('stages'));
+        $stages = $paginator->paginate(
+            $datastages,
+            $request->query->getInt('page', 1),
+            5
+        );
+
+        return $this->render('stages/index.html.twig', [
+            'stages' => $stages,
+        ]);
     }
 
     

@@ -58,7 +58,7 @@ body {
 	font-size: 19px;
 }
 .navbar .nav-item i {
-	font-size: 18px;
+	font-size: 30px;
 }
 .navbar .nav-item span {
 	position: relative;
@@ -111,6 +111,12 @@ body {
 	text-shadow: 0 0 4px rgba(255,255,255,0.2);
 	background: transparent !important;
 }
+
+.navbar-light .navbar-nav .active>.nav-link, .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .show>.nav-link {
+    color: rgb(23 161 183);
+}
+
+
 .navbar .navbar-nav .user-action {
 	padding: 9px 15px;
 	font-size: 15px;

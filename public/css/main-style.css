@@ -42,6 +42,27 @@
  	}
  }
 
+ #fonction .media{
+	padding: .5rem 1rem;
+	cursor: pointer;
+	border-radius: 3px;
+	transition: all .5s ease-in-out;
+
+}
+
+#fonction .media:hover{
+	background-color: rgba(128, 128, 128, 0.5);
+}
+
+ #fonction2 .media2{
+	transition: all .5s ease-in-out;
+}
+
+#fonction2 .media2:hover{
+	background-color: rgba(128, 128, 128, 0.5);
+}
+
+
  .text-style-shooter{
  	font-family: 'Dancing Script', cursive;
  	color: #17a2b8;
@@ -56,3 +77,12 @@
  	color: #17a2b8;
  }
 
+ .iconindex_warning{
+ 	font-size: 30px;
+ 	color: #ffc107;
+ }
+
+ .iconindex_danger{
+ 	font-size: 30px;
+ 	color: #dc3545;
+ }
