@@ -2,9 +2,13 @@
 
 namespace App\Controller;
 
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Stage;
+use App\Repository\StageRepository;
 
 class MainController extends AbstractController
 {
@@ -36,12 +40,24 @@ class MainController extends AbstractController
     /**
      * @Route("/allstage", name="app_allstage")
      */
-    public function allstage(): Response
+    public function allstage(Request $request, PaginatorInterface $paginator): Response
     {
+       
+        $datastages = $this->getDoctrine()->getRepository(Stage::class)->findBy(
+            ['showall'=>true], 
+            ['createdAt' => 'DESC']); 
+           
+
+        $stages = $paginator->paginate(
+            $datastages,
+            $request->query->getInt('page', 1),
+            5
+        );
+
         return $this->render('main/allstage.html.twig', [
             'title' => "Allstage",
             'current_menu' => "app_allstage",
-            
+            'stages' => $stages,           
             
         ]);
     }

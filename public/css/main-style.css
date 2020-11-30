@@ -56,10 +56,12 @@
 
  #fonction2 .media2{
 	transition: all .5s ease-in-out;
+	border-radius: 3px;
 }
 
 #fonction2 .media2:hover{
 	background-color: rgba(128, 128, 128, 0.5);
+	border-radius: 3px;
 }
 
 

@@ -12,3 +12,32 @@ ul, li, ol{
 	height: auto;
 	box-shadow: 6px 6px 6px -1px rgb(95 95 95);
 }
+
+.iconstage{
+	font-size: 30px;
+ 	vertical-align: middle;
+}
+
+.pdf{	
+ 	color: #da181b; 	
+}
+
+.img{	
+ 	color: #17a2b8; 	
+}
+
+.share{	
+ 	color: #1bff00; 	
+}
+
+.updatestage{	
+ 	color: #ffc107; 	
+}
+
+.deletestage{	
+ 	color: #da181b; 	
+}
+
+.unshare{	
+ 	color: #a9a4a4; 	
+}

@@ -1,133 +1,119 @@
 {% extends 'base.html.twig' %}
-{% block title 'Allstage' %}
+
+{% block title 'All Stages shared Stages TSV STAGE MAKER !' %}
+
 {% block body %}
 
+    <div class="container mt-10">
+        <h1 class="mb-3">All shared stages</h1>
+        <div class="d-flex justify-content-between"> 
+        {# <p class="h4 text-muted">{{ pluralize(stages.getShowall|length, 'stage') }} created</p> #}
+        <input class="form-control col-md-4" id="filtre-input-stage-js" type="text" placeholder="Search..">        
+        </div>
 
-<!-- dubut liste mes stages -->
+         {% if stages == null %}
+            <p>Sorry, No stage created yet !</p>  
+            {% else %}  
 
-<div class="container mt-10" id="container">
-    <div style="text-align: center; font-size: 2.5rem">
-        <h1>{{ title }}</h1>
-    </div> 
-    <div class="col-md-12">
-        <h5>Filtre*</h5>
-        <p>*Tapez quelque chose dans le champ de saisie pour rechercher un stage (Nom du stage, nom du match, date, Firearm type, Min Rounds, Max Points...)</p>  
-        <input class="form-control" id="myInput" type="text" placeholder="Rechercher..">    
-    </div><br> 
-    <br><br>
-    <?php
-    $stagesall = 0;
-    $stages = $bdd->prepare('SELECT * FROM stages WHERE showall ="1" ORDER BY date_creation_stage  DESC LIMIT '.$debutpage.','.$Stagesparpage);
-    $stages->execute(array($stagesall));            
-    ?>
-    <!--  <h5>Pages list</h5> -->
-    <div class="container">        
-        <nav aria-label="list stage">
+            {% for stage in stages %}
+                <div class="p-3 mb-3 mt-3 border border-info rounded" id="fonction2">
+                   <div class="rounded">
+                   {# <img src="{{ stage.getfileurlimg }}" width=230 height=330 title="{{ stage.getfileurlimg }}"> #}
+                   <a href="{{ path('app_stages_show', {id: stage.id}) }}"><img src="{{ asset(stage.getfileurlimg) }}" width=200 height=280 class="float-right stageimg" alt="{{ stage.getfileurlimg }}"></a>
+                   </div>
+
+                  
+                   <h4><a href="{{ path('app_stages_show', {id: stage.id}) }}">{% if stage.Stagename == null %}Unknown stage{% else %}{{ stage.Stagename|capitalize }}{% endif %}</a></h4>                  
+                  {#  <p>Match: <b>{% for matchList in matchs %}                                 
+                        {% if stage.getMatchs.id == matchList.getId %}                
+                            {{ matchList.getname|capitalize }}
+                            {% elseif stage.getMatchs.id == null %}
+                                unknown
+                        {% endif %}
+                    {% endfor %}  </b> #}
+                                 
+                   </p>               
+                   <hr class="hr-stage">
+                   <ul class="media2">                       
+                   <li>Stage number: <strong>{{ stage.Stagenumber }}</strong></li>
+                   <li>Firearm type: 
+                   <strong>
+                   {% if  stage.getFirearmId == 1 %}
+                    Handgun
+                    {% elseif  stage.getFirearmId == 2 %}
+                    Rifle
+                    {% elseif  stage.getFirearmId == 3 %}
+                    Shotgun
+                    {% elseif  stage.getFirearmId == 5 %}
+                    Action Air
+                    {% elseif  stage.getFirearmId == 6 %}
+                    Mini-Rifle
+                    {% elseif  stage.getFirearmId == 7 %}
+                    Pistol Caliber Carbine %}
+                {% endif %}
+                </strong>
+                </li>
+                <li>Types of Course: 
+                <strong>
+                {% if stage.getCourseId  == 0 %}
+                    Standard Exercise Course
+                    {%  elseif  stage.getCourseId  == 1 %}
+                    Short Course
+                    {% elseif  stage.getCourseId  == 2 %}
+                    Medium Course
+                    {% elseif  stage.getCourseId  == 3 %}
+                    Long Course
+                {% endif %}
+                </strong>
+                </li>
+                <li>Min Rounds: <strong>{{ stage.getMinRounds }}</strong></li>
+                <li>Max Points: <strong>{{ stage.getMaxPoints }}</strong></li>
+                <li>Number of Targets: <strong>{{ stage.getTrgtPaper }}</strong></li>  
+                <li>Number of Popper: <strong>{{ stage.getTrgtPopper }}</strong></li>
+                <li>Number of Plates: <strong>{{ stage.getTrgtPlates }}</strong></li>
+                <li>Number of NoShoot: <strong>{{ stage.getTrgtPenlty }}</strong></li>
+                <li>Number of Bobber: <strong></strong>{{ stage.bobber }}</li>
+                <li>Number of Disappearing Targets: <strong>{{ stage.getTrgtVanish }}</strong></li>                     
+             </ul>
+             <hr class="hr-stage"> 
+
+             <div class="buttonstages">
+                 {# <button class="btn btn-info btn-sm" onclick=" window.open('{{ stage.getFileurl }}', '_blank'); return false;">Download pdf</button> #}
+                 <a href="{{ stage.getFileurl }}" target="_blank" title="Download stage pdf"><span class="material-icons-round iconstage pdf">picture_as_pdf</span></a>
+
+                 {# <button class="btn btn-info btn-sm" onclick=" window.open('{{ stage.getFileurlimg }}', '_blank'); return false;">Download image</button> #}
+                  <a href="{{ stage.getFileurlimg }}" target="_blank" title="Download stage image"><span class="material-icons-round iconstage img">perm_media</span></a>
+                 
+
+                 <div class="d-flex justify-content-between text-muted mt-3">   
+                     <small>
+                        <p class="card-text">Created at: {{ stage.createdAt|date }}</p>                 
+                     </small>  
+                      <small>
+                        <p class="card-text">Created by: {{ stage.user.firstName }}</p>              
+                     </small>  
+                     <small>                  
+                        <p class="card-text">Updated at: {{ stage.updatedAt|date }}</p>
+                     </small>
+                 </div>                
+             </div>
+                           
+
+             </div>
+         {% endfor %}
+
+         <nav aria-label="...">
           <ul class="pagination">
-            <li class="page-item">
-               <?php '<a class="page-link" href="allstages.php?id=' . $stagesall . '& page='.$Previous.'">Next</a>'; ?>
-           </li>
-           <li class="page-item active">
+            <li>{{ knp_pagination_render(stages) }}</li>
+          </ul>
+        </nav>
+         
+     {% endif %}
 
-            <?php 
-            for($i=1;$i<=$pagesTotal;$i++){
-                if ($i == $pageCourante) {
-                    echo ' <li class="page-item active">
-                    <li class="page-item"><a class="page-link" href="allstages.php?id=' . $stagesall . '& page='.$i.'">'.$i.'</a> </li> 
-                    <span class="sr-only">(current)</span>
-                    </span>
-                    </li';
-                }else{
-        // echo '<a href="allstages.php?id='.$stagesall.'?page='.$i.'">'.$i.'</a> ';
-                    echo ' <li class="page-item active">
-                    <li class="page-item"><a class="page-link" href="allstages.php?id=' . $stagesall . '& page='.$i.'">'.$i.'</a> </li> 
-                    <span class="sr-only">(current)</span>
-                    </span>
-                    </li';
-                }
-            }
-            ?>
-            <li class="page-item">
-              <?php '<a class="page-link" href="allstages.php?id=' . $stagesall . '& page='.$Next.'">Next</a>'; ?>
-          </li>
-      </ul>
-  </nav>
-</div>
-<div id="stagelist" class="myTable">
-    <?php 
-    while ($messtages = $stages->fetch())                 
-    { 
-        ?>
-        <div class="stage-allstage" style="position:relative;">
 
-           
 
-            <form class="auto left">
+    </div>
+        
 
-                 <div class="ministage zoom slide">
 
-                <img src="<?php echo $messtages['fileurlimg'] ?>" width=230 height=330 title="<?php echo $messtages['filenameimg'] ?>">
-            </div>
-                <h4 style="margin:0;"><?php echo $messtages['nomstage'];  ?></h4>
-                <p>Match: 
-                    <?php             
-                    $matchs = $bdd->prepare('SELECT * FROM matchs WHERE id=?');
-                    $matchs->execute(array($messtages['matchsid']));  
-                    $matchsidstage = $matchs->fetch()    
-                    ?>
-                    <?php $messtages['matchsid'];?>
-                    <?php echo $matchsidstage['name']; 
-                    if ($matchsidstage = null) {
-                        echo 'Training';
-                    } ?>             
-
-                </p>               
-                <hr>
-                <ul style="list-style:none;display:block;margin:5;padding:0;">
-                    <li>Stage number: <strong><?php echo $messtages['numstage']; ?></strong></li>
-                    <li>Firearm type: <strong>
-                        <?php if ($messtages['FirearmId'] == 1){
-                            echo "Handgun";
-                        } elseif ($messtages['FirearmId'] == 2) {
-                            echo "Rifle";
-                        }elseif ($messtages['FirearmId'] == 3) {
-                            echo "Shotgun";
-                        }elseif ($messtages['FirearmId'] == 5) {
-                            echo "Action Air";
-                        }elseif ($messtages['FirearmId'] == 6) {
-                            echo "Mini-Rifle";
-                        }elseif ($messtages['FirearmId'] == 7) {
-                            echo "Pistol Caliber Carbine";
-                        }?> </strong></li>
-                        <li>Types of Course: <strong><?php if ($messtages['CourseId'] == 0){
-                            echo "Standard Exercise Course";
-                        } elseif ($messtages['CourseId'] == 1) {
-                            echo "Short Course";
-                        }elseif ($messtages['CourseId'] == 2) {
-                            echo "Medium Course";
-                        }elseif ($messtages['CourseId'] == 3) {
-                            echo "Long Course";
-                        }?></strong></li>
-                        <li>Min Rounds: <strong><?php echo $messtages['MinRounds']; ?></strong></li>
-                        <li>Max Points: <strong><?php echo $messtages['MaxPoints']; ?></strong></li>
-                        <li>Number of Targets: <strong><?php echo $messtages['TrgtPaper']; ?></strong></li>  
-                        <li>Number of Popper: <strong><?php echo $messtages['TrgtPopper']; ?></strong></li>
-                        <li>Number of Plates: <strong><?php echo $messtages['TrgtPlates']; ?></strong></li>
-                        <li>Number of NoShoot: <strong><?php echo $messtages['TrgtPenlty']; ?></strong></li>
-                        <li>Number of Bobber: <strong><?php echo $messtages['bobber']; ?></strong></li>
-                        <li>Number of Disappearing Targets: <strong><?php echo $messtages['TrgtVanish']; ?></strong></li>
-                        <li>Creating date: <?php echo $messtages['date_creation_stage']; ?></li>                    
-                    </ul>
-                    <hr>
-                    <button class="btn btn-info vustage button" onclick=" window.open('<?php echo $messtages['fileurl'] ?>', '_blank'); return false;">Download pdf</button>    
-
-                    <button class="btn btn-info vustage button" onclick=" window.open('<?php echo $messtages['fileurlimg'] ?>', '_blank'); return false;">Download image</button>                 
-                </form>
-                <div class="clear"></div>
-            </div>
-            <?php     
-        }
-        ?>
-    </div>      
-</div><br>
 {% endblock %}

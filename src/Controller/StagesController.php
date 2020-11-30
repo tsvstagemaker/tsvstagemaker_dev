@@ -325,7 +325,7 @@ class StagesController extends AbstractController
 
             }
             $this->addFlash('success', 'Stage successfully edited !');
-                return $this->redirectToRoute('stages');
+                return $this->redirectToRoute('app_stages');
             
         }
 
@@ -336,14 +336,36 @@ class StagesController extends AbstractController
        /**
      * @Route("/stages/{id<[0-9]+>}/delete", name="app_stage_delete", methods={"DELETE"})
      */
-     public function deleteStage(Request $request, stages $stage, EntityManagerInterface $em): Response
+     public function deleteStage(Request $request, Stage $stage, EntityManagerInterface $em): Response
      {
+        
         if ($this->isCsrfTokenValid('stage_deletion_' . $stage->getId(), $request->request->get('csrf_token')))
         {
             $em->remove($stage);
             $em->flush();
         }
         $this->addFlash('primary', 'Stage successfully deleted !');
-            return $this->redirectToRoute('stages');
+            return $this->redirectToRoute('app_stages');
+      }
+
+
+         /**
+     * @Route("/stages/{id<[0-9]+>}/share", name="app_stage_share", methods={"POST"})
+     */
+     public function shareStage(Request $request, Stage $stage, EntityManagerInterface $em): Response
+     {
+        
+        if ($this->isCsrfTokenValid('stage_share_' . $stage->getId(), $request->request->get('csrf_token')))
+        {           
+            if ($stage->getShowall() == false ) {
+                $stage->setShowall(true);
+            }else{
+               $stage->setShowall(false); 
+            }
+            
+            $em->flush();
+        }
+        $this->addFlash('primary', 'Stage successfully shared !');
+            return $this->redirectToRoute('app_stages');
       }
 }

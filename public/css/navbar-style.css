@@ -58,8 +58,13 @@ body {
 	font-size: 19px;
 }
 .navbar .nav-item i {
-	font-size: 30px;
+	font-size: 17px;
 }
+
+.iconhome{
+	font-size: 20px !important;
+}
+
 .navbar .nav-item span {
 	position: relative;
 	top: 3px;
@@ -188,15 +193,14 @@ body {
  **							**
  *******************************/
  .mt-6{
- 	margin-top: 78px;
+ 	margin-top: 67px;
  }
 
 @media screen and (min-width: 200px) and (max-width: 1199px) {
   .mt-6{
- 	margin-top: 58px;
+ 	margin-top: 57px;
  }
 }
-
 
 .alert{
 	padding: 10px;	
@@ -207,7 +211,7 @@ body {
 }
 
 .alert-success {
-	color: #000000;
+	color: #ffffff;
 	background-color: #17a2b8;
 	border-color: 0;
 	text-align: center;

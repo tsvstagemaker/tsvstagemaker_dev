@@ -46,7 +46,7 @@
 			</div>
 		</form> #}
 		<div class="navbar-nav ml-auto">
-			<a href="{{ path('app_home') }}" class="nav-item nav-link {% if current_menu is defined and current_menu == 'app_home' %}active{% endif %}"><i class="material-icons-round">home</i></span>Home</a>
+			<a href="{{ path('app_home') }}" class="nav-item nav-link {% if current_menu is defined and current_menu == 'app_home' %}active{% endif %}"><i class="material-icons-round iconhome">home</i></span>Home</a>
 			<a href="{{ path('app_about') }}" class="nav-item nav-link {% if current_menu is defined and current_menu == 'app_about' %}active{% endif %}"><i class="material-icons-round">info</i><span>About</span></a>
 			<a href="{{ path('app_contact') }}" class="nav-item nav-link {% if current_menu is defined and current_menu == 'app_contact' %}active{% endif %}"><i class="material-icons-round">email</i><span>Contact</span>
 			<a href="{{ path('app_allstage') }}" class="nav-item nav-link {% if current_menu is defined and current_menu == 'app_allstage' %}active{% endif %}"><i class="material-icons-round">share</i><span>AllStages</span></a>		
@@ -67,7 +67,7 @@
 				</a>
 
 				<div class="dropdown-menu">
-					<a href="{{ path('profile') }}" class="dropdown-item"><i class="fa fa-user-o"></i> Profile</a>
+					<a href="{{ path('app_profile') }}" class="dropdown-item"><i class="fa fa-user-o"></i> Profile</a>
 					<a href="{{ path('app_matchs') }}" class="dropdown-item {% if current_menu is defined and current_menu == 'app_matchs' %}active{% endif %}"><i class="fa fa-list"></i> Matchs</a>
 					<a href="{{ path('app_stages') }}" class="dropdown-item {% if current_menu is defined and current_menu == 'app_stages' %}active{% endif %}"><i class="fa fa-list-ol"></i> Stages</a>
 					<div class="divider dropdown-divider"></div>
@@ -94,13 +94,12 @@
 	<!-- Collection of nav links, forms, and other content for toggling -->
 	<div id="navbarCollapse" class="collapse navbar-collapse justify-content-start">	
 		<div class="navbar-nav ml-auto">
-			<a href="{{ path('app_home') }}" class="nav-item nav-link {% if current_menu is defined and current_menu == 'app_home' %}active{% endif %}"><i class="material-icons-round">home</i></span>Home</a>
+			<a href="{{ path('app_home') }}" class="nav-item nav-link {% if current_menu is defined and current_menu == 'app_home' %}active{% endif %}"><i class="material-icons-round iconhome">home</i></span>Home</a>
 			<a href="{{ path('app_about') }}" class="nav-item nav-link {% if current_menu is defined and current_menu == 'app_about' %}active{% endif %}"><i class="material-icons-round">info</i><span>About</span></a>
 			<a href="{{ path('app_contact') }}" class="nav-item nav-link {% if current_menu is defined and current_menu == 'app_contact' %}active{% endif %}"><i class="material-icons-round">email</i><span>Contact</span></a>
 			<a href="{{ path('app_allstage') }}" class="nav-item nav-link {% if current_menu is defined and current_menu == 'app_allstage' %}active{% endif %}"><i class="material-icons-round">share</i><span>AllStages</span></a>			
 			<a href="{{ path('app_login') }}" class="nav-item nav-link {% if current_menu is defined and current_menu == 'app_login' %}active{% endif %}"><i class="material-icons">&#xE8AC;</i><span>Login</span></a>
-			<a href="{{ path('app_register') }}" class="nav-item nav-link {% if current_menu is defined and current_menu == 'app_register' %}active{% endif %}"><i class="fa fa-sign-in"></i><span>Register</span></a>	
-		
+			<a href="{{ path('app_register') }}" class="nav-item nav-link {% if current_menu is defined and current_menu == 'app_register' %}active{% endif %}"><i class="fa fa-sign-in"></i><span>Register</span></a>		
 		</div>
 	</div>
 </nav>

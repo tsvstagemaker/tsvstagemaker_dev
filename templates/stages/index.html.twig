@@ -18,14 +18,22 @@
             {% else %}	
 
 			{% for stage in app.user.stages %}
-                <div class="p-3 mb-3 mt-3 border border-info rounded">
+                <div class="p-3 mb-3 mt-3 border border-info rounded" id="fonction2">
                    <div class="rounded">
                    {# <img src="{{ stage.getfileurlimg }}" width=230 height=330 title="{{ stage.getfileurlimg }}"> #}
                    <a href="{{ path('app_stages_show', {id: stage.id}) }}"><img src="{{ asset(stage.getfileurlimg) }}" width=200 height=280 class="float-right stageimg" alt="{{ stage.getfileurlimg }}"></a>
                    </div>
 
-                  
-                   <h4><a href="{{ path('app_stages_show', {id: stage.id}) }}">{% if stage.Stagename == null %}Unknown stage{% else %}{{ stage.Stagename|capitalize }}{% endif %}</a></h4>                  
+                  <div class="d-flex justify-flex-start">
+                     <h4><a href="{{ path('app_stages_show', {id: stage.id}) }}">{% if stage.Stagename == null %}Unknown stage{% else %}{{ stage.Stagename|capitalize }}{% endif %}</a></h4>   
+                    {#  {% if stage.showall == true %}
+                        <span class="material-icons-round iconstage share" title="Stage shared">share</span>
+                        {% else %}
+                            <span class="material-icons-round iconstage unshare" title="Stage unshared">share</span>
+                     {% endif %}   #}
+
+                  </div>
+                                 
                   {#  <p>Match: <b>{% for matchList in matchs %}                                 
                         {% if stage.getMatchs.id == matchList.getId %}                
                             {{ matchList.getname|capitalize }}
@@ -36,7 +44,7 @@
                                  
                    </p>               
                    <hr class="hr-stage">
-                   <ul>                       
+                   <ul class="media2">                       
                    <li>Stage number: <strong>{{ stage.Stagenumber }}</strong></li>
                    <li>Firearm type: 
                    <strong>
@@ -75,35 +83,53 @@
                 <li>Number of Plates: <strong>{{ stage.getTrgtPlates }}</strong></li>
                 <li>Number of NoShoot: <strong>{{ stage.getTrgtPenlty }}</strong></li>
                 <li>Number of Bobber: <strong></strong>{{ stage.bobber }}</li>
-                <li>Number of Disappearing Targets: <strong>{{ stage.getTrgtVanish }}</strong></li>
-             {#    <li>Creating date:{{ stage.getCreatedAt }}</li>
-             <li>Updating date:{{ stage.getUpdatedAt }}</li>    #}             
+                <li>Number of Disappearing Targets: <strong>{{ stage.getTrgtVanish }}</strong></li>                     
              </ul>
              <hr class="hr-stage"> 
 
-            {#  <div class="buttonstages">
-                 <button class="btn btn-info btn-sm" onclick=" window.open('{{ stage.getFileurl }}', '_blank'); return false;">Download pdf</button>
+             <div class="buttonstages">
+                 {# <button class="btn btn-info btn-sm" onclick=" window.open('{{ stage.getFileurl }}', '_blank'); return false;">Download pdf</button> #}
+                 <a href="{{ stage.getFileurl }}" target="_blank" title="Download stage pdf"><span class="material-icons-round iconstage pdf">picture_as_pdf</span></a>
 
-                 <button class="btn btn-info btn-sm" onclick=" window.open('{{ stage.getFileurlimg }}', '_blank'); return false;">Download image</button>
+                 {# <button class="btn btn-info btn-sm" onclick=" window.open('{{ stage.getFileurlimg }}', '_blank'); return false;">Download image</button> #}
+                  <a href="{{ stage.getFileurlimg }}" target="_blank" title="Download stage image"><span class="material-icons-round iconstage img">perm_media</span></a>
 
-                 <a class="btn btn-success btn-sm btn-stage" href="showall.php?stageid=<?= $messtages['id'] ?>">Share to AllStages</a>
+                 {# <a class="btn btn-success btn-sm btn-stage" href="showall.php?stageid=<?= $messtages['id'] ?>">Share to AllStages</a> #}
+                  {% if stage.showall == true %}
+                        {# <span class="material-icons-round iconstage unshare" title="Stage unshared">share</span> #}
+                         <a href="#" onclick="event.preventDefault(); document.getElementById('js-stage-unshared-form-{{ stage.id }}').submit();" title="unshare stage"><span class="material-icons-round iconstage unshare">share</span></a>
+                          <form id="js-stage-unshared-form-{{ stage.id }}" action="{{ path('app_stage_share', {'id': stage.id}) }}" method="post" style="display: none;">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token('stage_share_' ~ stage.id) }}">
+                            <input type="hidden" name="_method" value="POST">                 
+                          </form>
+                        {% else %}
+                        <a href="#" onclick="event.preventDefault(); document.getElementById('js-stage-share-form-{{ stage.id }}').submit();" title="Share stage pdf"><span class="material-icons-round iconstage">share</span></a>
+                          <form id="js-stage-share-form-{{ stage.id }}" action="{{ path('app_stage_share', {'id': stage.id}) }}" method="post" style="display: none;">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token('stage_share_' ~ stage.id) }}">
+                            <input type="hidden" name="_method" value="POST">                 
+                          </form>
+                     {% endif %}  
+                
 
-                 <a class="btn btn-warning btn-sm btn-stage" href="{{ path('stage_edit', {'id': stage.id}) }}">Edit stage</a> 
+                 {# <a class="btn btn-warning btn-sm btn-stage" href="{{ path('app_stage_edit', {'id': stage.id}) }}">Edit stage</a>  #}
+                 <a href="{{ path('app_stage_edit', {'id': stage.id}) }}" target="_blank" title="Modify stage"><span class="material-icons-round iconstage updatestage">create</span></a>
 
-                    <a class="btn btn-danger btn-sm btn-stage" href="#" onclick="event.preventDefault(); confirm('Are you sure you want to delete stage {{ stage.getnomstage }} ?') && document.getElementById('js-stage-delete-form-{{ stage.id }}').submit();">Delete</a>
-                            <form id="js-stage-delete-form-{{ stage.id }}" action="{{ path('stage_delete', {'id': stage.id}) }}" method="post" style="display: none;">
+                 <a href="#" title="Delete stage" onclick="event.preventDefault(); confirm('Are you sure you want to delete stage {{ stage.getstagename }} ?') && document.getElementById('js-stage-delete-form-{{ stage.id }}').submit();"><span class="material-icons-round iconstage deletestage">delete</span></a>
+
+                   {#  <a class="btn btn-danger btn-sm btn-stage" href="#" onclick="event.preventDefault(); confirm('Are you sure you want to delete stage {{ stage.getstagename }} ?') && document.getElementById('js-stage-delete-form-{{ stage.id }}').submit();">Delete</a> #}
+                            <form id="js-stage-delete-form-{{ stage.id }}" action="{{ path('app_stage_delete', {'id': stage.id}) }}" method="post" style="display: none;">
                             <input type="hidden" name="csrf_token" value="{{ csrf_token('stage_deletion_' ~ stage.id) }}">
                             <input type="hidden" name="_method" value="DELETE">                 
-                            </form>  #}    
+                            </form>
 
 
-                {#  <a class="btn btn-danger btn-sm btn-stage" href="#" onclick="event.preventDefault(); confirm('Are you sure you want to delete stage {{ stage.getnomstage }} ?') && document.getElementById('js-stage-delete-form').submit();">Delete</a>                    
+               {#    <a class="btn btn-danger btn-sm btn-stage" href="#" onclick="event.preventDefault(); confirm('Are you sure you want to delete stage {{ stage.getstagename }} ?') && document.getElementById('js-stage-delete-form').submit();">Delete</a>  #}                   
 
-                 <form id="js-stage-delete-form" action="{{ path('stage_delete', {'id': stage.id}) }}" method="post" style="display: none;">
+                 {# <form id="js-stage-delete-form" action="{{ path('app_stage_delete', {'id': stage.id}) }}" method="post" style="display: none;">
                  <input type="hidden" name="csrf_token" value="{{ csrf_token('stage_deletion_' ~ stage.id) }}">
                  <input type="hidden" name="_method" value="DELETE"> #}
 
-                 <div class="d-flex justify-content-between text-muted">   
+                 <div class="d-flex justify-content-between text-muted mt-3">   
                      <small>
                         <p class="card-text">Created at: {{ stage.createdAt|date }}</p>                 
                      </small>  
@@ -114,8 +140,7 @@
                         <p class="card-text">Updated at: {{ stage.updatedAt|date }}</p>
                      </small>
                  </div>                
-           {#   </div> #}
-
+             </div>
                            
 
              </div>

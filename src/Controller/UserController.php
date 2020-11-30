@@ -16,7 +16,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class UserController extends AbstractController
 {
     /**
-     * @Route("/profile", name="profile")
+     * @Route("/profile", name="app_profile")
      */
     public function index(): Response
     {
@@ -24,7 +24,7 @@ class UserController extends AbstractController
     }
 
      /**
-     * @Route("/profile/editprofile", name="edit_profile", methods={"GET", "POST"})
+     * @Route("/profile/editprofile", name="app_edit_profile", methods={"GET", "POST"})
      */
     public function editprofile(Request $request, EntityManagerInterface $em): Response
     {        
@@ -66,7 +66,7 @@ class UserController extends AbstractController
             //     'main' // firewall name in security.yaml
             //);
             //
-           return $this->redirectToRoute('profile'); 
+           return $this->redirectToRoute('app_profile'); 
         }
 			
           return $this->render('profile/editprofile.html.twig', [
@@ -80,7 +80,9 @@ class UserController extends AbstractController
     public function changePassword(Request $request, EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder): Response
     {        
         $user = $this->getUser();
-        $form = $this->createForm(ChangePasswordFormType::class, $user);
+        $form = $this->createForm(ChangePasswordFormType::class, null, [
+            'current_password_is_required' => true
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) 
@@ -93,7 +95,7 @@ class UserController extends AbstractController
             $em->flush();
             $this->addFlash('success', 'Your password has been successfully updated !');
 
-                 return $this->redirectToRoute('profile'); 
+                 return $this->redirectToRoute('app_profile'); 
         }
             
           return $this->render('profile/change_password.html.twig',
