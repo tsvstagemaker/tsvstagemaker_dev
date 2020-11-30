@@ -188,8 +188,16 @@ body {
  **							**
  *******************************/
  .mt-6{
- 	margin-top: 66px;
+ 	margin-top: 78px;
  }
+
+@media screen and (min-width: 200px) and (max-width: 1199px) {
+  .mt-6{
+ 	margin-top: 58px;
+ }
+}
+
+
 .alert{
 	padding: 10px;	
 	text-align: center;

@@ -39,6 +39,13 @@ class ResetPasswordController extends AbstractController
      */
     public function request(Request $request, MailerInterface $mailer): Response
     {
+        if ($this->getUser()) 
+        {
+            $this->addFlash('danger', 'Already logged in !');
+
+            return $this->redirectToRoute('app_home');
+        }
+        
         $form = $this->createForm(ResetPasswordRequestFormType::class);
         $form->handleRequest($request);
 
@@ -122,7 +129,7 @@ class ResetPasswordController extends AbstractController
             // The session is cleaned up after the password has been changed.
             $this->cleanSessionAfterReset();
 
-            return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('app_login');
         }
 
         return $this->render('reset_password/reset.html.twig', [
@@ -160,9 +167,15 @@ class ResetPasswordController extends AbstractController
         }
 
         $email = (new TemplatedEmail())
-            ->from(new Address('tsvstagemaker@gmail.com', 'Reset password TSV STAGE MAKER'))
+            ->from(new Address(
+                'tsvstagemaker@gmail.com', 
+                'Reset password TSV STAGE MAKER'
+                // $this->getParameter('app.mail_from_address'),
+                // $this->getParameter('app.mail_from_pseudo'),
+
+            ))
             ->to($user->getEmail())
-            ->subject('Your password reset request')
+            ->subject('Reset Password TSV STAGE MAKER')
             ->htmlTemplate('reset_password/email.html.twig')
             ->context([
                 'resetToken' => $resetToken,

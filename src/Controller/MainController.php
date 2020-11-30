@@ -45,4 +45,12 @@ class MainController extends AbstractController
             
         ]);
     }
+
+      /**
+     * @Route("/template", name="app_template")
+     */
+    public function template_email(): Response
+    {
+        return $this->render('emails/template/template_email.html.twig');
+    }
 }
