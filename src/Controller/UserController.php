@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\ChangePasswordFormType;
 use App\Form\EditProfileFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -10,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserController extends AbstractController
 {
@@ -70,6 +72,34 @@ class UserController extends AbstractController
           return $this->render('profile/editprofile.html.twig', [
             'EditProfileForm' => $form->createView(),
         ]);
+    }
+
+      /**
+     * @Route("/profile/change-password", name="app_profile_change_password", methods={"GET", "POST"})
+     */
+    public function changePassword(Request $request, EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder): Response
+    {        
+        $user = $this->getUser();
+        $form = $this->createForm(ChangePasswordFormType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) 
+        {
+            $user->setPassword
+            (
+                $passwordEncoder->encodePassword($user, $form->get('plainPassword')->getData())
+            );
+  
+            $em->flush();
+            $this->addFlash('success', 'Your password has been successfully updated !');
+
+                 return $this->redirectToRoute('profile'); 
+        }
+            
+          return $this->render('profile/change_password.html.twig',
+            [
+            'form' => $form->createView()
+            ]);
     }
       
 }

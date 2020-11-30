@@ -59,9 +59,9 @@
 			<div class="nav-item dropdown">
 			<a href="#" data-toggle="dropdown" class="nav-item nav-link dropdown-toggle user-action">
 				 {% if app.user.avatarName == null %}
-			        <img src="{{ asset('images/logo_navbar.png') | imagine_filter('thumb') }}" alt="Avatar user" class="avatar" alt="Avatar"> {{ app.user.firstname|capitalize }} 
+			        <img src="{{ asset('images/logo_navbar.png') | imagine_filter('thumb') }}" alt="Avatar user" class="avatar" alt="Avatar"> {{ app.user.pseudo|capitalize }} 
 			        {% else %}
-			          <img src="{{ vich_uploader_asset(app.user,'avatarFile') | imagine_filter('thumb') }}" alt="Avatar user" class="avatar" alt="Avatar"> {{ app.user.firstname|capitalize }} 
+			          <img src="{{ vich_uploader_asset(app.user,'avatarFile') | imagine_filter('thumb') }}" alt="Avatar user" class="avatar" alt="Avatar"> {{ app.user.pseudo|capitalize }} 
 			     {% endif %}				
 				<b class="caret"></b>
 				</a>
