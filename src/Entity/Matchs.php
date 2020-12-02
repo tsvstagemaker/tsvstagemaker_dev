@@ -104,6 +104,11 @@ class Matchs
      */
     private $stages;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $nbrStage;
+
     public function __construct()
     {
         $this->stages = new ArrayCollection();
@@ -310,14 +315,40 @@ class Matchs
         }
 
         return $this;
+    } 
+   
+
+    public function getNbrStage(): ?int
+    {
+        return $this->nbrStage;
     }
 
-     public function __toString()
+    public function setNbrStage(?int $nbrStage): self
+    {
+        $this->nbrStage = $nbrStage;
+
+        return $this;
+    }
+
+     public function getPercentStage()
+    {
+        $percentage = 0;
+        $totalStage = $this->getNbrStage();
+        if ($totalStage>0)
+        {
+            $completStage = $this->getStages()->count();
+            $percentage =  $completStage / $totalStage * 100;
+        }
+
+        return $percentage;
+        }
+
+            public function __toString()
     {
         return $this->getname();
     }
 
-      /**
+       /**
     * @ORM\PrePersist
     * @ORM\PreUpdate
     */

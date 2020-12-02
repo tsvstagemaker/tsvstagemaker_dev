@@ -30,6 +30,7 @@
                     {% endif %}
                 </strong>
                 </h5>
+                <p class="card-text">Number of stage: <strong>{{ match.getStages|length }}/{{ match.getNbrStage }}</strong></p>
                 <p class="card-text">Date:  <strong> {{ match.getStartAt }} </strong></p>
                 <p class="card-text">Firearmtype:
                  <strong>
@@ -74,7 +75,7 @@
         <div class="card text-center">
             <div class="card-header">        
                 <h4 class="card-title">Associate Stages:
-                <span class="badge badge-info badge-pill">{{ match.getStages|length }}</span>       
+                <span class="badge badge-info badge-pill">{{ match.getStages|length }}/{{ match.getNbrStage }}</span>       
                 </h4>
             </div>
             <table class="table table-striped table-sm">

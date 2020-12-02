@@ -52,6 +52,7 @@ class MatchsController extends AbstractController
      			$matchs->setCountryid($data['CountryId']);
      			$matchs->setSquadcount($data['SquadCount']);
      			$matchs->setMatchid($data['matchid']);
+                $matchs->setNbrStage($data['nbrStage']);
 
      			$em->persist($matchs);
      			$em->flush();
@@ -107,6 +108,7 @@ class MatchsController extends AbstractController
                 $match->setCountryid($data['CountryId']);
                 $match->setSquadcount($data['SquadCount']);
                 $match->setMatchid($data['matchid']);
+                $matchs->setNbrStage($data['nbrStage']);
 
                 $em->flush();               
             }

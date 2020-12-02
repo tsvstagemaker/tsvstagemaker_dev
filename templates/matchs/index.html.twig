@@ -43,7 +43,7 @@
 							<a href="{{ path('app_match_show', {'id': match.id}) }}">{{ match.getName }}</a>
 						</td>
 						<td>
-							<span class="badge badge-info badge-pill">{{ match.getStages|length }}</span>
+							<span class="badge badge-info badge-pill">{{ match.getStages|length }}/{{ match.getNbrStage }}</span>
 						</td> 
 						<td>{{ match.getStartAt }}</td>
 						<td>

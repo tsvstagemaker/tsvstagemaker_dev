@@ -92,7 +92,7 @@ class StagesController extends AbstractController
         // traitement infos recu
                 $stagename = $data['stagename'];
                 $stagename = preg_replace("# #", "_", $stagename);                    
-                $stagename = preg_replace( "# #", "_", $data['stagename']); 
+                // $stagename = preg_replace( "# #", "_", $data['stagename']); 
                 $stagenumber = $data['stagenumber'];       
 
                 
@@ -118,6 +118,9 @@ class StagesController extends AbstractController
        
                 // $image->move($this->getParameter('upload_directory'), $filename);
                  // dd($data);
+                 
+                 
+                 // Debut enregistrement db
 
                 $stages->setUser($this->getUser());
 
@@ -130,7 +133,7 @@ class StagesController extends AbstractController
 
 
                 $stages->setstagenumber($stagenumber);
-                $stages->setstagename($stagename);
+                $stages->setstagename($data['stagename']);
 
                 $stages->setFilename($filename);
                 $stages->setFileurl($fileurl);
@@ -286,7 +289,7 @@ class StagesController extends AbstractController
                 // $stages->setMatchs($this->getMatchs());
 
                 $stages->setstagenumber($stagenumber);
-                $stages->setstagename($stagename);
+                $stages->setstagename($data['stagename']);
 
                 $stages->setFilename($filename);
                 $stages->setFileurl($fileurl);

@@ -55,3 +55,40 @@ body{
 footer{
     background-color: #ffffff;
 }
+
+.collaps-stage{
+    cursor: pointer;
+    }
+
+    .breadcrumb {  
+    background-color: #ffffff;   
+}
+
+.iconsuser{
+    font-size: 20px;
+    vertical-align: middle;
+}
+
+.pdf{   
+    color: #da181b;     
+}
+
+.img{   
+    color: #17a2b8;     
+}
+
+.share{ 
+    color: #03a9f4  
+}
+
+.updatestage{   
+    color: #ffc107;     
+}
+
+.deletestage{   
+    color: #da181b;     
+}
+
+.unshare{   
+    color: #4bff00;     
+}
