@@ -7,14 +7,14 @@
 {# header si le membre est connecté#} 
  {% if app.user %}    
   <header  class="container-fluid">
-    <div class="row">
+    <div class="row headerAnim">
       <div class="col-12 col-md-6 connect d-flex"> 
        <div class="mx-auto my-auto">
-       <h1 class="mb-5">{{ title }}</h1>     
-         <h2 class="creatAnim">Hello {{ app.user.firstname|capitalize }},</h2>             
-         <h3 class="readyAnim">Are you ready?</h3>
-         <h4 class="readyAnim mb-3">Standby!</h4>               
-         <a class="text-style-shooter" href="{{ path('app_stage_create') }}"><h4 class="creatAnim h1">Stage make ready !</h4></a>          
+       <h1 class="mb-5 titreAnim">{{ title }}</h1>     
+         <h2 class="helloAnim">{{ app.user.firstname|capitalize }},</h2>            
+         <h3 class="readyAnim">Are you ready ?</h3>
+         <h4 class="standbyAnim mb-3">Standby !</h4>               
+         <a class="text-style-shooter" href="{{ path('app_stage_create') }}"><h4 style="transform: scale(0);" class="creatAnim h1 registererAnim">Stage make ready !</h4></a>          
       </div>
     </div>  
   </div>
@@ -23,14 +23,14 @@
 
 {# header si le membre n'est pas connecté#}    
   <header  class="container-fluid">
-    <div class="row">
+    <div class="row headerAnim">
       <div class="col-12 col-md-6 connect d-flex text-align"> 
        <div class="mx-auto my-auto">        
-        <h1 class="mb-5">{{ title }}</h1>
-         <h2 class="readyAnim">Hello Shooters,</h2> 
-         <h3 class="readyAnim">Are you ready?</h3> 
-         <h4 class="readyAnim mb-3">Standby!</h4>                  
-        <a class="text-style-shooter" href="{{ path('app_register') }}"><h3 class="creatAnim h1">Go to register !</h3> </a>         
+        <h1 class="mb-5 titreAnim">{{ title }}</h1>
+         <h2 class="helloAnim">Shooters,</h2> 
+         <h3 class="readyAnim">Are you ready ?</h3> 
+         <h4 class="standbyAnim mb-3">Standby !</h4>                  
+        <a class="text-style-shooter" href="{{ path('app_register') }}"><h3 style="transform: scale(0);" class="creatAnim h1 registererAnim">Go to register !</h3> </a>         
       </div>
     </div>  
   </div>
@@ -87,7 +87,7 @@
     <h2 style="text-align: center;">TSV STAGE MAKER <br> IPSC shooters application</h2>
     <h3>Design your IPSC stage</h3>
 
-    <img src="images/tireur.png" alt="tireur ipsc tsv stage maker" class="tireur">
+    <img src="images/tireur.png" alt="tireur ipsc tsv stage maker" id="tireur" class="tireur">
 
     <div class="slogan2">   
       <h3 style="color: #17a2b8;">Stage make ready !</h3>  <br>
@@ -113,14 +113,34 @@
 </div>
 </div>
 
+
+{# tEST SVG #}
+{# <div class="gun__wrapper" style="display: block;">
+  <img src="{{ asset("images/gun2.svg") }}" alt="">
+
+</div> #}
+
+
 <!-- Fonctionnalités --> 
 
-<div class="container" id="fonction">
+{# <section>
+  <div class="outer">
+    <div class="inner">This is Section 1</div>
+  </div>
+</section>
+<section>
+  <div class="outer">
+    <div class="inner">This is Section 2</div>
+  </div>
+</section> #}
+
+<section>
+<div class="container outer" id="fonction">
  <div class="row">
   <div class="col-12 mb-5">
     <h2>All features</h2>
   </div>
-  <div class="col-12 col-md-6">
+  <div class="col-12 col-md-6 inner">
    <div class="media my-3">
     <span><i class="material-icons iconindex">flip_to_front</i></span>
     <div class="media-body ml-3">
@@ -131,7 +151,7 @@
   </div>
 </div>
 
-<div class="col-12 col-md-6">
+<div class="col-12 col-md-6 inner">
  <div class="media my-4">
   <span><i class="material-icons iconindex">cloud_download</i></span>
   <div class="media-body ml-3">
@@ -145,12 +165,14 @@
 </div>       
 </div>
 </div>
+</section>
 
-<div class="container" id="fonction">
+<section>
+<div class="container outer" id="fonction">
  <div class="row">
   <div class="col-12 mb-5">
   </div>
-  <div class="col-12 col-md-6">
+  <div class="col-12 col-md-6 inner">
    <div class="media my-3">
     <span><i class="material-icons iconindex">functions</i></span>
     <div class="media-body ml-3">
@@ -160,7 +182,7 @@
   </div>
 </div>
 
-<div class="col-12 col-md-6">
+<div class="col-12 col-md-6 inner">
  <div class="media my-4">
   <span><i class="material-icons iconindex">new_releases</i></span>
   <div class="media-body ml-3">
@@ -171,12 +193,14 @@
 </div>       
 </div>
 </div>
+</section>
 
-<div class="container" id="fonction">
+<section>
+<div class="container outer" id="fonction">
  <div class="row">
   <div class="col-12 mb-5">
   </div>
-  <div class="col-12 col-md-6">
+  <div class="col-12 col-md-6 inner">
    <div class="media my-3">
     <span><i class="material-icons iconindex">add_box</i></span>
     <div class="media-body ml-3">
@@ -186,7 +210,7 @@
   </div>
 </div>
 
-<div class="col-12 col-md-6">
+<div class="col-12 col-md-6 inner">
  <div class="media my-4">
   <span><img style="max-width: 35px;" src="{{ asset("images/winmss.jpg") }}" alt="logo tsv stage maker" title="logo tsv stage maker"></span>
   <div class="media-body ml-3">
@@ -197,12 +221,14 @@
 </div>       
 </div>
 </div>
+</section>
 
-<div class="container" id="fonction">
+<section>
+<div class="container outer" id="fonction">
  <div class="row">
   <div class="col-12 mb-5">
   </div>
-  <div class="col-12 col-md-6">
+  <div class="col-12 col-md-6 inner">
    <div class="media my-3">
     <span><i class="material-icons iconindex">cloud_upload</i></span>
     <div class="media-body ml-3">
@@ -212,7 +238,7 @@
   </div>
 </div> 
 
-<div class="col-12 col-md-6">
+<div class="col-12 col-md-6 inner">
  <div class="media my-4">
   <span><i class="material-icons iconindex">autorenew</i></span>
   <div class="media-body ml-3">
@@ -223,15 +249,23 @@
 </div>      
 </div>
 </div>
+</section>
 
 <!-- Exemple 1 --> 
-<div class="container text-justify" id="exemple">  
+<section>
+<div class="container text-justify outer" id="exemple">  
 
-  <div class="col-12 col-md-12 exemplestage2" style="text-align: center;">
+  <div class="col-12 col-md-12 exemplestage2 inner" style="text-align: center;">
     <h2 class="my-4">Stage example</h2><i class="fa fa-arrow-circle-down iconindex"></i><br><br>
     <img class=" col-12 col-md-12 exemplestage zoom" src="images/ipsc.jpeg" alt="stage ipsc tsv stage maker" style="max-width: 80%; height: auto; margin: auto;">   
   </div>
 
 </div>
+</section>
 
 {% endblock %}
+
+{#  {% block javascripts %}
+                   
+                    <script src="{{ asset('js/app.js') }}"></script>
+        {% endblock %} #}

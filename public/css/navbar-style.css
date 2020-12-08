@@ -70,10 +70,16 @@ body {
 	top: 3px;
 }
 .navbar .navbar-nav > a {
-	color: #efe5ff;
+	color: #000000bd !important;
 	padding: 8px 15px;
 	font-size: 14px;		
 }
+
+.navbar-light .navbar-nav .nav-link {
+    color: #00000094 !important;
+}
+
+
 .navbar .navbar-nav > a:hover, .navbar .navbar-nav > a:focus {
 	color: #fff;
 	text-shadow: 0 0 4px rgba(255,255,255,0.3);

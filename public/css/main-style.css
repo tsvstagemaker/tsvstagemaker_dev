@@ -1,4 +1,13 @@
- header .row {
+ body
+ , ::before, ::after{
+ 	box-sizing: border-box;
+ 	margin:0;
+ 	padding: 0;
+ }
+body{
+	overflow-x: hidden;
+}
+ header .headerAnim {
  	min-height: 30vh;
  	background-image: url(/images/image_accueil.png);
  	background-size: cover;
@@ -7,6 +16,7 @@
  	color: white;	
  	-webkit-clip-path: polygon(0 0, 100% 0%, 100% 100%, 0 89%);
  	clip-path: polygon(0 0, 100% 0%, 100% 100%, 0 89%);
+
  }
 
  header .connect{	
@@ -17,7 +27,7 @@
 
 
  @media(min-width: 768px) and (max-width : 1024px) {
- 	header .row {
+ 	header .headerAnim {
  		min-height: 50vh;
  		background-image: url(../images/image_accueil_mobile.png);
  		background-size: cover;
@@ -26,11 +36,12 @@
  		color: white;	
  		-webkit-clip-path: polygon(0 0, 100% 0%, 100% 100%, 0 89%);
  		clip-path: polygon(0 0, 100% 0%, 100% 100%, 0 89%);		
+ 	
  	}
  }
 
  @media(max-width:767px){
- 	header .row{		
+ 	header .headerAnim{		
  		min-height: 30vh;
  		background-image: url(../images/image_accueil_mobile.png);
  		background-size: cover;
@@ -39,8 +50,19 @@
  		color: white;	
  		-webkit-clip-path: polygon(0 0, 100% 0%, 100% 100%, 0 89%);
  		clip-path: polygon(0 0, 100% 0%, 100% 100%, 0 89%);	
+ 		
  	}
+ 	 .titreAnim{
+ 	font-size: 32px;
  }
+
+ }
+
+
+.tireur{
+ 	    max-width: 50%;
+ }
+
 
  #fonction .media{
 	padding: .5rem 1rem;
@@ -88,3 +110,5 @@
  	font-size: 30px;
  	color: #dc3545;
  }
+
+ /*test svg*/
