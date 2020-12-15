@@ -42,7 +42,7 @@
 						<td>
 							<a href="{{ path('app_match_show', {'id': match.id}) }}"><b>{{ match.getName }}</b></a>
 						</td>
-						<td>
+						<td class="align-td">
 							<span class="badge badge-info badge-pill">{{ match.getStages|length }}/{{ match.getNbrStage }}</span>
 						</td> 
 						<td>{{ match.getStartAt }}</td>
@@ -80,10 +80,16 @@
 						<td>{{ match.updatedAt|ago }}</td>
 
 						<td>							
-							<a class="" href="{{ match.getStages.fileurl }}"><i class="material-icons iconimatch">cloud_download</i></a>				
+							{# <a class="" href="#"><i class="material-icons iconimatch">cloud_download</i></a> #}
+							<a class="" href="#" onclick="event.preventDefault(); confirm('Are you sure you want to download all stages of match: {{ match.getName }} ?') && document.getElementById('js-stages-download-form-{{ match.id }}').submit();"><i class="material-icons iconimatch">cloud_download</i></a>
+							<form id="js-stages-download-form-{{ match.id }}" action="{{ path('app_stages_download', {'id': match.id}) }}" method="post" style="display: none;">
+							<input type="hidden" name="csrf_token" value="{{ csrf_token('stages_download_' ~ match.id) }}">
+							<input type="hidden" name="_method" value="POST">						
+							</form>		
+
 						</td>
-						<td>
-							<a class="" href="#"><span><img style="max-width: 35px;" src="{{ asset("images/winmss.jpg") }}" alt="logo WINMSS" class="rounded" title="logo WINMSS"></span></a>
+						<td class="align-td">
+							<a class="" href=""><span><img style="max-width: 35px;" src="{{ asset("images/winmss.jpg") }}" alt="logo WINMSS" class="rounded" title="logo WINMSS"></span></a>
 						</td>    
 						<td>							
 							<a class="btn-sm" href="{{ path('app_match_edit', {'id': match.id}) }}"><i class="material-icons iconimatch_warning">create</i></a>       
