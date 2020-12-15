@@ -226,82 +226,12 @@ $(document).ready(function() { //fonction qui exectute le script
     });
 
     $( "#accordion-resizer" ).resizable({
-    	minHeight: 140,
+    	minHeight: 200,
     	minWidth: 200,
     	resize: function() {
     		$( "#elements," ).accordion( "refresh" );
     	}
     }); 
-
-
-//script pour capturer l'image du stage
-function uploadFile() {
-window.scrollTo(0, 0); //scroll page entiere du haut en bas 
-        html2canvas(document.getElementById("main"),{scale: 2}).then(function(canvas){ //creation image avec scale: 2-> qualité X2
-        	let doc = new jsPDF();
-            // doc.setFontSize(40); //taille titre
-                    // doc.text(40, 25, "TSV STAGE MAKER") // titre
-                    doc.addImage(canvas.toDataURL("image/jpeg", 0.9), 'JPEG', 5, 5, 202, 290); //'JPEG', 15(Gauche), 10 (Haut), 180 (Droite), 280 (Bas)                            
-                    let blob = doc.output('blob');  
-
-                    let image = ("image=" + canvas.toDataURL("image/jpeg", 0.9));
-                    let stagename = document.querySelector('[name="stagename"]');
-                    let stagenumber = document.querySelector('[name="stagenumber"]');
-                    let FirearmId = document.querySelector('[name="FirearmId"]');
-                    let TrgtTypeId = document.querySelector('[name="TrgtTypeId"]');
-                    let ScoringId = document.querySelector('[name="ScoringId"]');
-                    let StartOn = document.querySelector('[name="StartOn"]');
-                    let StartPos = document.getElementById("StartPos");
-                    let Descriptn = document.getElementById("Descriptn");
-                    let CourseId = document.querySelector('[name="CourseId"]');
-                    let MatchsId = document.querySelector('[name="MatchsId"]'); 
-                    let MaxPoints = document.querySelector('[name="MaxPoints"]');
-                    let MinRounds = document.querySelector('[name="MinRounds"]');   
-                    let TrgtPaper = document.querySelector('[name="TrgtPaper"]');
-                    let TrgtPlates = document.querySelector('[name="TrgtPlates"]');
-                    let TrgtPenlty = document.querySelector('[name="TrgtPenlty"]');
-                    let TrgtPopper = document.querySelector('[name="TrgtPopper"]'); 
-                    let bobber = document.getElementById("bobber"); 
-                    let StringCnt = document.querySelector('[name="StringCnt"]');
-                    let ReportOn = document.querySelector('[name="ReportOn"]'); 
-                    let Token = document.querySelector('[name="_token"]');
-                    let sectionstage = document.getElementById("datastage");    
-                    let formData = new FormData();
-                    formData.append('file', blob);
-                    formData.append('jpeg', image);                     
-                    formData.append('stagename', stagename.value);
-                    formData.append('stagenumber', stagenumber.value);
-                    formData.append('FirearmId', FirearmId.value);
-                    formData.append('TrgtTypeId', TrgtTypeId.value);
-                    formData.append('ScoringId', ScoringId.value);
-                    formData.append('StartOn', StartOn.value);
-                    formData.append('StartPos', StartPos.innerText);
-                    formData.append('Descriptn', Descriptn.innerText);
-                    formData.append('CourseId', CourseId.value);
-                    formData.append('MatchsId', MatchsId.value);
-                    formData.append('MaxPoints', MaxPoints.innerText);
-                    formData.append('MinRounds', MinRounds.innerText);
-                    formData.append('TrgtPaper', TrgtPaper.innerText);
-                    formData.append('TrgtPlates', TrgtPlates.innerText);
-                    formData.append('TrgtPenlty', TrgtPenlty.innerText);
-                    formData.append('TrgtPopper', TrgtPopper.innerText);
-                    formData.append('bobber', bobber.innerText);
-                    formData.append('StringCnt', StringCnt.value);
-                    formData.append('ReportOn', ReportOn.value);
-                    formData.append('_token', Token.value);
-                    formData.append('datastage', sectionstage.innerHTML);
-                    console.log(formData);
-                    let xhr = new XMLHttpRequest();
-                    xhr.onreadystatechange = function() {
-                    	if(this.readyState == 4 && this.status == 200) {
-                    		alertify.success('Your Stage has been successfully saved !');
-                    		return;
-                    	}
-                    }
-                    xhr.open("post", "{{ path('app_stage_create') }}",); 
-                    xhr.send(formData);
-                });
-}
 
 
             // script pour telecharger le pdf direct sur pc
@@ -321,30 +251,39 @@ window.scrollTo(0, 0); //scroll page entiere du haut en bas
 
 
             // change COULEURS PANNEAU
+            // 
+            function changeColor(){
+                let color = document.getElementById('colorInputColor').value;               
+                $("svg rect").each(function() {
+                    $(".panneau1").css("fill", color);
+                });
+            }
 
-            $("#btn-orange").on("click", function () {
-            	$(".panneau1").css({ fill: "#FE9301" });
-            });
+            
 
-            $("#btn-vert").on("click", function () {
-            	$(".panneau1").css({ fill: "#839B6D" });
-            });
+            // $("#btn-orange").on("click", function () {
+            // 	$(".panneau1").css({ fill: "#FE9301" });
+            // });
 
-            $("#btn-vert2").on("click", function () {
-            	$(".panneau1").css({ fill: "#3D963E" });
-            });
+            // $("#btn-vert").on("click", function () {
+            // 	$(".panneau1").css({ fill: "#839B6D" });
+            // });
 
-            $("#btn-gris").on("click", function () {
-            	$(".panneau1").css({ fill: "#C0BCBC" });
-            });
+            // $("#btn-vert2").on("click", function () {
+            // 	$(".panneau1").css({ fill: "#3D963E" });
+            // });
 
-            $("#btn-bleu").on("click", function () {
-            	$(".panneau1").css({ fill: "#2CA8F5" });
-            });
+            // $("#btn-gris").on("click", function () {
+            // 	$(".panneau1").css({ fill: "#C0BCBC" });
+            // });
 
-            $("#btn-reset").on("click", function () {
-            	$(".panneau1").css({ fill: "#FF8000" });
-            });
+            // $("#btn-bleu").on("click", function () {
+            // 	$(".panneau1").css({ fill: "#2CA8F5" });
+            // });
+
+            // $("#btn-reset").on("click", function () {
+            // 	$(".panneau1").css({ fill: "#FF8000" });
+            // });
 
 
             //rotation elements
@@ -359,21 +298,28 @@ window.scrollTo(0, 0); //scroll page entiere du haut en bas
             function loaderspiner(){
             	$('.loader-container').addClass('hidden');
             }
-            setTimeout(loaderspiner, 3000);
+            setTimeout(loaderspiner, 3000);          
 
 
-            function actveGrid() {
-            	document.getElementById("dropzone").style.background = "url( {{ asset('images/grillebleu.png') }} ) round";
 
-            }
-            function actveGrid1() {
-            	document.getElementById("dropzone").style.background = "url( {{ asset('images/grille2.png') }} ) round";
-            }
+            // canvas
+            // const canvas = document.getElementById('canvas');
+            // const ctx = canvas.getContext('2d');            
 
-            function actveGrid2() {
-            	document.getElementById("dropzone").style.background = "url( {{ asset('images/grille3.png') }} ) round";
-            }
+            // canvas.width = 100;
+            // canvas.height = 75;
 
-            function dactveGrid() {
-            	document.getElementById("dropzone").style.background = "none ";
-            }
+            // ctx.beginPath();
+
+            // ctx.fillStyle = "#e2ae87";
+            // ctx.strokeStyle = '#3f63a4';
+            // ctx.strokeRect(5,5,90,60);
+            // ctx.fillRect(5,5,90,60);
+
+            // ctx.moveTo(85,50);
+            // ctx.lineTo(100,70);
+
+            // ctx.moveTo(15,50);
+            // ctx.lineTo(0,70);
+
+            // ctx.stroke();

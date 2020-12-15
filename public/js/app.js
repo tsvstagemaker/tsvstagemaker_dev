@@ -5,7 +5,8 @@ const helloAnim = document.querySelector('.helloAnim');
 const readyAnim = document.querySelector('.readyAnim');
 const standbyAnim = document.querySelector('.standbyAnim');
 const registererAnim = document.querySelector('.registererAnim');
-const alert = document.querySelector('.alert');
+const loginAnim = document.querySelector('.loginAnim');
+// const alert = document.querySelector('.alert');
 // const tireur = document.querySelector('#tireur');
 
 const TL1 = new TimelineMax({pause: false});
@@ -29,7 +30,9 @@ TL1
 .from(standbyAnim,1.3,{opacity:0, x: -100})
 
 // .from(registererAnim,1.4,{scale:0});
-.to(registererAnim, {scale:1, duration: 0.4, stagger: 0.1, ease: "back.out(2)"});
+.to(registererAnim, {scale:1, duration: 0.4, stagger: 0.1, ease: "back.out(2)"})
+
+.to(loginAnim, {scale:1, duration: 0.4, stagger: 0.1, ease: "back.out(2)"});
 
 
 const TL2 = new TimelineMax({pause: false});
@@ -80,4 +83,21 @@ $("section").each(function(i) {
     //   indent: 40
     // })
     .addTo(ctrl);
+});
+
+
+
+var delay = 500;
+$(".progress-bar").each(function(i){
+    $(this).delay( delay*i ).animate( { width: $(this).attr('aria-valuenow') + '%' }, delay );
+
+    $(this).prop('Counter',0).animate({
+        Counter: $(this).text()
+    }, {
+        duration: delay,
+        easing: 'swing',
+        step: function (now) {
+            $(this).text(Math.ceil(now)+'%');
+        }
+    });
 });

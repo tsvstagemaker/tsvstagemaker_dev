@@ -20,6 +20,16 @@
 		{# <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"> #}
         <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">	
+         {# CSS AlertifyJS #}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.13.1/css/alertify.css">
+
+        {# <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/> #}
+        <!-- Default theme -->
+        {# <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/> #}
+        <!-- Semantic UI theme -->
+        {# <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css"/> #}
+        <!-- Bootstrap theme -->
+        {# <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css"/> #}
 
 		<link rel="stylesheet" href="{{ asset('css/navbar-style.css') }}" />
 		<link rel="stylesheet" href="{{ asset('css/match-style.css') }}" />
@@ -134,7 +144,7 @@
 <script src="{{ asset('js/scriptJS.js') }}" type="text/jscript"></script>
 <script src="{{ asset('js/jQueryRotate.js') }}" type="text/jscript"></script>
 <!-- Alertify -->
-<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.13.1/alertify.js"></script>
 <!--touch-punch pour dragand drop mobile -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
 
@@ -147,40 +157,40 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/Draggable.min.js"></script>
 
 
-{# <script>
+<script>
 //script pour capturer l'image du stage
 function uploadFile() {
 window.scrollTo(0, 0); //scroll page entiere du haut en bas 
         html2canvas(document.getElementById("main"),{scale: 2}).then(function(canvas){ //creation image avec scale: 2-> qualité X2
-            var doc = new jsPDF();
+         let doc = new jsPDF();
             // doc.setFontSize(40); //taille titre
                     // doc.text(40, 25, "TSV STAGE MAKER") // titre
-                    doc.addImage(canvas.toDataURL("image/jpeg", 0.9), 'JPEG', 5, 10, 200, 270); //'JPEG', 15(Gauche), 10 (Haut), 180 (Droite), 280 (Bas)                            
-                    var blob = doc.output('blob');  
+                    doc.addImage(canvas.toDataURL("image/jpeg", 0.9), 'JPEG', 5, 5, 202, 290); //'JPEG', 15(Gauche), 10 (Haut), 180 (Droite), 280 (Bas)                            
+                    let blob = doc.output('blob');  
 
-                    var image = ("image=" + canvas.toDataURL("image/jpeg", 0.9));
-                    var stagename = document.querySelector('[name="stagename"]');
-                    var stagenumber = document.querySelector('[name="stagenumber"]');
-                    var FirearmId = document.querySelector('[name="FirearmId"]');
-                    var TrgtTypeId = document.querySelector('[name="TrgtTypeId"]');
-                    var ScoringId = document.querySelector('[name="ScoringId"]');
-                    var StartOn = document.querySelector('[name="StartOn"]');
-                    var StartPos = document.getElementById("StartPos");
-                    var Descriptn = document.getElementById("Descriptn");
-                    var CourseId = document.querySelector('[name="CourseId"]');
-                    var MatchsId = document.querySelector('[name="MatchsId"]'); 
-                    var MaxPoints = document.querySelector('[name="MaxPoints"]');
-                    var MinRounds = document.querySelector('[name="MinRounds"]');   
-                    var TrgtPaper = document.querySelector('[name="TrgtPaper"]');
-                    var TrgtPlates = document.querySelector('[name="TrgtPlates"]');
-                    var TrgtPenlty = document.querySelector('[name="TrgtPenlty"]');
-                    var TrgtPopper = document.querySelector('[name="TrgtPopper"]'); 
-                    var bobber = document.getElementById("bobber"); 
-                    var StringCnt = document.querySelector('[name="StringCnt"]');
-                    var ReportOn = document.querySelector('[name="ReportOn"]'); 
-                    var Token = document.querySelector('[name="_token"]');
-                    var sectionstage = document.getElementById("datastage");    
-                    var formData = new FormData();
+                    let image = ("image=" + canvas.toDataURL("image/jpeg", 0.9));
+                    let stagename = document.querySelector('[name="stagename"]');
+                    let stagenumber = document.querySelector('[name="stagenumber"]');
+                    let FirearmId = document.querySelector('[name="FirearmId"]');
+                    let TrgtTypeId = document.querySelector('[name="TrgtTypeId"]');
+                    let ScoringId = document.querySelector('[name="ScoringId"]');
+                    let StartOn = document.querySelector('[name="StartOn"]');
+                    let StartPos = document.getElementById("StartPos");
+                    let Descriptn = document.getElementById("Descriptn");
+                    let CourseId = document.querySelector('[name="CourseId"]');
+                    let MatchsId = document.querySelector('[name="MatchsId"]'); 
+                    let MaxPoints = document.querySelector('[name="MaxPoints"]');
+                    let MinRounds = document.querySelector('[name="MinRounds"]');   
+                    let TrgtPaper = document.querySelector('[name="TrgtPaper"]');
+                    let TrgtPlates = document.querySelector('[name="TrgtPlates"]');
+                    let TrgtPenlty = document.querySelector('[name="TrgtPenlty"]');
+                    let TrgtPopper = document.querySelector('[name="TrgtPopper"]'); 
+                    let bobber = document.getElementById("bobber"); 
+                    let StringCnt = document.querySelector('[name="StringCnt"]');
+                    let ReportOn = document.querySelector('[name="ReportOn"]'); 
+                    let Token = document.querySelector('[name="_token"]');
+                    let sectionstage = document.getElementById("datastage");    
+                    let formData = new FormData();
                     formData.append('file', blob);
                     formData.append('jpeg', image);                     
                     formData.append('stagename', stagename.value);
@@ -205,18 +215,18 @@ window.scrollTo(0, 0); //scroll page entiere du haut en bas
                     formData.append('_token', Token.value);
                     formData.append('datastage', sectionstage.innerHTML);
                     console.log(formData);
-                    var xhr = new XMLHttpRequest();
+                    let xhr = new XMLHttpRequest();
                     xhr.onreadystatechange = function() {
-                        if(this.readyState == 4 && this.status == 200) {
-                            alertify.success('Your Stage has been successfully saved !');
-                            return;
-                        }
+                     if(this.readyState == 4 && this.status == 200) {
+                         alertify.success('Your Stage has been successfully saved !');
+                         return;                    
+                     }
                     }
                     xhr.open("post", "{{ path('app_stage_create') }}",); 
                     xhr.send(formData);
                 });
-    }
-</script> #}
+}
+</script>
 
 {# <script>
 // script pour telecharger le pdf direct sur pc
@@ -279,15 +289,23 @@ function changeColor(picker) {
         </script>  #}
 
 <script>
+
+
 // ALERTIFY
 $(function(){
     $('.sauvegarde').click(function(event){
-         alertify.set('notifier','position', 'bottom-right');                               
-        alertify.notify('Please wait until the success message...', 'ajs-message.ajs-custom', 10, );
+        alertify.set('notifier','position', 'top-center');
+        alertify.notify('Please wait until the success or error message...', 10);
     });
+
     $('.telecharge').click(function(event){
-        alertify.success('Download stage will start soon...');
+        alertify.success('Download will start soon...');
     });
+
+      $('#reset').click(function(event){
+        alertify.success('all data has been reset...');
+    });
+
 });
 </script>
     
@@ -380,7 +398,7 @@ $(".elementRotate").rotate({
 </script> #}
 
 {# Button grid #}
- {#    <script>
+    <script>
         function actveGrid() {
             document.getElementById("dropzone").style.background = "url( {{ asset('images/grillebleu.png') }} ) round";
 
@@ -397,7 +415,7 @@ $(".elementRotate").rotate({
             document.getElementById("dropzone").style.background = "none ";
         }
     </script>
- #}
+
 
 {#     <script>
 function update() {

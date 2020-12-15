@@ -86,6 +86,7 @@
                       <th scope="col">FirearmType</th>
                       <th scope="col">MinRounds</th>
                       <th scope="col">MaxPoints</th>
+                      <th scope="col">Actions</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -109,6 +110,8 @@
                       </td>                 
                       <td>{{ stagelist.minrounds }}</td>
                       <td>{{ stagelist.maxpoints }}</td>
+                      {{ dump(match.getStages) }}
+                      <td><a href="{{ stagelist.Fileurl }}" target="_blank" title="Download stage pdf"><span class="material-icons-round iconsuser pdf">picture_as_pdf</span></a></td>
                     </tr>
                     {% endfor %}   
                   </tbody>

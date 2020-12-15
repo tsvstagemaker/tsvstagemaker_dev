@@ -157,7 +157,8 @@
 							<td style="padding: 0px; max-width:700px;overflow:auto;" class="notestage " colspan="10">
 							<label for="Descriptn"> Procedure: </label>
 								<div class="noborder" rows="3" cols="55"  contenteditable='true'>
-									<p class="text-break p-StartPos-Descriptn" id="Descriptn" name="Descriptn">Exemple: Standing erect, facing downrange with arms hanging naturally by the sides.</p>                        
+									<p class="text-break p-StartPos-Descriptn" id="Descriptn" name="Descriptn">Exemple: Standing erect, 
+									facing downrange with arms hanging naturally by the sides.</p>                        
 								</div>
 								<br>                
 							</td>
@@ -238,14 +239,20 @@
 							{# inclusion twig #}						
 							{# {{ source('@public_path'~asset('images/svg/panneau.svg')) }} #}
 
-							<!-- svg direct dans le code -->
-								<svg id="decorsvg" class="draggable elementRotate resizable" width="91" height="64" viewBox="0 0 91 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+						{# 	<canvas id="canvas" class="draggable elementRotate resizable">
+								
+							</canvas>
+ #}
+							<!-- svg direct dans le code -->							
+						{# 	<div class="svg-container"> #}
+								<svg id="decorsvg" class="draggable elementRotate resizable svg-content" width="91" height="64" viewBox="0 0 91 64">
 									<rect x="6.20657" y="42" width="1.42056" height="21" transform="rotate(14.3552 6.20657 42)" fill="#5779B6" />
 									<rect x="6.02635" y="41.6958" width="1.92056" height="21.5" transform="rotate(14.3552 6.02635 41.6958)" stroke="black" stroke-opacity="0.6" stroke-width="0.5" />
 									<rect x="82.9484" y="42.3693" width="1.42056" height="21" transform="rotate(-14.6511 82.9484 42.3693)" fill="#5779B6" />
 									<rect x="82.6433" y="42.1907" width="1.92056" height="21.5" transform="rotate(-14.6511 82.6433 42.1907)" stroke="black" stroke-opacity="0.6" stroke-width="0.5" />
 									<rect class="panneau1" x="3.50002" y="0.5" width="83" height="52" fill="#CD7330" fill-opacity="0.58" stroke="#5779B6" />
 								</svg>
+						{# 	</div> #}
 
 							 {# svg en balise img  #}
 							<img id="decor5" class="draggable elementRotate resizable" src="{{ asset('images/svg/panneau.svg') }}"  width="80" title="Panneausvg" alt="Panneausvg">
@@ -358,7 +365,7 @@
 						</div>
 
 
-						<button  title="Tout les Accessoires et décors" class="btn btn-info btn-accordion"><img src="{{ asset('images/velo.png') }}" width="40">&nbsp;Speciales targets & objects</button>	
+						<button  title="Tout les Accessoires et décors" class="btn btn-info btn-accordion"><img src="{{ asset('images/velo.png') }}" width="40">&nbsp;Speciales objects</button>	
 						<div id="decor">	
 
 							<!-- Palettes -->
@@ -444,17 +451,17 @@
 						<button  title="Upload objects" class="btn btn-info btn-accordion"><img src="{{ asset('images/tireur.png') }}" width="30">&nbsp;Upload your logo or objects</button>
 						<div id="decor"><br>
 							<button style="width: 150px;" type="button" class="btn btn-info" data-toggle="modal" data-target="#uploadModal">Upload your logo objects file</button><br>
-							<?php
+						{# 	<?php
 							$dir = 'upload_perso_obj/*.{jpg,jpeg,gif,png,png}';
 							$files = glob($dir,GLOB_BRACE);?>
 							<p>Logo or objects uploaded</p><br>
 							<?php 
 							foreach($files as $image)
 							{ 
-								$f= str_replace($dir,'',$image);?>
-								<img id="decor8" class="draggable elementRotate resizable ui-draggable" src="<?php echo $f;?>" style="max-width: 200px; max-height: 200px" title="Perso_object" alt="Object">
-								<?php }
-								?>										
+								$f= str_replace($dir,'',$image);?> #}
+								<img id="decor8" class="draggable elementRotate resizable ui-draggable" src="" style="max-width: 200px; max-height: 200px" title="Perso_object" alt="Object">
+								{# <?php }
+								?>			 #}							
 							</div>
 						</div>
 						<!-- Uploader des objets -->				
@@ -475,9 +482,14 @@
 						<hr class="style-one">
 
 						
-						<h4>Change color of props</h4>
+						<h4>Select color to Change props color</h4>
 						<div>
-							 <ul style="list-style:none;" class="changecolor">  
+							{# <input type="text" id="colorInputText"> #}
+							<input type="color" class="mb-3 btn-input rounded"  id="colorInputColor"><br>
+							<input type="button" class="btn btn-info btn-sm" id="colorButton" value="Click to Change Color" onclick="changeColor()">
+						</div>
+						{# <div>
+							 <ul class="changecolor">  
 								<li class="btnorange" id="btn-orange"></li>
 								<li class="btnvert" id="btn-vert"></li>
 								<li class="btnvert2" id="btn-vert2"></li>
@@ -485,7 +497,7 @@
 								<li class="btnbleu" id="btn-bleu"></li>
 								<li class="btnreset" id="btn-reset"></li>
 							</ul> 
-						</div>
+						</div> #}
 					
 						<!-- debut Grille fond de stage -->
 						<hr class="style-one">
@@ -496,7 +508,7 @@
 							
 								<div class="col-md-8 mx-auto">
 								<div class="row">
-									<div class="col-md-12 col-sm-5">
+									<div class="col-md-12 col-md-5">
 										<label class="modal-title" for="matchs_id">Associate stage to match 
 											<a class=" info modalhelp" data-toggle="modal" data-target="#exampleModalLong">
 												<i class="fa fa-info 2x iconinfo"></i>			
@@ -514,7 +526,7 @@
 									<!-- Selection match -->
 
 									<div class="row">
-									<div class="col-md-12 col-sm-5">
+									<div class="col-md-12 col-md-5">
 										<label class="labeltal" for="FirearmId">Firearm Type:</label>
 											<select class="form-control" name="FirearmId" id="FirearmId">
 												<option value="1" selected="selected">Handgun</option>
@@ -528,14 +540,14 @@
 									</div>
 
 									<div class="row text-align">
-									<div class="col-md-6 col-sm-3">
+									<div class="col-md-6 col-md-3">
 										<label for="ReportOn">ReportOn</label>
 										<select class="form-control" name="ReportOn" id="ReportOn">
 											<option value="0" selected="selected">Without</option>
 											<option value="1">With</option>		
 										</select>	
 									</div>
-									<div class="col-md-6 col-sm-3">
+									<div class="col-md-6 col-md-3">
 										<label for="StringCnt">StringCnt</label>
 										<select class="form-control" name="StringCnt" id="StringCnt">
 											<option value="0" selected="selected">Without</option>
@@ -545,7 +557,7 @@
 									</div>									
 
 									<div class="row">
-									<div class="col-md-6 col-sm-3">
+									<div class="col-md-6 col-md-3">
 										<label class="labeltal" for="TrgtTypeId">Type of Targets:</label>
 											<select class="form-control" name="TrgtTypeId" id="TrgtTypeId">
 												<option value="2" selected="selected">Classic</option>
@@ -553,7 +565,7 @@
 											</select>										
 									</div>
 
-									<div class="col-md-6 col-sm-3">									
+									<div class="col-md-6 col-md-3">									
 										<label class="labeltal" for="ScoringId">Type of Scoring:</label>
 											<select class="form-control" name="ScoringId" id="ScoringId">
 												<option value="1" selected="selected">Comstock</option>

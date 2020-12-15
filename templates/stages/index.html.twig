@@ -2,162 +2,162 @@
 
 {% block title 'Your Stages TSV STAGE MAKER !' %}
 
-{% block body %}
+  {% block body %}
 
-	<div class="container mt-10">
-		<h1 class="mb-3">Your stages</h1>
+   <div class="container mt-10">
+   <h1 class="mb-3">Your stages</h1>
 
-		<a class="btn btn-info btn-sm mb-5" href="{{ path('app_stage_create') }}">Create new stage</a>
-		<div class="d-flex justify-content-between"> 
-        <p class="h4 text-muted">{{ pluralize(app.user.stages|length, 'stage') }} created</p>
-        <input class="form-control col-md-4" id="filtre-input-stage-js" type="text" placeholder="Search..">        
-        </div>
+   <a class="btn btn-info btn-sm mb-5" href="{{ path('app_stage_create') }}">Create new stage</a>
+   <div class="d-flex justify-content-between"> 
+   <p class="h4 text-muted">{{ pluralize(app.user.stages|length, 'stage') }} created</p>
+   <input class="form-control col-md-4" id="filtre-input-stage-js" type="text" placeholder="Search..">        
+   </div>
 
-         {% if stages == null %}
-            <p>Sorry, No stage created yet !</p>  
-            {% else %}	
+   {% if stages == null %}
+    <p>Sorry, No stage created yet !</p>  
+    {% else %}	
 
-			{% for stage in app.user.stages %}
-                <div class="p-3 mb-3 mt-3 border border-info rounded" id="fonction2">
-                   <div class="rounded">
-                   {# <img src="{{ stage.getfileurlimg }}" width=230 height=330 title="{{ stage.getfileurlimg }}"> #}
-                   <a href="{{ path('app_stages_show', {id: stage.id}) }}"><img src="{{ asset(stage.getfileurlimg) }}" width=200 height=280 class="float-right stageimg" alt="{{ stage.getfileurlimg }}"></a>
-                   </div>
+     {% for stage in app.user.stages %}
+      <div class="p-3 mb-3 mt-3 border border-info rounded" id="fonction2">
+      <div class="rounded">
+      {# <img src="{{ stage.getfileurlimg }}" width=230 height=330 title="{{ stage.getfileurlimg }}"> #}
+      <a href="{{ path('app_stages_show', {id: stage.id}) }}"><img src="{{ asset(stage.getfileurlimg) }}" width=200 height=280 class="float-right stageimg" alt="{{ stage.getfileurlimg }}"></a>
+      </div>
 
-                  <div class="d-flex justify-flex-start">
-                     <h4><a href="{{ path('app_stages_show', {id: stage.id}) }}">{% if stage.Stagename == null %}Unknown stage{% else %}{{ stage.Stagename|capitalize }}{% endif %}</a></h4>   
+      <div class="d-flex justify-flex-start">
+      <h4><a href="{{ path('app_stages_show', {id: stage.id}) }}">{% if stage.Stagename == null %}Unknown stage{% else %}{{ stage.Stagename|capitalize }}{% endif %}</a></h4>   
                     {#  {% if stage.showall == true %}
                         <span class="material-icons-round iconstage share" title="Stage shared">share</span>
                         {% else %}
                             <span class="material-icons-round iconstage unshare" title="Stage unshared">share</span>
-                     {% endif %}   #}
+                            {% endif %}   #}
 
-                  </div>
-                                 
+                            </div>
+
                   {#  <p>Match: <b>{% for matchList in matchs %}                                 
                         {% if stage.getMatchs.id == matchList.getId %}                
                             {{ matchList.getname|capitalize }}
                             {% elseif stage.getMatchs.id == null %}
                                 unknown
                         {% endif %}
-                    {% endfor %}  </b> #}
-                                 
-                   </p>               
-                   <hr class="hr-stage">
-                   <ul class="media2">                       
-                   <li>Stage number: <strong>{{ stage.Stagenumber }}</strong></li>
-                   <li>Firearm type: 
-                   <strong>
-                   {% if  stage.getFirearmId == 1 %}
-                    Handgun
-                    {% elseif  stage.getFirearmId == 2 %}
-                    Rifle
-                    {% elseif  stage.getFirearmId == 3 %}
-                    Shotgun
-                    {% elseif  stage.getFirearmId == 5 %}
-                    Action Air
-                    {% elseif  stage.getFirearmId == 6 %}
-                    Mini-Rifle
-                    {% elseif  stage.getFirearmId == 7 %}
-                    Pistol Caliber Carbine %}
-                {% endif %}
-                </strong>
-                </li>
-                <li>Types of Course: 
-                <strong>
-                {% if stage.getCourseId  == 0 %}
-                    Standard Exercise Course
-                    {%  elseif  stage.getCourseId  == 1 %}
-                    Short Course
-                    {% elseif  stage.getCourseId  == 2 %}
-                    Medium Course
-                    {% elseif  stage.getCourseId  == 3 %}
-                    Long Course
-                {% endif %}
-                </strong>
-                </li>
-                <li>Min Rounds: <strong>{{ stage.getMinRounds }}</strong></li>
-                <li>Max Points: <strong>{{ stage.getMaxPoints }}</strong></li>
-                <li>Number of Targets: <strong>{{ stage.getTrgtPaper }}</strong></li>  
-                <li>Number of Popper: <strong>{{ stage.getTrgtPopper }}</strong></li>
-                <li>Number of Plates: <strong>{{ stage.getTrgtPlates }}</strong></li>
-                <li>Number of NoShoot: <strong>{{ stage.getTrgtPenlty }}</strong></li>
-                <li>Number of Bobber: <strong></strong>{{ stage.bobber }}</li>
-                <li>Number of Disappearing Targets: <strong>{{ stage.getTrgtVanish }}</strong></li>                     
-             </ul>
-             <hr class="hr-stage"> 
+                        {% endfor %}  </b> #}
 
-             <div class="buttonstages">
-                 {# <button class="btn btn-info btn-sm" onclick=" window.open('{{ stage.getFileurl }}', '_blank'); return false;">Download pdf</button> #}
-                 <a href="{{ stage.getFileurl }}" target="_blank" title="Download stage pdf"><span class="material-icons-round iconstage pdf">picture_as_pdf</span></a>
+                        </p>               
+                        <hr class="hr-stage">
+                        <ul class="media2">                       
+                          <li list-stage>Stage number: <strong>{{ stage.Stagenumber }}</strong></li>
+                           <li list-stage>Firearm type: 
+                          <strong>
+                          {% if  stage.getFirearmId == 1 %}
+                            Handgun
+                            {% elseif  stage.getFirearmId == 2 %}
+                            Rifle
+                            {% elseif  stage.getFirearmId == 3 %}
+                            Shotgun
+                            {% elseif  stage.getFirearmId == 5 %}
+                            Action Air
+                            {% elseif  stage.getFirearmId == 6 %}
+                            Mini-Rifle
+                            {% elseif  stage.getFirearmId == 7 %}
+                            Pistol Caliber Carbine %}
+                          {% endif %}
+                          </strong>
+                          </li>
+                           <li list-stage>Types of Course: 
+                          <strong>
+                          {% if stage.getCourseId  == 0 %}
+                            Standard Exercise Course
+                            {%  elseif  stage.getCourseId  == 1 %}
+                            Short Course
+                            {% elseif  stage.getCourseId  == 2 %}
+                            Medium Course
+                            {% elseif  stage.getCourseId  == 3 %}
+                            Long Course
+                          {% endif %}
+                          </strong>
+                          </li>
+                           <li list-stage>Min Rounds: <strong>{{ stage.getMinRounds }}</strong></li>
+                           <li list-stage>Max Points: <strong>{{ stage.getMaxPoints }}</strong></li>
+                           <li list-stage>Number of Targets: <strong>{{ stage.getTrgtPaper }}</strong></li>  
+                           <li list-stage>Number of Popper: <strong>{{ stage.getTrgtPopper }}</strong></li>
+                           <li list-stage>Number of Plates: <strong>{{ stage.getTrgtPlates }}</strong></li>
+                           <li list-stage>Number of NoShoot: <strong>{{ stage.getTrgtPenlty }}</strong></li>
+                           <li list-stage>Number of Bobber: <strong></strong>{{ stage.bobber }}</li>
+                           <li list-stage>Number of Disappearing Targets: <strong>{{ stage.getTrgtVanish }}</strong></li>                     
+                        </ul>
+                        <hr class="hr-stage"> 
 
-                 {# <button class="btn btn-info btn-sm" onclick=" window.open('{{ stage.getFileurlimg }}', '_blank'); return false;">Download image</button> #}
-                  <a href="{{ stage.getFileurlimg }}" target="_blank" title="Download stage image"><span class="material-icons-round iconstage img">perm_media</span></a>
+                        <div class="buttonstages">
+                        {# <button class="btn btn-info btn-sm" onclick=" window.open('{{ stage.getFileurl }}', '_blank'); return false;">Download pdf</button> #}
+                        <a href="{{ stage.getFileurl }}" target="_blank" title="Download stage pdf"><span class="material-icons-round iconstage pdf">picture_as_pdf</span></a>
 
-                 {# <a class="btn btn-success btn-sm btn-stage" href="showall.php?stageid=<?= $messtages['id'] ?>">Share to AllStages</a> #}
-                  {% if stage.showall == true %}
-                        {# <span class="material-icons-round iconstage unshare" title="Stage unshared">share</span> #}
-                         <a href="#" onclick="event.preventDefault(); document.getElementById('js-stage-unshared-form-{{ stage.id }}').submit();" title="unshare stage"><span class="material-icons-round iconstage unshare">share</span></a>
+                        {# <button class="btn btn-info btn-sm" onclick=" window.open('{{ stage.getFileurlimg }}', '_blank'); return false;">Download image</button> #}
+                        <a href="{{ stage.getFileurlimg }}" target="_blank" title="Download stage image"><span class="material-icons-round iconstage img">perm_media</span></a>
+
+                        {# <a class="btn btn-success btn-sm btn-stage" href="showall.php?stageid=<?= $messtages['id'] ?>">Share to AllStages</a> #}
+                        {% if stage.showall == true %}
+                          {# <span class="material-icons-round iconstage unshare" title="Stage unshared">share</span> #}
+                          <a href="#" onclick="event.preventDefault(); document.getElementById('js-stage-unshared-form-{{ stage.id }}').submit();" title="unshare stage"><span class="material-icons-round iconstage unshare">share</span></a>
                           <form id="js-stage-unshared-form-{{ stage.id }}" action="{{ path('app_stage_share', {'id': stage.id}) }}" method="post" style="display: none;">
+                          <input type="hidden" name="csrf_token" value="{{ csrf_token('stage_share_' ~ stage.id) }}">
+                          <input type="hidden" name="_method" value="POST">                 
+                          </form>
+                          {% else %}
+                            <a href="#" onclick="event.preventDefault(); document.getElementById('js-stage-share-form-{{ stage.id }}').submit();" title="Share stage"><span class="material-icons-round iconstage share">share</span></a>
+                            <form id="js-stage-share-form-{{ stage.id }}" action="{{ path('app_stage_share', {'id': stage.id}) }}" method="post" style="display: none;">
                             <input type="hidden" name="csrf_token" value="{{ csrf_token('stage_share_' ~ stage.id) }}">
                             <input type="hidden" name="_method" value="POST">                 
-                          </form>
-                        {% else %}
-                        <a href="#" onclick="event.preventDefault(); document.getElementById('js-stage-share-form-{{ stage.id }}').submit();" title="Share stage"><span class="material-icons-round iconstage share">share</span></a>
-                          <form id="js-stage-share-form-{{ stage.id }}" action="{{ path('app_stage_share', {'id': stage.id}) }}" method="post" style="display: none;">
-                            <input type="hidden" name="csrf_token" value="{{ csrf_token('stage_share_' ~ stage.id) }}">
-                            <input type="hidden" name="_method" value="POST">                 
-                          </form>
-                     {% endif %}  
-                
-
-                 {# <a class="btn btn-warning btn-sm btn-stage" href="{{ path('app_stage_edit', {'id': stage.id}) }}">Edit stage</a>  #}
-                 <a href="{{ path('app_stage_edit', {'id': stage.id}) }}" target="_blank" title="Modify stage"><span class="material-icons-round iconstage updatestage">create</span></a>
-
-                 <a href="#" title="Delete stage" onclick="event.preventDefault(); confirm('Are you sure you want to delete stage {{ stage.getstagename }} ?') && document.getElementById('js-stage-delete-form-{{ stage.id }}').submit();"><span class="material-icons-round iconstage deletestage">delete</span></a>
-
-                   {#  <a class="btn btn-danger btn-sm btn-stage" href="#" onclick="event.preventDefault(); confirm('Are you sure you want to delete stage {{ stage.getstagename }} ?') && document.getElementById('js-stage-delete-form-{{ stage.id }}').submit();">Delete</a> #}
-                            <form id="js-stage-delete-form-{{ stage.id }}" action="{{ path('app_stage_delete', {'id': stage.id}) }}" method="post" style="display: none;">
-                            <input type="hidden" name="csrf_token" value="{{ csrf_token('stage_deletion_' ~ stage.id) }}">
-                            <input type="hidden" name="_method" value="DELETE">                 
                             </form>
+                          {% endif %}  
 
 
-               {#    <a class="btn btn-danger btn-sm btn-stage" href="#" onclick="event.preventDefault(); confirm('Are you sure you want to delete stage {{ stage.getstagename }} ?') && document.getElementById('js-stage-delete-form').submit();">Delete</a>  #}                   
+                          {# <a class="btn btn-warning btn-sm btn-stage" href="{{ path('app_stage_edit', {'id': stage.id}) }}">Edit stage</a>  #}
+                          <a href="{{ path('app_stage_edit', {'id': stage.id}) }}" target="_blank" title="Modify stage"><span class="material-icons-round iconstage updatestage">create</span></a>
+
+                          <a href="#" title="Delete stage" onclick="event.preventDefault(); confirm('Are you sure you want to delete stage {{ stage.getstagename }} ?') && document.getElementById('js-stage-delete-form-{{ stage.id }}').submit();"><span class="material-icons-round iconstage deletestage">delete</span></a>
+
+                          {#  <a class="btn btn-danger btn-sm btn-stage" href="#" onclick="event.preventDefault(); confirm('Are you sure you want to delete stage {{ stage.getstagename }} ?') && document.getElementById('js-stage-delete-form-{{ stage.id }}').submit();">Delete</a> #}
+                          <form id="js-stage-delete-form-{{ stage.id }}" action="{{ path('app_stage_delete', {'id': stage.id}) }}" method="post" style="display: none;">
+                          <input type="hidden" name="csrf_token" value="{{ csrf_token('stage_deletion_' ~ stage.id) }}">
+                          <input type="hidden" name="_method" value="DELETE">                 
+                          </form>
+
+
+                          {#    <a class="btn btn-danger btn-sm btn-stage" href="#" onclick="event.preventDefault(); confirm('Are you sure you want to delete stage {{ stage.getstagename }} ?') && document.getElementById('js-stage-delete-form').submit();">Delete</a>  #}                   
 
                  {# <form id="js-stage-delete-form" action="{{ path('app_stage_delete', {'id': stage.id}) }}" method="post" style="display: none;">
                  <input type="hidden" name="csrf_token" value="{{ csrf_token('stage_deletion_' ~ stage.id) }}">
                  <input type="hidden" name="_method" value="DELETE"> #}
 
                  <div class="d-flex justify-content-between text-muted mt-3">   
-                     <small>
-                        <p class="card-text">Created at: {{ stage.createdAt|date }}</p>                 
-                     </small>  
-                      <small>
-                        <p class="card-text">Created by: {{ stage.user.firstName }}</p>              
-                     </small>  
-                     <small>                  
-                        <p class="card-text">Updated at: {{ stage.updatedAt|date }}</p>
-                     </small>
+                 <small>
+                 <p class="card-text">Created at: {{ stage.createdAt|date }}</p>                 
+                 </small>  
+                 <small>
+                 <p class="card-text">Created by: {{ stage.user.firstName }}</p>              
+                 </small>  
+                 <small>                  
+                 <p class="card-text">Updated at: {{ stage.updatedAt|date }}</p>
+                 </small>
                  </div>                
-             </div>
-                           
+                 </div>
+
+
+                 </div>
+               {% endfor %}
+
+               <nav aria-label="...">
+               <ul class="pagination">
+               <li>{{ knp_pagination_render(stages) }}</li>
+               </ul>
+               </nav>
+
+             {% endif %}
+
+
 
              </div>
-         {% endfor %}
-
-         <nav aria-label="...">
-          <ul class="pagination">
-            <li>{{ knp_pagination_render(stages) }}</li>
-          </ul>
-        </nav>
-         
-     {% endif %}
 
 
 
-	</div>
-		
-
-
-{% endblock %}
+           {% endblock %}

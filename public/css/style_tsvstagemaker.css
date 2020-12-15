@@ -107,7 +107,7 @@ html, body{
 
 				.abutton{
 					max-width: 500px; 
-					min-width: 250px; 
+					min-width: 270px; 
 					border: 1px solid;
 				}
 
@@ -183,19 +183,16 @@ html, body{
 						margin-top: 12px;
 					}
 
-
-
 				}
 
 				.noborder{
 					border: none; 
 					border-color: transparent;
 				}
-
+/*
 				.changecolor{
 					margin: 0;
 					padding: 5px 5px;
-					border: 1px solid #17a2b8;
 					background-color: #fff;
 					display: inline-block;
 					border-radius: 3px;
@@ -203,46 +200,46 @@ html, body{
 
 				.changecolor li{
 					list-style: none;
-					height: 30px;
-					width: 30px;
+					height: 20px;
+					width: 20px;
 					display: inline-block;
 					cursor: pointer;
 				}
 
 				.changecolor li.btnorange{
 					background-color: #FE9301; 
-					border-radius: 50%;
+					border-radius: 25%;
 					vertical-align: middle;
 				}
 				.changecolor li.btnvert{
 					background-color: #5BEA19; 
-					border-radius: 50%;
+					border-radius: 25%;
 					vertical-align: middle;
 				}
 
 				.changecolor li.btnvert2{
 					background-color: #3D963E; 
-					border-radius: 50%;
+					border-radius: 25%;
 					vertical-align: middle;
 				}
 
 				.changecolor li.btngris{
 					background-color: #C0BCBC;
-					border-radius: 50%;
+					border-radius: 25%;
 					vertical-align: middle; 
 				}
 
 				.changecolor li.btnbleu{
 					background-color: #2CA8F5; 
-					border-radius: 50%;
+					border-radius: 25%;
 					vertical-align: middle;
 				}
 
 				.changecolor li.btnreset{
 					background-color: #FF8000; 
-					border-radius: 50%;
+					border-radius: 25%;
 					vertical-align: middle;
-				}
+				}*/
 
 
 				.small-img{
@@ -269,10 +266,56 @@ html, body{
 				}
 
 
-				.infoi{
-					color: #ffffff;
+				.iconinfo{
+					color: #17a2b8;
+					font-size: 22px;
 				}
 
 				#elements{
 					min-height: 200px;
 				}
+
+				.btn-input{
+					margin-bottom: 1rem!important;
+					width: 19%;
+					height: 30px;
+					cursor: pointer;
+					border-color: #17a2b8;
+				}    
+
+
+				/*.svg-container {
+					display: inline-block;
+					position: relative;
+					width: 100%;
+					vertical-align: middle;
+					overflow: hidden;
+				}*/
+
+				.input-stagename{
+					text-align: center;
+					width: 100%;
+				}
+
+				/*@media(max-width:767px){
+					.input-stagename{
+					size: 29px;
+				}
+				}*/
+
+
+			/*	.svg-content {
+					display: inline-block;
+					position: absolute;
+					top: 0;
+					left: 0;
+					}*/
+
+					.alertify{
+						top: 50%;
+						left: 50%;
+						transform: translateY(-50% -50%);
+						margin: auto;
+					}
+
+					/*ajs-message ajs-success ajs-visible*/

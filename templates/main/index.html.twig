@@ -14,7 +14,28 @@
          <h2 class="helloAnim">{{ app.user.firstname|capitalize }},</h2>            
          <h3 class="readyAnim">Are you ready ?</h3>
          <h4 class="standbyAnim mb-3">Standby !</h4>               
-         <a class="text-style-shooter" href="{{ path('app_stage_create') }}"><h4 style="transform: scale(0);" class="creatAnim h1 registererAnim">Stage make ready !</h4></a>          
+         {# <a class="text-style-shooter" href="{{ path('app_stage_create') }}"><h4 style="transform: scale(0);" class="creatAnim h1 registererAnim">Stage make ready !</h4></a> #}
+         <a class="text-style-shooter" href="{{ path('app_stage_create') }}">
+           <ul class="ul-clign creatAnim h1 registererAnim" style="transform: scale(0);">
+             <li class="li-clign">S</li>
+             <li class="li-clign">t</li>
+             <li class="li-clign">a</li>
+             <li class="li-clign">g</li>
+             <li class="li-clign">e</li>
+             <li class="li-clign">&nbsp;</li>
+             <li class="li-clign">m</li>
+             <li class="li-clign">a</li>
+             <li class="li-clign">k</li>
+             <li class="li-clign">e</li>
+             <li class="li-clign">&nbsp;</li>
+             <li class="li-clign">r</li>
+             <li class="li-clign">e</li>
+             <li class="li-clign">a</li>
+             <li class="li-clign">d</li>
+             <li class="li-clign">y</li>
+             <li class="li-clign">!</li>
+           </ul> 
+         </a>     
       </div>
     </div>  
   </div>
@@ -29,8 +50,12 @@
         <h1 class="mb-5 titreAnim">{{ title }}</h1>
          <h2 class="helloAnim">Shooters,</h2> 
          <h3 class="readyAnim">Are you ready ?</h3> 
-         <h4 class="standbyAnim mb-3">Standby !</h4>                  
-        <a class="text-style-shooter" href="{{ path('app_register') }}"><h3 style="transform: scale(0);" class="creatAnim h1 registererAnim">Go to register !</h3> </a>         
+         <h4 class="standbyAnim mb-3">Standby !</h4> 
+         <div class="d-flex">
+           <a class="text-style-shooter mr-3" href="{{ path('app_register') }}"><h3 style="transform: scale(0);" class="creatAnim h1 registererAnim registererClign">Go to register !</h3> </a> 
+            <a class="text-style-shooter" href="{{ path('app_login') }}"><h3 style="transform: scale(0);" class="creatAnim h1 loginAnim registererClign2">Or sign up !</h3> </a>
+         </div>                 
+        
       </div>
     </div>  
   </div>
@@ -91,12 +116,13 @@
 
     <div class="slogan2">   
       <h3 style="color: #17a2b8;">Stage make ready !</h3>  <br>
-      <h4 style="text-align: center;">Prepare your training IPSC stages, <br> Prepare your IPSC stages, <br> Prepare your IPSC matches. </h4>        
-    </div> <br> 
-    <div class="col-12 col-md-12">
+      <h4 class="text-align mb-3">Prepare your training IPSC stages, <br> Prepare your IPSC stages, <br> Prepare your IPSC matches. </h4>        
+    </div>
+<section>
+    <div class="col-12 col-md-12 outer" id="fonction">
      <div class="media my-4">
       <span><img style="max-width: 35px;" src="{{ asset("images/logo_navbar.png") }}" alt="logo tsv stage maker" title="logo tsv stage maker"></span>
-      <div class="media-body ml-3">   
+      <div class="media-body ml-3 inner">   
       <h5 class="text-justify">TSV STAGE MAKER </h5>         
         <p class="text-justify">Allows you to prepare your ipsc stage quickly and very simply. <br>
           You will find multiple elements and objects, which will allow you to be creative while having fun! <br>
@@ -112,6 +138,7 @@
   </div>       
 </div>
 </div>
+</section>
 
 
 {# tEST SVG #}
@@ -212,7 +239,7 @@
 
 <div class="col-12 col-md-6 inner">
  <div class="media my-4">
-  <span><img style="max-width: 35px;" src="{{ asset("images/winmss.jpg") }}" alt="logo tsv stage maker" title="logo tsv stage maker"></span>
+  <span><img style="max-width: 35px;" class="rounded" src="{{ asset("images/winmss.jpg") }}" alt="logo tsv stage maker" title="logo tsv stage maker"></span>
   <div class="media-body ml-3">
     <h5 class="mt-0">Import files to WinMSS !</h5>
     <p class="text-justify">When you create a match and stages, XML files will be created to import them into the WinMSS application so you will optimize, facilitate and speed up the preparation of your matches !<br>Download <a href="https://www.ipsc.org/matches/winmss.php" target="_blank"> WinMSS</a></p>

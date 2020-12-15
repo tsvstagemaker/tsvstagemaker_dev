@@ -19,11 +19,11 @@ ul, li, ol{
 }
 
 .pdf{	
- 	color: #da181b; 	
+ 	/*color: #da181b; 	*/
 }
 
 .img{	
- 	color: #17a2b8; 	
+ 	/*color: #17a2b8; 	*/
 }
 
 .share{	
@@ -31,13 +31,26 @@ ul, li, ol{
 }
 
 .updatestage{	
- 	color: #ffc107; 	
+ 	/*color: #ffc107; 	*/
 }
 
 .deletestage{	
- 	color: #da181b; 	
+ 	/*color: #da181b; 	*/
 }
 
 .unshare{	
  	color: #4bff00; 	
+}
+
+.media2 {
+  list-style: none; /* Remove default bullets */
+}
+
+.media2 .list-stage::before {
+  content: "\2022";  /* Add content: \2022 is the CSS Code/unicode for a bullet */
+  color: red; /* Change the color */
+  font-weight: bold; /* If you want it to be bold */
+  display: inline-block; /* Needed to add space between the bullet and the text */
+  width: 1em; /* Also needed for space (tweak if needed) */
+  margin-left: -1em; /* Also needed for space (tweak if needed) */
 }

@@ -33,8 +33,8 @@
 										<div class="mt-3 mb-4">
 											<h4 class="mb-3">{{ app.user.pseudo|capitalize }}</h4>
 											<p class="text-muted"><small><span class="material-icons align-bottom">query_builder</span> Account created on {{ app.user.createdAt|date('m/d/Y') }}</small></p>
-											<a class="btn btn-outline-info" href="{{ path('app_edit_profile') }}">Edit profile</a>
-											<a class="btn btn-outline-info" href="{{ path('app_profile_change_password') }}">Change Password</a>
+											<a class="btn btn-outline-info mb-1" href="{{ path('app_edit_profile') }}">Edit profile</a>
+											<a class="btn btn-outline-info mb-1" href="{{ path('app_profile_change_password') }}">Change Password</a>
 										</div>
 									</div>
 								</div>
@@ -105,72 +105,76 @@
 								<div class="col-md-12">
 									<div class="card h-100" id="myTable">
 										<div class="card-body">
-											<h6 class="d-flex align-items-center mt-3"><i class="material-icons text-info mr-2">format_list_bulleted</i>{{ app.user.matchs|length }} &nbsp; IPSC Matchs</h6>
+										<div class="d-flex justify-content-between align-items-center mb-3">
+											<h6><i class="material-icons text-info mr-2 align-middle">format_list_bulleted</i>{{ app.user.matchs|length }} &nbsp; IPSC Matchs</h6>						
+											<a class="btn btn-outline-info btn-sm" href="{{ path('app_match_create') }}">Create new match</a>
+											<a class="btn btn-info btn-sm ml-3" href="{{ path('app_stage_create') }}">Create new stage</a>
+											</div>
 											{% for match in app.user.matchs %}
 
 														
 
-													<small class=""><a href="{{ path('app_match_show', {'id': match.id}) }}">{{ match.name }}</a></small> 
+													<small class=""><a class="a-profile-match" href="{{ path('app_match_show', {'id': match.id}) }}">{{ match.name|capitalize }}</a></small> 
 													<span class="material-icons align-bottom collaps-stage" data-toggle="collapse" data-target="#match{{ match.getId }}" data-parent="#myTable">expand_more</span>	
 													<span class="badge badge-info badge-pill">{{ match.getStages|length }}/{{ match.getNbrStage }}</span> 
 													<div class="progress mb-3" style="height: 13px">
-														<div class="progress-bar bg-info" role="progressbar" style="width: {{ match.getPercentStage|number_format(2, '.', ',') }}%" aria-valuenow="{{ match.stages|length }}" aria-valuemin="0%" aria-valuemax="{{ match.getNbrStage }}%">{{ match.getPercentStage|number_format(1, '.', ',') }}%</div>
+														<div class="progress-bar bg-info" role="progressbar" style="width: 0" aria-valuenow="{{ match.getPercentStage|number_format(1, '.', ',') }}" aria-valuemin="0" aria-valuemax="{{ match.getNbrStage }}">{{ match.getPercentStage|number_format(1, '.', ',') }}%</div>
 													</div>
 
 													<div id="match{{ match.getId }}" class="collapse mb-3">
 											            <div colspan="6" class="hiddenRow">
-											            <small><u><b>Stages list :</b></u></small>
+											            <small class="text-muted"><i class="material-icons text-info mr-2 align-middle">format_list_numbered</i>{{ match.getStages|length }}&nbsp; stages</small>
 
-											            {% for stagesListe in app.user.getStages %}
+											            {% for stagesList in match.getStages %}											            		
 											            <div class="table-responsive text-center rounded">
 											            <table class="table table-sm table-striped">
-											             <thead>
-											             	<tr class="table-info">
-											             		<th><small>stage name</small></th>	
-	 												         <th>  <small>stage number</small></th>	
-	 												         <th>  <small>maxpoints</small></th>	
-	 												          <th> <small>MinRounds</small>	</th>	
-	 												           <th> <small>Actions</small>	</th>											           									            	
-											            	</tr>
-											            	</thead>
-											            	<tbody>
-											            	<tr>											            		
-											            		<td><small><a href="{{ path('app_stages_show', {id: stagesListe.getid}) }}">{% if stagesListe.Stagename == null %}Unknown stage{% else %}{{ stagesListe.Stagename|capitalize }}{% endif %}</a></small></td>
-											            		<td><small>{{ stagesListe.stagenumber }}</small></td>
-											            		<td><small>{{ stagesListe.maxpoints }}</small></td>
-											            		<td><small>{{ stagesListe.MinRounds }}</small></td>
-											            		<td><small>
+												            <thead>
+													             <tr class="table-info">
+														             <th><small>stage name</small></th>	
+														             <th><small>stage number</small></th>	
+														             <th><small>maxpoints</small></th>	
+														             <th><small>MinRounds</small></th>	
+														             <th><small>Actions</small></th>											           									            	
+													             </tr>
+												            </thead>
+												            	<tbody>
+												            	<tr>											            		
+												            		<td><small><a class="a-profile-match" href="{{ path('app_stages_show', {id: stagesList.getid}) }}">{% if stagesList.Stagename == null %}Unknown stage{% else %}{{ stagesList.Stagename|capitalize }}{% endif %}</a></small></td>
+												            		<td><small>{{ stagesList.stagenumber }}</small></td>
+												            		<td><small>{{ stagesList.maxpoints }}</small></td>
+												            		<td><small>{{ stagesList.MinRounds }}</small></td>
+												            		<td><small>
 
-											            		<a href="{{ path('app_stages_show', {id: stagesListe.getid}) }}"><span class="material-icons-round iconsuser">visibility</span></a>
-											            		<a href="{{ stagesListe.getFileurl }}" target="_blank" title="Download stage pdf"><span class="material-icons-round iconsuser pdf">picture_as_pdf</span></a>
+												            		<a href="{{ path('app_stages_show', {id: stagesList.getid}) }}" title="View stage"><span class="material-icons-round iconsuser">visibility</span></a>
+												            		<a href="{{ stagesList.getFileurl }}" target="_blank" title="Download stage pdf"><span class="material-icons-round iconsuser pdf">picture_as_pdf</span></a>
 
-											            		 {% if stagesListe.showall == true %}										        
-										                         <a href="#" onclick="event.preventDefault(); document.getElementById('js-stage-unshared-form-{{ stagesListe.id }}').submit();" title="unshare stage"><span class="material-icons-round iconsuser unshare">share</span></a>
-										                          <form id="js-stage-unshared-form-{{ stagesListe.id }}" action="{{ path('app_stage_share', {'id': stagesListe.id}) }}" method="post" style="display: none;">
-										                            <input type="hidden" name="csrf_token" value="{{ csrf_token('stage_share_' ~ stagesListe.id) }}">
-										                            <input type="hidden" name="_method" value="POST">                 
-										                          </form>
-										                        {% else %}
+												            		 {% if stagesList.showall == true %}										        
+											                         <a href="#" onclick="event.preventDefault(); document.getElementById('js-stage-unshared-form-{{ stagesList.id }}').submit();" title="unshare stage"><span class="material-icons-round iconsuser unshare">share</span></a>
+											                          <form id="js-stage-unshared-form-{{ stagesList.id }}" action="{{ path('app_stage_share', {'id': stagesList.id}) }}" method="post" style="display: none;">
+											                            <input type="hidden" name="csrf_token" value="{{ csrf_token('stage_share_' ~ stagesList.id) }}">
+											                            <input type="hidden" name="_method" value="POST">                 
+											                          </form>
+											                        {% else %}
 
-										                        <a href="#" onclick="event.preventDefault(); document.getElementById('js-stage-share-form-{{ stagesListe.id }}').submit();" title="Share stage"><span class="material-icons-round iconsuser share">share</span></a>
-										                          <form id="js-stage-share-form-{{ stagesListe.id }}" action="{{ path('app_stage_share', {'id': stagesListe.id}) }}" method="post" style="display: none;">
-										                            <input type="hidden" name="csrf_token" value="{{ csrf_token('stage_share_' ~ stagesListe.id) }}">
-										                            <input type="hidden" name="_method" value="POST">                 
-										                          </form>
-										                     {% endif %}
+											                        <a href="#" onclick="event.preventDefault(); document.getElementById('js-stage-share-form-{{ stagesList.id }}').submit();" title="Share stage"><span class="material-icons-round iconsuser share">share</span></a>
+											                          <form id="js-stage-share-form-{{ stagesList.id }}" action="{{ path('app_stage_share', {'id': stagesList.id}) }}" method="post" style="display: none;">
+											                            <input type="hidden" name="csrf_token" value="{{ csrf_token('stage_share_' ~ stagesList.id) }}">
+											                            <input type="hidden" name="_method" value="POST">                 
+											                          </form>
+											                     {% endif %}
 
-											            		<a href="{{ path('app_stage_edit', {'id': stagesListe.getid}) }}" target="_blank" title="Modify stage"><span class="material-icons iconsuser updatestage">create</span></a>
+												            		<a href="{{ path('app_stage_edit', {'id': stagesList.getid}) }}" target="_blank" title="Modify stage"><span class="material-icons iconsuser updatestage">create</span></a>
 
-											            		 <a href="#" title="Delete stage" onclick="event.preventDefault(); confirm('Are you sure you want to delete stage {{ stagesListe.getstagename }} ?') && document.getElementById('js-stage-delete-form-{{ stagesListe.id }}').submit();"><span class="material-icons-round iconsuser deletestage">delete</span></a>
-										
-										                            <form id="js-stage-delete-form-{{ stagesListe.id }}" action="{{ path('app_stage_delete', {'id': stagesListe.id}) }}" method="post" style="display: none;">
-										                            <input type="hidden" name="csrf_token" value="{{ csrf_token('stage_deletion_' ~ stagesListe.id) }}">
-										                            <input type="hidden" name="_method" value="DELETE">                 
-										                            </form>
-											            			
-											            		</small></td>
-											            	</tr>											            		
-											            	</tbody>
+												            		 <a href="#" title="Delete stage" onclick="event.preventDefault(); confirm('Are you sure you want to delete stage {{ stagesList.getstagename }} ?') && document.getElementById('js-stage-delete-form-{{ stagesList.id }}').submit();"><span class="material-icons-round iconsuser deletestage">delete</span></a>
+											
+											                            <form id="js-stage-delete-form-{{ stagesList.id }}" action="{{ path('app_stage_delete', {'id': stagesList.id}) }}" method="post" style="display: none;">
+											                            <input type="hidden" name="csrf_token" value="{{ csrf_token('stage_deletion_' ~ stagesList.id) }}">
+											                            <input type="hidden" name="_method" value="DELETE">                 
+											                            </form>
+												            			
+												            		</small></td>
+												            	</tr>											            		
+												            	</tbody>
 											            </table>
 											            	
 											            </div>
@@ -185,19 +189,23 @@
 										</div>
 									</div>
 								</div>
-							{# 	<div class="col-md-6 mb-3">
+					{# 			<div class="col-md-12 mb-3 mt-3">
 									<div class="card h-100">
 										<div class="card-body">
-											<h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">format_list_numbered</i>{{ app.user.stages|length }}&nbsp; IPSC stages  </h6>
-											<small>Web Design</small>
+										<div class="d-flex justify-content-between align-items-center mb-3">
+											<h6><i class="material-icons text-info mr-2 align-middle">format_list_numbered</i>{{ app.user.stages|length }}&nbsp; IPSC stages  </h6>
+											<a class="btn btn-outline-info btn-sm ml-3" href="{{ path('app_stage_create') }}">Create new stage</a>
+										</div>
+											
+											<small>Handgun</small>
 											<div class="progress mb-3" style="height: 5px">
 												<div class="progress-bar bg-info" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
 											</div>
-											<small>Website Markup</small>
+											<small>PCC</small>
 											<div class="progress mb-3" style="height: 5px">
 												<div class="progress-bar bg-info" role="progressbar" style="width: 72%" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
 											</div>
-											<small>One Page</small>
+											<small>Rifle</small>
 											<div class="progress mb-3" style="height: 5px">
 												<div class="progress-bar bg-info" role="progressbar" style="width: 89%" aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"></div>
 											</div>
@@ -212,6 +220,7 @@
 										</div>
 									</div>
 								</div> #}
+
 							</div>
 						
 					

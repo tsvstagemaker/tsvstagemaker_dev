@@ -117,17 +117,20 @@ class StagesController extends AbstractController
                 // $file->move($path_img,$filenameimg);         
        
                 // $image->move($this->getParameter('upload_directory'), $filename);
-                 // dd($data);
+                // dd($data);
                  
                  
-                 // Debut enregistrement db
+                // Debut enregistrement db
 
                 $stages->setUser($this->getUser());
 
-                // match id                        
-                 // $stages->setMatchsId($data['MatchsId']); 
-                 //$stages->setMatchsId($data['MatchsId'],$matchsrepo);
-                // $stages->setMatchsId($this->getMatchsId($data['matchs_id']));
+                // dd($data);
+
+                // match id 
+                // $MatchsId = $data['MatchsId'];                     
+                // $stages->setMatchsId($MatchsId[0]); 
+                // $stages->setMatchsId($data['MatchsId'],$matchsrepo);                
+                // $stages->setMatchsId($this->$MatchsId);
                 // $stages->setMatchsId($this->getMatchsId());               
            
 
@@ -151,7 +154,7 @@ class StagesController extends AbstractController
                 // $stages->setCreatedAt(new \DateTime()); 
                 // $stages->setUpdatedAt(new \DateTime());               
                 
-            //  stages->setIcsStageId($data['ics_stage_id']);
+                // stages->setIcsStageId($data['ics_stage_id']);
                 $stages->setTrgtPaper($data['TrgtPaper']);
                 $stages->setTrgtPopper($data['TrgtPopper']);
                 $stages->setTrgtPlates($data['TrgtPlates']);
@@ -233,13 +236,10 @@ class StagesController extends AbstractController
             
             if ($this->isCsrfTokenValid('stage_edit', $data['_token']))
             {  
-                 // dd($_SERVER['DOCUMENT_ROOT']);
-
+               
                 $file = $request->files->get('file');
 
-
-                 $stages = new Stages;       
-
+                 $stages = new Stage; 
 
         //  traitement image recu
 
@@ -247,15 +247,12 @@ class StagesController extends AbstractController
                 $file = explode(";", $file)[1];
                 $file = explode(",", $file)[1];
                 $file = str_replace(" ", "+", $file);
-                $file = base64_decode($file);  
-                // dd($file); 
-                // $file  = $_FILES['file']['tmp_name'];
-                            
+                $file = base64_decode($file);                            
 
         // traitement infos recu
                 $stagename = $data['stagename'];
                 $stagename = preg_replace("# #", "_", $stagename);                    
-                $stagename = preg_replace( "# #", "_", $data['stagename']); 
+                // $stagename = preg_replace( "# #", "_", $data['stagename']); 
                 $stagenumber = $data['stagenumber'];       
 
                 
@@ -274,19 +271,18 @@ class StagesController extends AbstractController
                 // file_put_contents($fileurl, $file);
                 file_put_contents($fileurlimg, $file);
 
-                move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . $fileurl);
-
-                // $file->move($path_pdf,$filename);  
-                // $file->move($path_img,$filenameimg);         
-       
-                // $image->move($this->getParameter('upload_directory'), $filename);
-                 // dd($stages);
+                move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . $fileurl);              
+                 
+                 // Debut enregistrement db
 
                 $stages->setUser($this->getUser());
-
-                // match id 
-                $matchs = $data['matchs_id'];                
-                // $stages->setMatchs($this->getMatchs());
+           
+                // match id                        
+                 // $stages->setMatchsId($data['MatchsId']); 
+                // $stages->setMatchsId($data['MatchsId'],$matchsrepo);
+                // $MatchsId = $data['MatchsId'];
+                // $stages->setMatchsId($this->$MatchsId);
+                // $stages->setMatchsId($this->getMatchsId());
 
                 $stages->setstagenumber($stagenumber);
                 $stages->setstagename($data['stagename']);
@@ -302,10 +298,7 @@ class StagesController extends AbstractController
                 $stages->setStringCnt($data['StringCnt']);
                 $stages->setFirearmId($data['FirearmId']);
                 $stages->setTrgtTypeId($data['TrgtTypeId']);
-                $stages->setScoringId($data['ScoringId']);
-
-                // $stages->setCreatedAt(new \DateTime()); 
-                // $stages->setUpdatedAt(new \DateTime());               
+                $stages->setScoringId($data['ScoringId']);              
                 
             //  stages->setIcsStageId($data['ics_stage_id']);
                 $stages->setTrgtPaper($data['TrgtPaper']);
@@ -323,7 +316,6 @@ class StagesController extends AbstractController
                 $stages->setDatastage($data['datastage']);
 
                 $em->persist($stages);
-
                 $em->flush();
 
             }
