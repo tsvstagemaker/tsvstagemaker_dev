@@ -73,10 +73,10 @@
 									<hr>
 									<div class="row">
 										<div class="col-sm-3">
-											<h6 class="mb-0">IPSC CLUB</h6>
+											<h6 class="mb-0">IPSC club</h6>
 										</div>
 										<div class="col-sm-9 text-secondary">
-											{{ app.user.club|capitalize }}
+											{{ app.user.club }}
 										</div>
 									</div>
 									<hr>
@@ -85,7 +85,7 @@
 											<h6 class="mb-0">Country</h6>
 										</div>
 										<div class="col-sm-9 text-secondary">
-											{{ app.user.region|capitalize }}
+											{{ app.user.region}}
 										</div>
 									</div>
 									<hr>
@@ -94,7 +94,7 @@
 											<h6 class="mb-0">IPSC Division</h6>
 										</div>
 										<div class="col-sm-9 text-secondary">
-											{{ app.user.division|capitalize }}
+											{{ app.user.division }}
 										</div>
 									</div>
 								</div>
@@ -125,18 +125,35 @@
 											            <div colspan="6" class="hiddenRow">
 											            <small class="text-muted"><i class="material-icons text-info mr-2 align-middle">format_list_numbered</i>{{ match.getStages|length }}&nbsp; stages</small>
 
-											            {% for stagesList in match.getStages %}											            		
+											            {# {% for stagesList in match.getStages %}	 #}										            		
 											            <div class="table-responsive text-center rounded">
 											            <table class="table table-sm table-striped">
 												            <thead>
 													             <tr class="table-info">
-														             <th><small>stage name</small></th>	
-														             <th><small>stage number</small></th>	
-														             <th><small>maxpoints</small></th>	
-														             <th><small>MinRounds</small></th>	
-														             <th><small>Actions</small></th>											           									            	
+														             <th>
+														             	<small>stage name</small>
+														             </th>	
+														             <th>
+														            	 <small>stage number</small>
+														             </th>	
+														             <th>
+														            	 <small>maxpoints</small>
+														             </th>	
+														             <th>
+														            	 <small>MinRounds</small>
+														             </th>	
+														             <th>
+														            	 <small>Actions</small>
+														             </th>
+														             <th>
+															             <small>
+															             <label for="select-all">Actions multiples</label>
+															             	
+															             </small>
+														             </th>										           									            	
 													             </tr>
 												            </thead>
+												            {% for stagesList in match.getStages %}	
 												            	<tbody>
 												            	<tr>											            		
 												            		<td><small><a class="a-profile-match" href="{{ path('app_stages_show', {id: stagesList.getid}) }}">{% if stagesList.Stagename == null %}Unknown stage{% else %}{{ stagesList.Stagename|capitalize }}{% endif %}</a></small></td>
@@ -145,40 +162,64 @@
 												            		<td><small>{{ stagesList.MinRounds }}</small></td>
 												            		<td><small>
 
-												            		<a href="{{ path('app_stages_show', {id: stagesList.getid}) }}" title="View stage"><span class="material-icons-round iconsuser">visibility</span></a>
-												            		<a href="{{ stagesList.getFileurl }}" target="_blank" title="Download stage pdf"><span class="material-icons-round iconsuser pdf">picture_as_pdf</span></a>
+												            		{# view stage #}
+												            		<a href="{{ path('app_stages_show', {id: stagesList.getid}) }}" title="View stage">
+												            		<span class="material-icons-round iconsuser">visibility</span>
+												            		</a>
 
+												            		{# Download stage #}
+												            		<a href="{{ stagesList.getFileurl }}" target="_blank" title="Download stage pdf">
+												            		<span class="material-icons-round iconsuser pdf">picture_as_pdf</span>
+												            		</a>
+
+												            		{# Unshare stage #}
 												            		 {% if stagesList.showall == true %}										        
 											                         <a href="#" onclick="event.preventDefault(); document.getElementById('js-stage-unshared-form-{{ stagesList.id }}').submit();" title="unshare stage"><span class="material-icons-round iconsuser unshare">share</span></a>
 											                          <form id="js-stage-unshared-form-{{ stagesList.id }}" action="{{ path('app_stage_share', {'id': stagesList.id}) }}" method="post" style="display: none;">
-											                            <input type="hidden" name="csrf_token" value="{{ csrf_token('stage_share_' ~ stagesList.id) }}">
+											                            <input type="hidden" name="csrf_token" value="{{ csrf_token('stage_share_profile' ~ stagesList.id) }}">
 											                            <input type="hidden" name="_method" value="POST">                 
 											                          </form>
 											                        {% else %}
 
+											                        {# Share stage #}	
 											                        <a href="#" onclick="event.preventDefault(); document.getElementById('js-stage-share-form-{{ stagesList.id }}').submit();" title="Share stage"><span class="material-icons-round iconsuser share">share</span></a>
 											                          <form id="js-stage-share-form-{{ stagesList.id }}" action="{{ path('app_stage_share', {'id': stagesList.id}) }}" method="post" style="display: none;">
-											                            <input type="hidden" name="csrf_token" value="{{ csrf_token('stage_share_' ~ stagesList.id) }}">
+											                            <input type="hidden" name="csrf_token" value="{{ csrf_token('stage_share_profile' ~ stagesList.id) }}">
 											                            <input type="hidden" name="_method" value="POST">                 
 											                          </form>
-											                     {% endif %}
+											                     	{% endif %}
 
-												            		<a href="{{ path('app_stage_edit', {'id': stagesList.getid}) }}" target="_blank" title="Modify stage"><span class="material-icons iconsuser updatestage">create</span></a>
+											                     	{# Mofify stage #}
+												            		<a href="{{ path('app_stage_edit', {'id': stagesList.getid}) }}" target="_blank" title="Modify stage">
+												            		<span class="material-icons iconsuser updatestage">create</span>
+												            		</a>
 
-												            		 <a href="#" title="Delete stage" onclick="event.preventDefault(); confirm('Are you sure you want to delete stage {{ stagesList.getstagename }} ?') && document.getElementById('js-stage-delete-form-{{ stagesList.id }}').submit();"><span class="material-icons-round iconsuser deletestage">delete</span></a>
-											
+												            		{# Delete stage #}
+												            		 <a href="#" title="Delete stage" onclick="event.preventDefault(); confirm('Are you sure you want to delete stage {{ stagesList.getstagename }} ?') && document.getElementById('js-stage-delete-form-{{ stagesList.id }}').submit();">
+												            		 <span class="material-icons-round iconsuser deletestage">delete</span>
+												            		 </a>
+
+												            		 {# Form Delete stage #}											
 											                            <form id="js-stage-delete-form-{{ stagesList.id }}" action="{{ path('app_stage_delete', {'id': stagesList.id}) }}" method="post" style="display: none;">
-											                            <input type="hidden" name="csrf_token" value="{{ csrf_token('stage_deletion_' ~ stagesList.id) }}">
+											                            <input type="hidden" name="csrf_token" value="{{ csrf_token('stage_deletion_profil_' ~ stagesList.id) }}">
 											                            <input type="hidden" name="_method" value="DELETE">                 
 											                            </form>
 												            			
-												            		</small></td>
+												            		</small>
+												            		</td>
+												            		<td>
+												            		<small>
+												            		 {# <label class="form-check-label" for="exampleCheck1">Check me out</label> #}
+												            		<input type="checkbox" class="form-check-input select-stage" id="exampleCheck1">
+												            		</small>
+												            		</td>
 												            	</tr>											            		
 												            	</tbody>
+												            	{% endfor %}
 											            </table>
 											            	
 											            </div>
-											            {% endfor %}
+											            
 											            </div>
 											        </div>							
 

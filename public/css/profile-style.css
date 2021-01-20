@@ -70,6 +70,12 @@ footer{
     vertical-align: middle;
 }
 
+ @media(max-width:767px){
+.iconsuser{
+    font-size: 13px;
+}
+}
+
 .pdf{   
     /*color: #da181b;*/
 }
@@ -116,3 +122,7 @@ footer{
   width: 0;
 }*/
 
+.select-stage{
+
+    margin-left: -0.5rem;
+}

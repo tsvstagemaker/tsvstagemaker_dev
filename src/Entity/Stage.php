@@ -90,7 +90,7 @@ class Stage
     private $MinRounds;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $ReportOn;
 
@@ -181,6 +181,11 @@ class Stage
      * @ORM\ManyToOne(targetEntity=Matchs::class, inversedBy="stages")
      */
     private $MatchsId;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $Withdraw;
 
     public function getId(): ?int
     {
@@ -343,12 +348,12 @@ class Stage
         return $this;
     }
 
-    public function getReportOn(): ?int
+    public function getReportOn(): ?string
     {
         return $this->ReportOn;
     }
 
-    public function setReportOn(?int $ReportOn): self
+    public function setReportOn(?string $ReportOn): self
     {
         $this->ReportOn = $ReportOn;
 
@@ -559,6 +564,18 @@ class Stage
         return $this;
     }
 
+    public function getWithdraw(): ?string
+    {
+        return $this->Withdraw;
+    }
+
+    public function setWithdraw(?string $Withdraw): self
+    {
+        $this->Withdraw = $Withdraw;
+
+        return $this;
+    }
+
       public function __toString()
     {
         return $this->getStagename();
@@ -575,4 +592,5 @@ class Stage
          } 
         $this->setUpdatedAt(new \DateTimeImmutable);
     }
+    
 }

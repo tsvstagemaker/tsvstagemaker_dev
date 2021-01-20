@@ -312,7 +312,7 @@
       list-style: none;
       font-family: 'Dancing Script', cursive;
       color: #fff;
-      font-size: 40px; 
+      font-size: 30px; 
       animation: flash2 2.6s linear infinite;
     }
 
@@ -337,6 +337,178 @@
       animation-delay: .1s;
     }
 
-     .registererClign2:nth-child(1){
+    .registererClign2:nth-child(1){
       animation-delay: .3s;
-    2
+    }
+
+    .btn-start{
+      max-width: 75px; 
+    }
+
+    
+
+.btn-btn-start {
+  box-shadow:inset 0px 1px 0px 0px #f9eca0;
+  background:linear-gradient(to bottom, #f0c911 5%, #f2ab1e 100%);
+  background-color:#f0c911;
+  border-radius:6px;
+  border:1px solid #e65f44;
+  display:inline-block;
+  cursor:pointer;
+  color:#c92200;
+  font-family:Arial;
+  font-size:15px;
+  font-weight:bold;
+  padding:6px 24px;
+  text-decoration:none;
+  text-shadow:0px 1px 0px #ded17c;
+}
+.btn-btn-start:hover {
+  background:linear-gradient(to bottom, #f2ab1e 5%, #f0c911 100%);
+  background-color:#f2ab1e;
+}
+.btn-btn-start:active {
+  position:relative;
+  top:1px;
+}
+
+
+
+
+
+    .bobber-all{
+      /*display: flex;*/
+      text-align: -webkit-center;
+    }
+
+    /*.bobber-image{
+      width: 420px;
+      height: 530px;
+      object-fit: cover;
+      object-position: 0 0
+      }*/
+
+
+      .box-panneau {
+        width: 597px;
+        height: 480px;
+        background: url(/images/Panneau1_new.png);
+        background-repeat: no-repeat;
+        background-size: 530px;
+        margin-top: 149px;
+        position: absolute;
+        margin-left: 285px;
+      }
+
+        .box-popper{
+      position: absolute;
+      top: 50%;
+      left: 76%;
+      transform: translate(-50%, -50%);
+      width: calc(400px / 5);
+      height: 160px;
+      background: url(/images/sprit/spritePopper.png);
+      animation-name: animate-popper;
+      animation-duration: 3s;
+      animation-timing-function: steps(5);
+      /*animation-delay: 2s;*/
+      /*animation-iteration-count: 6.5;*/
+      animation-direction: alternate;
+      animation-fill-mode: forwards;
+      /*animation-play-state: paused;*/
+      /*animation: animate-bobber 1.5s steps(9) infinite;*/
+      /*animation-direction: alternate;*/
+    }
+      
+      .box-bobber{
+      /*position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);*/
+      width: calc(3780px / 9);
+      height: 530px;
+      background: url(/images/sprit/bobberSprit.png);
+      animation-name: animate-bobber;
+      animation-duration: 1s;
+      animation-timing-function: steps(9);
+      animation-delay: 6s;
+      animation-iteration-count: 6.5;
+      animation-direction: alternate;
+      animation-fill-mode: forwards;
+      animation-play-state: paused;
+      /*animation: animate-bobber 1.5s steps(9) infinite;*/
+      /*animation-direction: alternate;*/
+    }
+    .play {
+      -webkit-animation-play-state: running;
+      animation-play-state: running;
+    }
+
+      @keyframes animate-popper
+    {
+      to
+      {
+        background-position: 0;
+      }
+       from
+      {
+        background-position: -400;
+      }     
+
+    }
+    
+    @keyframes animate-bobber
+    {
+      0%
+      {
+        background-position: 0;
+      }
+       44%
+      {
+        background-position: -420;
+      }
+       88%
+      {
+        background-position: -2940;
+      }
+      100%
+      {
+        background-position: -3780px;
+      }
+
+    }
+
+   /* .box-bobber:nth-child(1){
+      background-position: -1680 0;
+    }
+
+    .box-bobber:nth-child(2){
+      background-position: -1260 0;
+    }
+
+    .box-bobber:nth-child(3){      
+      background-position: -840 0;
+    }
+    .box-bobber:nth-child(4){     
+      background-position: -420 0; 
+    }
+
+    .box-bobber:nth-child(5){ 
+      background-position: 0 0;  
+    }
+
+    .box-bobber:nth-child(6){      
+      background-position: 420 0;
+    }
+
+    .box-bobber:nth-child(7){      
+     background-position: 840 0;
+    }
+
+    .box-bobber:nth-child(8){      
+      background-position: 1260 0;
+    }
+
+    .box-bobber:nth-child(9){      
+      background-position: 1680 0;
+    }*/

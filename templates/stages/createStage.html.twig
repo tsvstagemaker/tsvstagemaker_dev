@@ -3,6 +3,11 @@
 {% block title 'Create stages TSV STAGE MAKER !' %}
 {% block stylesheets %}
 <link rel="stylesheet" href="{{ asset('css/style_tsvstagemaker.css') }}" />
+{# <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.min.css"> #}
+{# <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/black-tie/jquery-ui.min.css"> #}
+{# <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/black-tie/theme.min.css"> #}
+
+
 {% endblock %}
 
 {% block body %}
@@ -20,6 +25,27 @@
 </div>
 <!-- Loader DVC -->
 
+
+ <!-- / The Context Menu -->
+    <nav id="context-menu" class="context-menu">
+        <ul class="context-menu__items">
+            <li class="context-menu__item">
+                <a href="#" class="context-menu__link" data-action="deleteItem"><i class="fa fa-trash"></i> Delete Item</a>
+            </li>
+            <li class="context-menu__item">
+                <a href="#" class="context-menu__link" data-action="rotateItem"><i class="fa fa-refresh"></i> Rotate Item</a>
+            </li>
+            <li class="context-menu__item">
+                <a href="#" class="context-menu__link" data-action="resizeItem"><i class="fa fa-expand"></i> Resize Item</a>
+            </li>
+            <li class="context-menu__item">
+                <a href="#" class="context-menu__link" data-action="warpableItem"><img style="width: 13px;" src="{{ asset('images/svg/bezier-curve-solid.svg') }}"> Warpe Item</a>
+            </li>                    
+        </ul>
+    </nav>
+    <!-- End # Context Menu -->
+
+
 <div class="container-fluid">
 	<div class="section0" id="main">
 		{# Partie de droite, dropzone et tableau #}
@@ -31,7 +57,7 @@
                 &copy; {{ 'now'|date('Y') }} &middot;
                 Version 3.0 Built by YB <a href="https://www.tsvstagemaker.fr">tsvstagemaker.fr &reg;</a>                          
             </small> 
-            </p>           
+            </p>
 			</div>
 
 			{# Tableau de calcule  #}
@@ -88,14 +114,29 @@
 										<option value="20">3</option>         
 									</select>
 								</label> 
-								<label class="labeltal">Types of Course:
-									<select class="noborder font-weight-bold" name="CourseId" id="ConditionCourseId" onchange="()">
+
+					<label class="labeltal">Types of Course:
+                      <select class="noborder font-weight-bold" name="CourseId" id="ConditionCourseId"> 
+
+                      </select>
+                      </label>
+
+
+								{# <label class="labeltal">Types of Course:
+
+								<select class="noborder font-weight-bold" name="CourseId" id="ConditionCourseId"></select>
 										<option value="0">STD EXERCISE</option> 
-										<option id="shortc" value="1" selected="selected">SHORT COURSE</option> 
-										<option id="medco" value="2">MEDIUM COURSE</option>
-										<option id="lonco" value="3">LONG COURSE</option>                         
+								 		<p style="display: none;" id="shortc" value="1">SHORT COURSE</p> 
+										<p style="display: none;" id="medco" value="2">MEDIUM COURSE</p>
+										<p style="display: none;" id="lonco" value="3">LONG COURSE</p> 
+
+									<select class="noborder font-weight-bold" name="CourseId" id="ConditionCourseId">
+										{# <option value="0">STD EXERCISE</option> 
+										<option style="display: none;" id="shortc" value="1">SHORT COURSE</option> 
+										<option style="display: none;" id="medco" value="2">MEDIUM COURSE</option>
+										<option style="display: none;" id="lonco" value="3">LONG COURSE</option>                         
 									</select>
-								</label>
+								</label> #}
 							</th>
 						</tr>
 					</thead>
@@ -104,8 +145,9 @@
 							<td colspan="2" rowspan="2">
 								<div class="d-inline-flex">
 									<img src="{{ asset('images/LogoBallecoups.png') }}" title="Rounds" style="max-height: 45px;">&nbsp;
-									<p class=" MinRounds" id="nbcp"name="MinRounds" id="MinRounds"></p>
-									<p class=" MinRounds">&nbsp;Min rounds</p> <!-- Nombre de coup -->
+									{# <p class="MinRounds" id="nbcp" name="MinRounds">10</p> #}
+									<p class="MinRounds" id="nbcp" name="MinRounds"></p>
+									<p class="MinRounds">&nbsp;Min rounds</p> <!-- Nombre de coup -->
 								</div>
 							</td>
 							<td> 
@@ -156,9 +198,8 @@
 						<tr>
 							<td style="padding: 0px; max-width:700px;overflow:auto;" class="notestage " colspan="10">
 							<label for="Descriptn"> Procedure: </label>
-								<div class="noborder" rows="3" cols="55"  contenteditable='true'>
-									<p class="text-break p-StartPos-Descriptn" id="Descriptn" name="Descriptn">Exemple: Standing erect, 
-									facing downrange with arms hanging naturally by the sides.</p>                        
+								<div class="noborder" rows="3" cols="55" contenteditable='true'>
+									<p class="text-break p-StartPos-Descriptn" id="Descriptn" name="Descriptn">Exemple: Engage targets as they become visible.</p>                 
 								</div>
 								<br>                
 							</td>
@@ -178,57 +219,60 @@
 						<div id="paper">
 
 							<!-- Cible papier -->			
-							<img id="paper1" class="draggable elementRotate resizable TrgtPaper" src="{{ asset('images/IPSC_Mini_Target.png') }}" title="mini target ipsc" alt="minitarget"> 
-							<img id="paper1" class="draggable elementRotate resizable TrgtPaper" src="{{ asset('images/IPSC_Mini_Target_iso1.png') }}" title="mini target ipsc" alt="minitarget">
-							<img id="paper1" class="draggable elementRotate resizable TrgtPaper" src="{{ asset('images/IPSC_Mini_Target_iso2.png') }}" title="mini target ipsc" alt="minitarget">
-							<img id="paper1" class="draggable elementRotate resizable TrgtPaper" src="{{ asset('images/IPSC_Target.png') }}" title="Standard target ipsc" alt="target"> 
-							<img id="paper1" class="draggable elementRotate resizable TrgtPaper" src="{{ asset('images/IPSC_Target_iso1.png') }}" title="Standard target ipsc" alt="target"> 
-							<img id="paper1" class="draggable elementRotate resizable TrgtPaper" src="{{ asset('images/IPSC_Target_iso2.png') }}" title="Standard target ipsc" alt="target"> 
+							<img id="paper1" class="draggable elementsDraggable TrgtPaper" src="{{ asset('images/IPSC_Mini_Target.png') }}" title="mini target ipsc" alt="minitarget"> 
+							<img id="paper1" class="draggable elementsDraggable TrgtPaper" src="{{ asset('images/IPSC_Mini_Target_iso1.png') }}" title="mini target ipsc" alt="minitarget">
+							<img id="paper1" class="draggable elementsDraggable TrgtPaper" src="{{ asset('images/IPSC_Mini_Target_iso2.png') }}" title="mini target ipsc" alt="minitarget">
+
+							{# <img id="paper1" class="draggable elementsDraggable TrgtPaper" src="{{ asset('images/IPSC_Target.png') }}" title="Standard target ipsc" alt="target"> #}
+							<img id="paper1" class="draggable elementsDraggable TrgtPaper" src="{{ asset('images/svg/ipsc-target.svg') }}" style="width: 60px;" title="Standard target ipsc" alt="target"> 
+
+							<img id="paper1" class="draggable elementsDraggable TrgtPaper" src="{{ asset('images/IPSC_Target_iso1.png') }}" title="Standard target ipsc" alt="target"> 
+							<img id="paper1" class="draggable elementsDraggable TrgtPaper" src="{{ asset('images/IPSC_Target_iso2.png') }}" title="Standard target ipsc" alt="target"> 
 
 							<!-- Bobber -->
-							<img id="paper1" class="draggable elementRotate resizable TrgtPaper" src="{{ asset('images/IPSC_BobberD_new.png') }}" title="Bobber droit" alt="bobber">	
-							<img id="paper1" class="draggable elementRotate resizable TrgtPaper" src="{{ asset('images/IPSC_BobberG_new.png') }}" title="Bobber gauche" alt="bobber">
-							<img id="paper1" class="draggable elementRotate resizable TrgtPaper" src="{{ asset('images/IPSC_BobberCentre_new.png') }}" title="Bobber centre" alt="bobber">
-							<img id="paper1" class="draggable elementRotate resizable TrgtPaper" src="{{ asset('images/IPSC_Bobber_profile_G_new.png') }}" title="Bobber centre" alt="bobber">
-							<img id="paper1" class="draggable elementRotate resizable TrgtPaper" src="{{ asset('images/IPSC_Bobber_profile_D_new.png') }}" title="Bobber centre" alt="bobber">
-							<img id="paper1" class="draggable elementRotate resizable TrgtPaper" src="{{ asset('images/IPSC_Bobber_Face_new.png') }}" title="Bobber centre" alt="bobber">
-							{# <img id="paper1" class="draggable elementRotate resizable TrgtPaper" src="{{ asset('images/IPSC_Bobber_mover.gif') }}" title="Bobber anime" alt="bobber"> #}
+							<img id="paper1" class="draggable elementsDraggable TrgtPaper" src="{{ asset('images/IPSC_BobberD_new.png') }}" title="Bobber droit" alt="bobber">	
+							<img id="paper1" class="draggable elementsDraggable TrgtPaper" src="{{ asset('images/IPSC_BobberG_new.png') }}" title="Bobber gauche" alt="bobber">
+							<img id="paper1" class="draggable elementsDraggable TrgtPaper" src="{{ asset('images/IPSC_BobberCentre_new.png') }}" title="Bobber centre" alt="bobber">
+							<img id="paper1" class="draggable elementsDraggable TrgtPaper" src="{{ asset('images/IPSC_Bobber_profile_G_new.png') }}" title="Bobber centre" alt="bobber">
+							<img id="paper1" class="draggable elementsDraggable TrgtPaper" src="{{ asset('images/IPSC_Bobber_profile_D_new.png') }}" title="Bobber centre" alt="bobber">
+							<img id="paper1" class="draggable elementsDraggable TrgtPaper" src="{{ asset('images/IPSC_Bobber_Face_new.png') }}" title="Bobber centre" alt="bobber">
+							{# <img id="paper1" class="draggable elementsDraggable TrgtPaper" src="{{ asset('images/IPSC_Bobber_mover.gif') }}" title="Bobber anime" alt="bobber"> #}
 
 							<!-- Demi cible -->
-							<img id="paper1" class="draggable elementRotate resizable TrgtPaper" src="{{ asset('images/IPSC_demi_Target.png') }}" title="Demi target ipsc" alt="target">
+							<img id="paper1" class="draggable elementsDraggable TrgtPaper" src="{{ asset('images/IPSC_demi_Target.png') }}" title="Demi target ipsc" alt="target">
 							
 
 							<!-- Cibles a bande -->
-							<img id="paper1" class="draggable elementRotate resizable TrgtPaper" src="{{ asset('images/IPSC_Target_BNC_sol.png') }}" title="Standard target ipsc bande noire cote" alt="target">
-							<img id="paper1" class="draggable elementRotate resizable TrgtPaper" src="{{ asset('images/IPSC_Target_BNM.png') }}" title="Standard target ipsc bande noire milieu" alt="target">
-							<img id="paper1" class="draggable elementRotate resizable TrgtPaper" src="{{ asset('images/IPSC_Target_BNM_iso1.png') }}" title="Standard target ipsc bande noire milieu"  alt="target">
-							<img id="paper1" class="draggable elementRotate resizable TrgtPaper" src="{{ asset('images/IPSC_Target_BNM_iso2.png') }}" title="Standard target ipsc bande noire milieu"  alt="target">
+							<img id="paper1" class="draggable elementsDraggable TrgtPaper" src="{{ asset('images/IPSC_Target_BNC_sol.png') }}" title="Standard target ipsc bande noire cote" alt="target">
+							<img id="paper1" class="draggable elementsDraggable TrgtPaper" src="{{ asset('images/IPSC_Target_BNM.png') }}" title="Standard target ipsc bande noire milieu" alt="target">
+							<img id="paper1" class="draggable elementsDraggable TrgtPaper" src="{{ asset('images/IPSC_Target_BNM_iso1.png') }}" title="Standard target ipsc bande noire milieu"  alt="target">
+							<img id="paper1" class="draggable elementsDraggable TrgtPaper" src="{{ asset('images/IPSC_Target_BNM_iso2.png') }}" title="Standard target ipsc bande noire milieu"  alt="target">
 
 							<!-- Cibles NoShoot -->	
-							<img id="paper1" class="draggable elementRotate resizable TrgtPenlty" src="{{ asset('images/IPSC_Target_NS2.png') }}" title="Standard NS ipsc" alt="targetNS">	
-							<img id="paper1" class="draggable elementRotate resizable TrgtPenlty" src="{{ asset('images/IPSC_Target_NS.png') }}" title="Standard NS ipsc" alt="targetNS">																		
-							<img id="paper1" class="draggable elementRotate resizable TrgtPenlty" src="{{ asset('images/IPSC_Target_NS2_iso1.png') }}" title="Standard NS ipsc" alt="targetNS">
-							<img id="paper1" class="draggable elementRotate resizable TrgtPenlty" src="{{ asset('images/IPSC_Target_NS2_iso2.png') }}" title="Standard NS ipsc" alt="targetNS">
-							<img id="paper1" class="draggable elementRotate resizable TrgtPenlty" src="{{ asset('images/IPSC_Target_NS2_iso3.png') }}" title="Standard NS ipsc" alt="targetNS">					
-							<img id="paper1" class="draggable elementRotate resizable TrgtPenlty" src="{{ asset('images/IPSC_Target_NS2_iso4.png') }}" title="Standard NS ipsc" alt="targetNS">
+							<img id="paper1" class="draggable elementsDraggable TrgtPenlty" src="{{ asset('images/IPSC_Target_NS2.png') }}" title="Standard NS ipsc" alt="targetNS">	
+							<img id="paper1" class="draggable elementsDraggable TrgtPenlty" src="{{ asset('images/IPSC_Target_NS.png') }}" title="Standard NS ipsc" alt="targetNS">																		
+							<img id="paper1" class="draggable elementsDraggable TrgtPenlty" src="{{ asset('images/IPSC_Target_NS2_iso1.png') }}" title="Standard NS ipsc" alt="targetNS">
+							<img id="paper1" class="draggable elementsDraggable TrgtPenlty" src="{{ asset('images/IPSC_Target_NS2_iso2.png') }}" title="Standard NS ipsc" alt="targetNS">
+							<img id="paper1" class="draggable elementsDraggable TrgtPenlty" src="{{ asset('images/IPSC_Target_NS2_iso3.png') }}" title="Standard NS ipsc" alt="targetNS">					
+							<img id="paper1" class="draggable elementsDraggable TrgtPenlty" src="{{ asset('images/IPSC_Target_NS2_iso4.png') }}" title="Standard NS ipsc" alt="targetNS">
 							
 
 							<!-- Cibles SOL piege a balles -->
-							<img id="paper1" class="draggable elementRotate resizable TrgtPaper" src="{{ asset('images/ciblepiegeD.png') }}" width="34" title="ciblesol" alt="target">	
-							<img id="paper1" class="draggable elementRotate resizable TrgtPaper" src="{{ asset('images/ciblepiegeG.png') }}" width="34" title="ciblesol" alt="target">	
-							<img id="paper1" class="draggable elementRotate resizable TrgtPaper" src="{{ asset('images/ciblepiege.png') }}" width="38" title="ciblesol" alt="target">	
+							<img id="paper1" class="draggable elementsDraggable TrgtPaper" src="{{ asset('images/ciblepiegeD.png') }}" width="34" title="ciblesol" alt="target">	
+							<img id="paper1" class="draggable elementsDraggable TrgtPaper" src="{{ asset('images/ciblepiegeG.png') }}" width="34" title="ciblesol" alt="target">	
+							<img id="paper1" class="draggable elementsDraggable TrgtPaper" src="{{ asset('images/ciblepiege.png') }}" width="38" title="ciblesol" alt="target">	
 
 						</div>				
 						<button  title="Toutes les cibles métalique" class="btn btn-info btn-accordion"><img src="{{ asset('images/IPSC_Popper.svg') }}"  width="20" height="25">&nbsp;IPSC Steel Target</button>	
 						<div id="metalp">
 
 							<!-- Cibles Metaliques -->
-							<img id="metal1" class="draggable elementRotate resizable TrgtPopper"  src="{{ asset('images/IPSC_miniPopper.svg') }}"  title="Mini popper" alt="minipopper"> 
-							<img id="metal2" class="draggable elementRotate resizable TrgtPopper" src="{{ asset('images/IPSC_Popper.svg') }}"  title="Popper" alt="popper"> 
-							<img id="metal3" style="width:20px;height:45px" class="draggable elementRotate resizable TrgtPlates" src="{{ asset('images/IPSC_Plate_R.png') }}" title="Plate ronde" alt="plate"> 
-							<img id="metal4" style="width:20px;height:45px" class="draggable elementRotate resizable TrgtPlates" src="{{ asset('images/IPSC_Plate_C.png') }}" title="Plate carre" alt="plate"> 
-							<img id="metal3" style="width:10Px;height:10px" class="draggable elementRotate resizable TrgtPlates" src="{{ asset('images/IPSC_Plate_R_sol.png') }}" title="Plate ronde sol" alt="plate"> 
-							<img id="metal4" style="width:10px;height:10px" class="draggable elementRotate resizable TrgtPlates" src="{{ asset('images/IPSC_Plate_C_sol.png') }}" title="Plate carre sol"alt="plate"> 
+							<img id="metal1" class="draggable elementsDraggable TrgtPopper"  src="{{ asset('images/IPSC_miniPopper.svg') }}"  title="Mini popper" alt="minipopper"> 
+							<img id="metal2" class="draggable elementsDraggable TrgtPopper" src="{{ asset('images/IPSC_Popper.svg') }}"  title="Popper" alt="popper"> 
+							<img id="metal3" style="width:20px;height:45px" class="draggable elementsDraggable TrgtPlates" src="{{ asset('images/IPSC_Plate_R.png') }}" title="Plate ronde" alt="plate"> 
+							<img id="metal4" style="width:20px;height:45px" class="draggable elementsDraggable TrgtPlates" src="{{ asset('images/IPSC_Plate_C.png') }}" title="Plate carre" alt="plate"> 
+							<img id="metal3" style="width:10Px;height:10px" class="draggable elementsDraggable TrgtPlates" src="{{ asset('images/IPSC_Plate_R_sol.png') }}" title="Plate ronde sol" alt="plate"> 
+							<img id="metal4" style="width:10px;height:10px" class="draggable elementsDraggable TrgtPlates" src="{{ asset('images/IPSC_Plate_C_sol.png') }}" title="Plate carre sol"alt="plate"> 
 						</div>		
 
 						<button  title="Tout les Panneaux et lignes de faute" class="btn btn-info btn-accordion"><img src="{{ asset('images/Panneau3_fenetre_new.png') }}" width="30" height="25" >&nbsp;Props & fault lines</button>	
@@ -239,13 +283,13 @@
 							{# inclusion twig #}						
 							{# {{ source('@public_path'~asset('images/svg/panneau.svg')) }} #}
 
-						{# 	<canvas id="canvas" class="draggable elementRotate resizable">
+						{# 	<canvas id="canvas" class="draggable elementsDraggable">
 								
 							</canvas>
  #}
 							<!-- svg direct dans le code -->							
-						{# 	<div class="svg-container"> #}
-								<svg id="decorsvg" class="draggable elementRotate resizable svg-content" width="91" height="64" viewBox="0 0 91 64">
+						{# 	<div class="svg-container"> #}					
+								<svg id="decorsvg" class="draggable elementsDraggable svg-content" width="91" height="64" viewBox="0 0 91 64">
 									<rect x="6.20657" y="42" width="1.42056" height="21" transform="rotate(14.3552 6.20657 42)" fill="#5779B6" />
 									<rect x="6.02635" y="41.6958" width="1.92056" height="21.5" transform="rotate(14.3552 6.02635 41.6958)" stroke="black" stroke-opacity="0.6" stroke-width="0.5" />
 									<rect x="82.9484" y="42.3693" width="1.42056" height="21" transform="rotate(-14.6511 82.9484 42.3693)" fill="#5779B6" />
@@ -255,46 +299,46 @@
 						{# 	</div> #}
 
 							 {# svg en balise img  #}
-							<img id="decor5" class="draggable elementRotate resizable" src="{{ asset('images/svg/panneau.svg') }}"  width="80" title="Panneausvg" alt="Panneausvg">
+							<img id="decor5" class="draggable elementsDraggable" src="{{ asset('images/svg/panneau.svg') }}"  width="80" title="Panneausvg" alt="Panneausvg">
 
-							<img id="decor5" class="draggable elementRotate resizable" src="{{ asset('images/Panneau_tsv1.svg') }}"  width="80" title="Panneausvg" alt="Panneausvg">
+							<img id="decor5" class="draggable elementsDraggable" src="{{ asset('images/Panneau_tsv1.svg') }}"  width="80" title="Panneausvg" alt="Panneausvg">
 
 							 {# img en balise img  #}
-							<img id="decor5" class="draggable elementRotate resizable" src="{{ asset('images/Panneau1_new.png') }}" width="80" title="Panneau" alt="Panneau1">
-							<img id="decor5" class="draggable elementRotate resizable" src="{{ asset('images/Panneau2_new.png') }}" width="60" title="Panneau" alt="Panneau2"> 
-							<img id="decor5" class="draggable elementRotate resizable" src="{{ asset('images/Panneau2_new.png') }}" width="60"height="65" title="Panneau" alt="Panneau2"> 
-							<img id="decor5" class="draggable elementRotate resizable" src="{{ asset('images/Panneau11_new.png') }}" width="40" title="Panneau" alt="Panneau1">
-							<img id="decor5" class="draggable elementRotate resizable" src="{{ asset('images/Panneau12_new.png') }}" width="42" title="Panneau" alt="Panneau1">
-							<img id="decor5" class="draggable elementRotate resizable" src="{{ asset('images/panneau__droit1.png') }}" width="40" title="Panneau" alt="Panneau2">
-							<img id="decor5" class="draggable elementRotate resizable" src="{{ asset('images/panneau__droit2.png') }}" width="39" title="Panneau" alt="Panneau2">
-							<img id="decor5" class="draggable elementRotate resizable" src="{{ asset('images/Panneau7_new.png') }}" width="30" title="Panneau" alt="Panneau1">
-							<img id="decor5" class="draggable elementRotate resizable" src="{{ asset('images/Panneau8_new.png') }}" width="30" title="Panneau" alt="Panneau1">
+							<img id="decor5" class="draggable elementsDraggable" src="{{ asset('images/Panneau1_new.png') }}" width="80" title="Panneau" alt="Panneau1">
+							<img id="decor5" class="draggable elementsDraggable" src="{{ asset('images/Panneau2_new.png') }}" width="60" title="Panneau" alt="Panneau2"> 
+							<img id="decor5" class="draggable elementsDraggable" src="{{ asset('images/Panneau2_new.png') }}" width="60"height="65" title="Panneau" alt="Panneau2"> 
+							<img id="decor5" class="draggable elementsDraggable" src="{{ asset('images/Panneau11_new.png') }}" width="40" title="Panneau" alt="Panneau1">
+							<img id="decor5" class="draggable elementsDraggable" src="{{ asset('images/Panneau12_new.png') }}" width="42" title="Panneau" alt="Panneau1">
+							<img id="decor5" class="draggable elementsDraggable" src="{{ asset('images/panneau__droit1.png') }}" width="40" title="Panneau" alt="Panneau2">
+							<img id="decor5" class="draggable elementsDraggable" src="{{ asset('images/panneau__droit2.png') }}" width="39" title="Panneau" alt="Panneau2">
+							<img id="decor5" class="draggable elementsDraggable" src="{{ asset('images/Panneau7_new.png') }}" width="30" title="Panneau" alt="Panneau1">
+							<img id="decor5" class="draggable elementsDraggable" src="{{ asset('images/Panneau8_new.png') }}" width="30" title="Panneau" alt="Panneau1">
 
 							<!-- Panneaux a fenetres -->
-							<img id="decor5" class="draggable elementRotate resizable" src="{{ asset('images/Panneau3_fenetre_new.png') }}"width="83" title="Panneau" alt="Panneau3"> 
-							<img id="decor5" class="draggable elementRotate resizable" src="{{ asset('images/Panneau4 fenetre_new.png') }}" width="60"width="40" title="Panneau" alt="Panneau4">
-							<img id="decor5" class="draggable elementRotate resizable" src="{{ asset('images/Panneau5_fenetre_new.png') }}" width="60" title="Panneau" alt="Panneau5">
-							<img id="decor5" class="draggable elementRotate resizable" src="{{ asset('images/Panneau6_fenetre_new.png') }}" width="60" title="Panneau" alt="Panneau6">
+							<img id="decor5" class="draggable elementsDraggable" src="{{ asset('images/Panneau3_fenetre_new.png') }}"width="83" title="Panneau" alt="Panneau3"> 
+							<img id="decor5" class="draggable elementsDraggable" src="{{ asset('images/Panneau4 fenetre_new.png') }}" width="60"width="40" title="Panneau" alt="Panneau4">
+							<img id="decor5" class="draggable elementsDraggable" src="{{ asset('images/Panneau5_fenetre_new.png') }}" width="60" title="Panneau" alt="Panneau5">
+							<img id="decor5" class="draggable elementsDraggable" src="{{ asset('images/Panneau6_fenetre_new.png') }}" width="60" title="Panneau" alt="Panneau6">
 							
-							<img id="decor5" class="draggable elementRotate resizable" src="{{ asset('images/Panneau9_new.png') }}" width="60" title="Panneau" alt="Panneau1">
-							<img id="decor5" class="draggable elementRotate resizable" src="{{ asset('images/Panneau10_new.png') }}" width="60" title="Panneau" alt="Panneau1">
+							<img id="decor5" class="draggable elementsDraggable" src="{{ asset('images/Panneau9_new.png') }}" width="60" title="Panneau" alt="Panneau1">
+							<img id="decor5" class="draggable elementsDraggable" src="{{ asset('images/Panneau10_new.png') }}" width="60" title="Panneau" alt="Panneau1">
 							
-							<img id="decor5" class="draggable elementRotate resizable" src="{{ asset('images/Panneau13_fenetre_new.png') }}" width="45" title="Panneau" alt="Panneau1">
-							<img id="decor5" class="draggable elementRotate resizable" src="{{ asset('images/Panneau14_fenetre_new.png') }}" width="45" title="Panneau" alt="Panneau1">
+							<img id="decor5" class="draggable elementsDraggable" src="{{ asset('images/Panneau13_fenetre_new.png') }}" width="45" title="Panneau" alt="Panneau1">
+							<img id="decor5" class="draggable elementsDraggable" src="{{ asset('images/Panneau14_fenetre_new.png') }}" width="45" title="Panneau" alt="Panneau1">
 
 							<!-- Lignes de faute -->
-							<img id="decor1" class="draggable elementRotate resizable" style="width: 80px; height: 6px" src="{{ asset('images/faultline1.png') }}" title="ligne de faute" alt="faultline1"> 
-							<img id="decor3" class="draggable elementRotate resizable" style="height: 80px; width: 6px" src="{{ asset('images/faultline2.png') }}" title="ligne de faute" alt="faultline2">
-							<img id="decor4" class="draggable elementRotate resizable" style="width: 60px; height: 50px" src="{{ asset('images/faultline3.png') }}" title="ligne de faute" alt="faultline3">
-							<img id="decor4" class="draggable elementRotate resizable" style="width: 60px; height: 30px" src="{{ asset('images/faultline4.png') }}" title="ligne de faute" alt="faultline4">
-							<img id="decor1" class="draggable elementRotate resizable" style="width: 150px;" src="{{ asset('images/faultline5.png') }}" title="ligne de faute" alt="faultline5"> 
-							<img id="decor3" class="draggable elementRotate resizable" style="height: 150px;" src="{{ asset('images/faultline6.png') }}" title="ligne de faute" alt="faultline6">
+							<img id="decor1" class="draggable elementsDraggable" style="width: 80px; height: 6px" src="{{ asset('images/faultline1.png') }}" title="ligne de faute" alt="faultline1"> 
+							<img id="decor3" class="draggable elementsDraggable" style="height: 80px; width: 6px" src="{{ asset('images/faultline2.png') }}" title="ligne de faute" alt="faultline2">
+							<img id="decor4" class="draggable elementsDraggable" style="width: 60px; height: 50px" src="{{ asset('images/faultline3.png') }}" title="ligne de faute" alt="faultline3">
+							<img id="decor4" class="draggable elementsDraggable" style="width: 60px; height: 30px" src="{{ asset('images/faultline4.png') }}" title="ligne de faute" alt="faultline4">
+							<img id="decor1" class="draggable elementsDraggable" style="width: 150px;" src="{{ asset('images/faultline5.png') }}" title="ligne de faute" alt="faultline5"> 
+							<img id="decor3" class="draggable elementsDraggable" style="height: 150px;" src="{{ asset('images/faultline6.png') }}" title="ligne de faute" alt="faultline6">
 
 							<!-- Marques -->
-							<img id="decor3" class="draggable elementRotate resizable" style="width: 4px;height: 25px" src="{{ asset('images/mark1.png') }}" title="mark1" alt="mark">	
-							<img id="decor3" class="draggable elementRotate resizable" style="width: 25px;height: 4px" src="{{ asset('images/mark2.png') }}" title="mark2" alt="mark">
-							<img id="decor3" class="draggable elementRotate resizable" style="width: 4px;height: 25px" src="{{ asset('images/mark3.png') }}" title="mark1" alt="mark">	
-							<img id="decor3" class="draggable elementRotate resizable" style="width: 25px;height: 4px" src="{{ asset('images/mark4.png') }}" title="mark2" alt="mark">															
+							<img id="decor3" class="draggable elementsDraggable" style="width: 4px;height: 25px" src="{{ asset('images/mark1.png') }}" title="mark1" alt="mark">	
+							<img id="decor3" class="draggable elementsDraggable" style="width: 25px;height: 4px" src="{{ asset('images/mark2.png') }}" title="mark2" alt="mark">
+							<img id="decor3" class="draggable elementsDraggable" style="width: 4px;height: 25px" src="{{ asset('images/mark3.png') }}" title="mark1" alt="mark">	
+							<img id="decor3" class="draggable elementsDraggable" style="width: 25px;height: 4px" src="{{ asset('images/mark4.png') }}" title="mark2" alt="mark">															
 						</div>											
 
 						<button  title="Tout les Accessoires et décors" class="btn btn-info btn-accordion"><img src="{{ asset('images/Porte1.gif') }}" width="10" height="25" >&nbsp;Accessories & Decors</button>	
@@ -302,66 +346,66 @@
 
 							<!-- Accessoire -->
 							<!-- Declencheur -->
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/declencheur.png') }}" width="40" title="Déclencheur"  title="Fleche" alt="déclencheur">
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/declencheur_pieds2.png') }}" width="25" title="Déclencheur pieds"  alt="declencheur_pieds">
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/declencheur_pieds.png') }}" width="25" title="Déclencheur pieds" alt="declencheur_pieds">
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/declencheur.png') }}" width="40" title="Déclencheur"  title="Fleche" alt="déclencheur">
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/declencheur_pieds2.png') }}" width="25" title="Déclencheur pieds"  alt="declencheur_pieds">
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/declencheur_pieds.png') }}" width="25" title="Déclencheur pieds" alt="declencheur_pieds">
 
 							<!-- Cooper -->
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/tunnel_Cooper1.png') }}" width="80" title="Tunnel_Cooper" alt="tunnel_Cooper">
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/tunnel_Cooper.png') }}" width="40" title="Tunnel_Cooper" alt="tunnel_Cooper">
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/tunnel_Cooper1.png') }}" width="80" title="Tunnel_Cooper" alt="tunnel_Cooper">
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/tunnel_Cooper.png') }}" width="40" title="Tunnel_Cooper" alt="tunnel_Cooper">
 
 							<!-- Tube -->
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/tube_new1.png') }}" width="40" title="Tube" alt="tube">
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/tube_new.png') }}" width="28" title="Tube" alt="tube"> 
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/tube_new2.png') }}" width="40" title="Tube" alt="tube">
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/tube_new3.png') }}" width="40" title="Tube" alt="tube">
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/tube_new1.png') }}" width="40" title="Tube" alt="tube">
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/tube_new.png') }}" width="28" title="Tube" alt="tube"> 
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/tube_new2.png') }}" width="40" title="Tube" alt="tube">
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/tube_new3.png') }}" width="40" title="Tube" alt="tube">
 
 							<!-- Porte plates -->
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/Porte_plate_X6.png') }}" width="50" title="Porte plate X6" alt="Porte_plate_X6">
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/Porte_plate_X2.png') }}" width="50" title="Porte plate X2" alt="Porte_plate_X2">
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/Porte_plate_X6.png') }}" width="50" title="Porte plate X6" alt="Porte_plate_X6">
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/Porte_plate_X2.png') }}" width="50" title="Porte plate X2" alt="Porte_plate_X2">
 
 							<!-- Tables -->
-							<img id="decor8" class="draggable elementRotate resizable" style="width:60px;height:36px" src="{{ asset('images/Table.png') }}" title="Table" alt="table">
-							<img id="decor8" class="draggable elementRotate resizable" style="width:30px;height:52px" src="{{ asset('images/Table1.gif') }}" title="Table" alt="table"> 
-							<img id="decor8" class="draggable elementRotate resizable" style="width:30px;height:52px" src="{{ asset('images/table_new.png') }}" title="Table" alt="table">
+							<img id="decor8" class="draggable elementsDraggable" style="width:60px;height:36px" src="{{ asset('images/Table.png') }}" title="Table" alt="table">
+							<img id="decor8" class="draggable elementsDraggable" style="width:30px;height:52px" src="{{ asset('images/Table1.gif') }}" title="Table" alt="table"> 
+							<img id="decor8" class="draggable elementsDraggable" style="width:30px;height:52px" src="{{ asset('images/table_new.png') }}" title="Table" alt="table">
 
 							<!-- Box -->
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/Boite.png') }}"  width="40" title="Box" alt="boite">
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/Boite.png') }}"  width="40" title="Box" alt="boite">
 
 							<!-- Chaises -->
-							<img id="decor8" class="draggable elementRotate resizable" style="width:20px;height:52px" src="{{ asset('images/chaise1.png') }}" title="Chaise" alt="chaise">
-							<img id="decor8" class="draggable elementRotate resizable" style="width:18px;height:48px" src="{{ asset('images/chaise2.png') }}" title="Chaise" alt="chaise">
-							<img id="decor8" class="draggable elementRotate resizable" style="width:20px;height:52px" src="{{ asset('images/chaise3.png') }}" title="Chaise" alt="chaise">
+							<img id="decor8" class="draggable elementsDraggable" style="width:20px;height:52px" src="{{ asset('images/chaise1.png') }}" title="Chaise" alt="chaise">
+							<img id="decor8" class="draggable elementsDraggable" style="width:18px;height:48px" src="{{ asset('images/chaise2.png') }}" title="Chaise" alt="chaise">
+							<img id="decor8" class="draggable elementsDraggable" style="width:20px;height:52px" src="{{ asset('images/chaise3.png') }}" title="Chaise" alt="chaise">
 
 							<!-- Porte -->
-							<img id="decor8" class="draggable elementRotate resizable" style="width:40px;height:110px" src="{{ asset('images/Porte1.gif') }}" title="Porte" alt="porte">
-							<img id="decor8" class="draggable elementRotate resizable" style="width:40px;height:110px" src="{{ asset('images/Porte2.gif') }}" title="Porte" alt="porte">
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/porte3.png') }}" width="40" title="porte" alt="porte">
+							<img id="decor8" class="draggable elementsDraggable" style="width:40px;height:110px" src="{{ asset('images/Porte1.gif') }}" title="Porte" alt="porte">
+							<img id="decor8" class="draggable elementsDraggable" style="width:40px;height:110px" src="{{ asset('images/Porte2.gif') }}" title="Porte" alt="porte">
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/porte3.png') }}" width="40" title="porte" alt="porte">
 
 							<!-- baril pneus -->
-							<img id="decor8" class="draggable elementRotate resizable" style="width:35px;height:52px" src="{{ asset('images/baril.png') }}" title="Baril" alt="baril">		
-							<img id="decor8" class="draggable elementRotate resizable" style="width:50px;height:52px" src="{{ asset('images/PilePneus.png') }}" title="PilePneus" alt="PilePneus">
+							<img id="decor8" class="draggable elementsDraggable" style="width:35px;height:52px" src="{{ asset('images/baril.png') }}" title="Baril" alt="baril">		
+							<img id="decor8" class="draggable elementsDraggable" style="width:50px;height:52px" src="{{ asset('images/PilePneus.png') }}" title="PilePneus" alt="PilePneus">
 
 							<!-- tireur -->
-							<img id="decor8" class="draggable elementRotate resizable" style="width:63px;height:75px" src= "{{ asset('images/TireurIPSC.png') }}" title="Tireur" alt="moi">
+							<img id="decor8" class="draggable elementsDraggable" style="width:63px;height:75px" src= "{{ asset('images/TireurIPSC.png') }}" title="Tireur" alt="moi">
 
 							<!-- Fleches  -->
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/Flechedia1.png') }}" height="90" width="75" title="Fleche" alt="fleche">
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/Flechedia2.png') }}" height="90" width="75" title="Fleche" alt="fleche">
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/Flechedia3.png') }}" height="90" width="75" title="Fleche" alt="fleche">
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/Flechedia4.png') }}" width="75" title="Fleche" alt="fleche">
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/Fleche1.png') }}" width="10" title="Fleche" alt="fleche">
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/Fleche2.png') }}" width="10" title="Fleche" alt="fleche">
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/Fleche3.png') }}" width="100" title="Fleche" alt="fleche">
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/Fleche4.png') }}" width="100" title="Fleche" alt="fleche">
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/Fleche5.png') }}" width="50" title="Fleche" alt="fleche">
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/Fleche6.png') }}" width="50" title="Fleche" alt="fleche">
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/Fleche7.png') }}" width="20" title="Fleche" alt="fleche">
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/Fleche8.png') }}" width="20" title="Fleche" alt="fleche">
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/Flechearr1.png') }}" height="30" title="Fleche" alt="fleche">
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/Flechearr2.png') }}" height="30" title="Fleche" alt="fleche">
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/Flechearr3.png') }}" width="20" title="Fleche" alt="fleche">
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/Flechearr4.png') }}" width="20" title="Fleche" alt="fleche">						
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/Flechedia1.png') }}" height="90" width="75" title="Fleche" alt="fleche">
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/Flechedia2.png') }}" height="90" width="75" title="Fleche" alt="fleche">
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/Flechedia3.png') }}" height="90" width="75" title="Fleche" alt="fleche">
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/Flechedia4.png') }}" width="75" title="Fleche" alt="fleche">
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/Fleche1.png') }}" width="10" title="Fleche" alt="fleche">
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/Fleche2.png') }}" width="10" title="Fleche" alt="fleche">
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/Fleche3.png') }}" width="100" title="Fleche" alt="fleche">
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/Fleche4.png') }}" width="100" title="Fleche" alt="fleche">
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/Fleche5.png') }}" width="50" title="Fleche" alt="fleche">
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/Fleche6.png') }}" width="50" title="Fleche" alt="fleche">
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/Fleche7.png') }}" width="20" title="Fleche" alt="fleche">
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/Fleche8.png') }}" width="20" title="Fleche" alt="fleche">
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/Flechearr1.png') }}" height="30" title="Fleche" alt="fleche">
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/Flechearr2.png') }}" height="30" title="Fleche" alt="fleche">
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/Flechearr3.png') }}" width="20" title="Fleche" alt="fleche">
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/Flechearr4.png') }}" width="20" title="Fleche" alt="fleche">						
 						</div>
 
 
@@ -369,82 +413,82 @@
 						<div id="decor">	
 
 							<!-- Palettes -->
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/Palette1.png') }}" width="60" title="Palette"  title="Palette" alt="Palette">
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/Palette2.png') }}" width="70" title="Palette"  alt="Palette">
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/Palette3.png') }}" width="70" title="Palette" alt="Palette">
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/Palette1.png') }}" width="60" title="Palette"  title="Palette" alt="Palette">
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/Palette2.png') }}" width="70" title="Palette"  alt="Palette">
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/Palette3.png') }}" width="70" title="Palette" alt="Palette">
 
 							<!-- Popper papier -->
-							<img id="paper1" class="draggable elementRotate resizable" src="{{ asset('images/target_uspsa.png') }}" width="23" title="target_uspsa" alt="target">	
-							<img id="paper1" class="draggable elementRotate resizable" src="{{ asset('images/target_universal.png') }}" width="23" title="target_universal" alt="target">	
-							<img id="paper1" class="draggable elementRotate resizable" src="{{ asset('images/target_rifle.png') }}" width="23" title="target_rifle" alt="target">	
+							<img id="paper1" class="draggable elementsDraggable" src="{{ asset('images/target_uspsa.png') }}" width="23" title="target_uspsa" alt="target">	
+							<img id="paper1" class="draggable elementsDraggable" src="{{ asset('images/target_universal.png') }}" width="23" title="target_universal" alt="target">	
+							<img id="paper1" class="draggable elementsDraggable" src="{{ asset('images/target_rifle.png') }}" width="23" title="target_rifle" alt="target">	
 
 							<!-- CIble police  -->
-							<img id="paper1" class="draggable elementRotate resizable TrgtPaper" src="{{ asset('images/cible_police_noire.jpg') }}" width="25" title="cible police" alt="cible police">	
-							<img id="paper1" class="draggable elementRotate resizable TrgtPaper" src="{{ asset('images/cible_police_blanc.jpg') }}" width="25" title="cible police" alt="cible police">
+							<img id="paper1" class="draggable elementsDraggable TrgtPaper" src="{{ asset('images/cible_police_noire.jpg') }}" width="25" title="cible police" alt="cible police">	
+							<img id="paper1" class="draggable elementsDraggable TrgtPaper" src="{{ asset('images/cible_police_blanc.jpg') }}" width="25" title="cible police" alt="cible police">
 
 							<!-- Lettres -->
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/A.png') }}" width="20" title="A" alt="A">
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/B.png') }}" width="20" title="B" alt="B">
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/C.png') }}" width="20" title="C" alt="C">
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/D.png') }}" width="20" title="D" alt="D">
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/A.png') }}" width="20" title="A" alt="A">
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/B.png') }}" width="20" title="B" alt="B">
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/C.png') }}" width="20" title="C" alt="C">
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/D.png') }}" width="20" title="D" alt="D">
 							
 
 							<!-- Chiffres -->
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/0.png') }}" width="12" title="0" alt="0">
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/1.png') }}" width="10" title="1" alt="1">									
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/2.png') }}" width="10" title="2" alt="2">
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/3.png') }}" width="10" title="3" alt="3">
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/4.png') }}" width="10" title="4" alt="4">
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/5.png') }}" width="10" title="5" alt="5">
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/6.png') }}" width="10" title="6" alt="6">
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/7.png') }}" width="10" title="7" alt="7">
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/8.png') }}" width="10" title="8" alt="8">
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/9.png') }}" width="10" title="9" alt="9">
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/0.png') }}" width="12" title="0" alt="0">
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/1.png') }}" width="10" title="1" alt="1">									
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/2.png') }}" width="10" title="2" alt="2">
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/3.png') }}" width="10" title="3" alt="3">
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/4.png') }}" width="10" title="4" alt="4">
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/5.png') }}" width="10" title="5" alt="5">
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/6.png') }}" width="10" title="6" alt="6">
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/7.png') }}" width="10" title="7" alt="7">
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/8.png') }}" width="10" title="8" alt="8">
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/9.png') }}" width="10" title="9" alt="9">
 
 							<!-- Metres yards -->
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/yd.png') }}" width="40" title="metres" alt="metres">
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/yard.png') }}" width="40" title="metres" alt="metres">
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/metres.png') }}" width="40" title="metres" alt="metres">
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/m.png') }}" width="15" title="m" alt="m">	
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/yd.png') }}" width="40" title="metres" alt="metres">
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/yard.png') }}" width="40" title="metres" alt="metres">
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/metres.png') }}" width="40" title="metres" alt="metres">
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/m.png') }}" width="15" title="m" alt="m">	
 
 							<!-- Accessoires -->
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/scooter.png') }}" width="80" title="scooter" alt="scooter">	
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/velo.png') }}" width="80" title="velo" alt="velo">	
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/Scooterdesmers.png') }}" width="100" title="Scooterdesmers" alt="Scooterdesmers">	
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/baignoire.png') }}" width="60" title="baignoire" alt="baignoire">					
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/tv.png') }}" width="30" title="tv" alt="tv">	
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/scooter.png') }}" width="80" title="scooter" alt="scooter">	
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/velo.png') }}" width="80" title="velo" alt="velo">	
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/Scooterdesmers.png') }}" width="100" title="Scooterdesmers" alt="Scooterdesmers">	
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/baignoire.png') }}" width="60" title="baignoire" alt="baignoire">					
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/tv.png') }}" width="30" title="tv" alt="tv">	
 
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/quille.png') }}" width="10" title="quille" alt="quille">	
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/bouteille.png') }}" width="10" title="bouteille" alt="bouteille">	
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/quille.png') }}" width="10" title="quille" alt="quille">	
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/bouteille.png') }}" width="10" title="bouteille" alt="bouteille">	
 
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/plateau.png') }}" width="15" title="plateau" alt="plateau">	
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/plateau.png') }}" width="15" title="plateau" alt="plateau">	
 
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/porte_cible8.png') }}" width="80" title="porte_cible8" alt="porte_cible8">	
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/porte_cible6.png') }}" width="80" title="porte_cible6" alt="porte_cible6">
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/porte_cible8.png') }}" width="80" title="porte_cible8" alt="porte_cible8">	
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/porte_cible6.png') }}" width="80" title="porte_cible6" alt="porte_cible6">
 
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/etoile_cible.png') }}" width="80" title="etoile_cible" alt="etoile_cible">	
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/Etoile.png') }}" width="80" title="Etoile" alt="Etoile">	
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/double_etoile.png') }}" width="80" title="double_etoile" alt="double_etoile">	
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/etoile_cible.png') }}" width="80" title="etoile_cible" alt="etoile_cible">	
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/Etoile.png') }}" width="80" title="Etoile" alt="Etoile">	
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/double_etoile.png') }}" width="80" title="double_etoile" alt="double_etoile">	
 
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/drapeau_gauche.png') }}" width="30" title="drapeau_gauche" alt="drapeau_gauche">	
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/drapeau_droite.png') }}" width="30" title="drapeau_droite" alt="drapeau_droite">
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/cone.png') }}" width="30" title="cone" alt="cone">	
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/drapeau_gauche.png') }}" width="30" title="drapeau_gauche" alt="drapeau_gauche">	
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/drapeau_droite.png') }}" width="30" title="drapeau_droite" alt="drapeau_droite">
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/cone.png') }}" width="30" title="cone" alt="cone">	
 
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/arbre2.png') }}" width="80" title="arbre2" alt="arbre2">	
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/arbre1.png') }}" width="80" title="arbre1" alt="arbre1">	
-							<img id="decor8" class="draggable elementRotate resizable" src="{{ asset('images/buisson.png') }}" width="50" title="buisson" alt="buisson">																		
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/arbre2.png') }}" width="80" title="arbre2" alt="arbre2">	
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/arbre1.png') }}" width="80" title="arbre1" alt="arbre1">	
+							<img id="decor8" class="draggable elementsDraggable" src="{{ asset('images/buisson.png') }}" width="50" title="buisson" alt="buisson">																		
 
 							<!-- Vehicule -->
-							<img id="decor8" class="draggable elementRotate resizable" style="height:60px" src= "{{ asset('images/clio1.png') }}" title="Véhicule" alt="clio">
-							<img id="decor8" class="draggable elementRotate resizable" style="height:60px" src= "{{ asset('images/clio2.png') }}" title="Véhicule" alt="clio"> 
-							<img id="decor8" class="draggable elementRotate resizable" style="height:60px" src= "{{ asset('images/clio3.png') }}" title="Véhicule" alt="clio"> 
-							<img id="decor8" class="draggable elementRotate resizable" style="height:60px" src= "{{ asset('images/clio4.png') }}" title="Véhicule" alt="clio">	
+							<img id="decor8" class="draggable elementsDraggable" style="height:60px" src= "{{ asset('images/clio1.png') }}" title="Véhicule" alt="clio">
+							<img id="decor8" class="draggable elementsDraggable" style="height:60px" src= "{{ asset('images/clio2.png') }}" title="Véhicule" alt="clio"> 
+							<img id="decor8" class="draggable elementsDraggable" style="height:60px" src= "{{ asset('images/clio3.png') }}" title="Véhicule" alt="clio"> 
+							<img id="decor8" class="draggable elementsDraggable" style="height:60px" src= "{{ asset('images/clio4.png') }}" title="Véhicule" alt="clio">	
 
 							<!-- Gros accessoires -->
-							<img id="decor8" class="draggable elementRotate resizable" style="height:90px" src= "{{ asset('images/platform1.png') }}" title="platform1" alt="platform1">
-							<img id="decor8" class="draggable elementRotate resizable" style="height:40px" src= "{{ asset('images/lit.png') }}" title="lit" alt="lit"> 	
-							<img id="decor8" class="draggable elementRotate resizable" style="height:40px" src= "{{ asset('images/tapecul.png') }}" title="tapecul" alt="tapecul">	
-							<img id="decor8" class="draggable elementRotate resizable" style="height:60px" src= "{{ asset('images/logo_ipsc.png') }}" title="logo ipsc" alt="logo ipsc">					
+							<img id="decor8" class="draggable elementsDraggable" style="height:90px" src= "{{ asset('images/platform1.png') }}" title="platform1" alt="platform1">
+							<img id="decor8" class="draggable elementsDraggable" style="height:40px" src= "{{ asset('images/lit.png') }}" title="lit" alt="lit"> 	
+							<img id="decor8" class="draggable elementsDraggable" style="height:40px" src= "{{ asset('images/tapecul.png') }}" title="tapecul" alt="tapecul">	
+							<img id="decor8" class="draggable elementsDraggable" style="height:60px" src= "{{ asset('images/logo_ipsc.png') }}" title="logo ipsc" alt="logo ipsc">					
 						</div>
 
 						<!-- debut Uploader des objets -->
@@ -459,7 +503,7 @@
 							foreach($files as $image)
 							{ 
 								$f= str_replace($dir,'',$image);?> #}
-								<img id="decor8" class="draggable elementRotate resizable ui-draggable" src="" style="max-width: 200px; max-height: 200px" title="Perso_object" alt="Object">
+								<img id="decor8" class="draggable elementsDraggable ui-draggable" src="" style="max-width: 200px; max-height: 200px" title="Perso_object" alt="Object">
 								{# <?php }
 								?>			 #}							
 							</div>
@@ -514,12 +558,23 @@
 												<i class="fa fa-info 2x iconinfo"></i>			
 											</a>
 										</label>										
-											<select class="form-control" name="MatchsId" id="MatchsId">	
+											{# <select class="form-control" name="MatchsId" id="MatchsId">	
 													<option value="0">Training</option>
 												{% for matchList in app.user.matchs %}	
 													<option value="{{ matchList.getId }}">{{ matchList.getName }}</option>
 												{% endfor %}													
-											</select>										
+											</select> #}	
+												{# {{ form_row(formMatch.MatchsId) }} #}
+												<div name="MatchsId">
+													{{ form(formMatch) }}
+												</div>
+													
+
+										
+													{# {{ dump(formMatch) }} #}
+										{# 		{% for formMatch in app.user %}
+													{{ form(formMatch) }}
+												{% endfor %}	#}
 											
 									</div>
 									</div>
@@ -537,9 +592,9 @@
 												<option value="7">Pistol Caliber Carbine</option>				
 											</select>											
 									</div>
-									</div>
+									</div>								
 
-									<div class="row text-align">
+									{# <div class="row text-align">
 									<div class="col-md-6 col-md-3">
 										<label for="ReportOn">ReportOn</label>
 										<select class="form-control" name="ReportOn" id="ReportOn">
@@ -555,7 +610,7 @@
 										</select>
 									</div>
 									</div>									
-
+ #}
 									<div class="row">
 									<div class="col-md-6 col-md-3">
 										<label class="labeltal" for="TrgtTypeId">Type of Targets:</label>
@@ -575,7 +630,22 @@
 											
 									</div>
 									</div>
-								</div>								
+
+									<div class="row text-align mt-3">
+									<div class="col-md-12 col-md-5">									
+										 <div class="form-check">
+										    <input type="checkbox" class="form-check-input" id="Withdraw" name="Withdraw">
+										    <label class="form-check-label" for="Withdraw">Exclude From Scorring (Withdraw)</label>
+									  	</div>										
+									</div>									
+									</div>		
+								</div>	
+								<script>								
+									// let checkbox = document.getElementById("checkbox");
+									// 	checkbox('checked', checkbox.val() === 'true');
+
+										// $('input[name=checkbox]').prop('checked') ;
+								</script>							
 														
 						</div>	
 						<hr class="style-one">		
@@ -591,6 +661,14 @@
 									<button id="downloadButton" title="Télécharger le stage en pdf directement sur votre PC" class="btn btn-info abutton telecharge" type="button" onclick="savPDF();">Download stage</button>
 								</div>				
 							</fieldset>
+							{# <button onclick="test()">Try it</button>
+							 <script>
+							 	function test() 
+           {
+             let svg = document.getElementById('decorsvg').innerHTML;  
+            document.getElementById("decorsvg").style.display = "block";
+            }
+							 </script> #}
 
 							<hr class="style-one">
 
@@ -627,6 +705,7 @@
 			</div>
 		</div>
 </div>
+<div class="menu-perso">
+	<button class="btn btn-info btn-rotate">Rotation</button>
+</div>
 {% endblock %}
-
-

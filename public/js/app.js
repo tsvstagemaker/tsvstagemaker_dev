@@ -47,19 +47,20 @@ TL2
 //    inertia: true
 // });
 
-Draggable.create("#tireur", {
-    // type:"y",
-    bounds: document.getElementById("container"),
-    inertia: true,
-    onClick: function() {
-        console.log("clicked");
-    },
-    onDragEnd: function() {
-        console.log("drag ended");
-    }
-});
+// Draggable.create("#tireur", {
+//     // type:"y",
+//     bounds: document.getElementById("container"),
+//     inertia: true,
+//     onClick: function() {
+//         console.log("clicked");
+//     },
+//     onDragEnd: function() {
+//         console.log("drag ended");
+//     }
+// });
 
 
+// Effet index page features
 var ctrl = new ScrollMagic.Controller();
 
 // Create scenes in jQuery each() loop
@@ -75,7 +76,7 @@ $("section").each(function(i) {
     triggerElement: this,
     triggerHook: 0.60
   })
-    .setTween(tl)
+  .setTween(tl)
     // .addIndicators({
     //   colorTrigger: "black",
     //   colorStart: "black",
@@ -83,21 +84,21 @@ $("section").each(function(i) {
     //   indent: 40
     // })
     .addTo(ctrl);
-});
+  });
 
 
-
+// progress bar profile
 var delay = 500;
 $(".progress-bar").each(function(i){
-    $(this).delay( delay*i ).animate( { width: $(this).attr('aria-valuenow') + '%' }, delay );
+  $(this).delay( delay*i ).animate( { width: $(this).attr('aria-valuenow') + '%' }, delay );
 
-    $(this).prop('Counter',0).animate({
-        Counter: $(this).text()
-    }, {
-        duration: delay,
-        easing: 'swing',
-        step: function (now) {
-            $(this).text(Math.ceil(now)+'%');
-        }
-    });
+  $(this).prop('Counter',0).animate({
+    Counter: $(this).text()
+  }, {
+    duration: delay,
+    easing: 'swing',
+    step: function (now) {
+      $(this).text(Math.ceil(now)+'%');
+    }
+  });
 });

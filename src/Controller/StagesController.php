@@ -11,6 +11,7 @@ use App\Repository\StageRepository;
 use DoctrineMigrations\stages;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -53,17 +54,27 @@ class StagesController extends AbstractController
      * @Route("/stages/create", name="app_stage_create", methods={"GET", "POST"})
      */
       public function create(Request $request, EntityManagerInterface $em, MatchsRepository $matchsrepo)
-      {       
+      {    
+
+        $stages = new Stage;
+        // form match
+                 $form = $this->createFormBuilder($stages)
+                     ->add('MatchsId', EntityType::class,[
+                                            'class' => Matchs::class,
+                                            'choices' => $stages->getUser(),
+    // 'choices' => getMatchsId(),           
+                            ])             
+                    ->getForm();    
+
         // $matchs = $repomatchlist->findAll([]);
-        // dd($request);        
+         // dd($matchsrepo);        
 
         if($request->isMethod('POST'))
         { 
 
-            $data = $request->request->all();  
-            // dd($data['MatchId']);
+            $data = $request->request->all();            
 
-            // dd($data['MatchId']);
+            dd($data);
              // $data['MatchId'] = getMatchId(Entity::class,[
              //    'class' => Matchs::class]);
           
@@ -75,7 +86,9 @@ class StagesController extends AbstractController
                 $file = $request->files->get('file');
 
 
-                 $stages = new Stage;       
+                 // $stages = new Stage;   
+
+               
 
 
         //  traitement image recu
@@ -123,15 +136,27 @@ class StagesController extends AbstractController
                 // Debut enregistrement db
 
                 $stages->setUser($this->getUser());
+                // dd($this->getUser()->getMatchs());
 
-                // dd($data);
+                $MatchsId = $data['MatchsId'];
+                // $MatchsId->getMatchsId();
+                // dd($MatchsId);
+                // getMatchsId()->$MatchsId;
+                // dd($MatchsId);
+                 $stages->setMatchsId($this->getMatchsId($MatchsId));
+                // dd($this);
+
+               // dd($data);
 
                 // match id 
-                // $MatchsId = $data['MatchsId'];                     
-                // $stages->setMatchsId($MatchsId[0]); 
+                // $MatchsId = $data['MatchsId'];
+                // $MatchsName = $data['name'];
+                //  dd($MatchsName);                    
+                // $stages->setMatchsId($MatchsId); 
                 // $stages->setMatchsId($data['MatchsId'],$matchsrepo);                
                 // $stages->setMatchsId($this->$MatchsId);
-                // $stages->setMatchsId($this->getMatchsId());               
+                // $stages->setMatchsId($this->getMatchsId());
+              // $stages->setMatchsId($this->getMatchsId(EntityType::class, $MatchsId));                
            
 
 
@@ -145,11 +170,12 @@ class StagesController extends AbstractController
 
                 $stages->setStartOn($data['StartOn']);
                 $stages->setCourseId($data['CourseId']);
-                $stages->setReportOn($data['ReportOn']);
-                $stages->setStringCnt($data['StringCnt']);
+                $stages->setReportOn('True');
+                $stages->setStringCnt(0);
                 $stages->setFirearmId($data['FirearmId']);
                 $stages->setTrgtTypeId($data['TrgtTypeId']);
                 $stages->setScoringId($data['ScoringId']);
+                $stages->setWithdraw($data['Withdraw']);
 
                 // $stages->setCreatedAt(new \DateTime()); 
                 // $stages->setUpdatedAt(new \DateTime());               
@@ -180,7 +206,8 @@ class StagesController extends AbstractController
 
         return $this->render('stages/createstage.html.twig', [
             'title' => 'Create stage TSV STAGE MAKER',
-            'current_menu' => "create", 
+            'current_menu' => "create",
+            'formMatch' => $form->createView() 
             // 'matchs' => $matchs,           
         ]);
     }
@@ -294,11 +321,12 @@ class StagesController extends AbstractController
 
                 $stages->setStartOn($data['StartOn']);
                 $stages->setCourseId($data['CourseId']);
-                $stages->setReportOn($data['ReportOn']);
-                $stages->setStringCnt($data['StringCnt']);
+                // $stages->setReportOn($data['ReportOn']);
+                // $stages->setStringCnt($data['StringCnt']);
                 $stages->setFirearmId($data['FirearmId']);
                 $stages->setTrgtTypeId($data['TrgtTypeId']);
-                $stages->setScoringId($data['ScoringId']);              
+                $stages->setScoringId($data['ScoringId']);  
+                $stages->setWithdraw($data['Withdraw']);            
                 
             //  stages->setIcsStageId($data['ics_stage_id']);
                 $stages->setTrgtPaper($data['TrgtPaper']);
@@ -338,9 +366,38 @@ class StagesController extends AbstractController
         {
             $em->remove($stage);
             $em->flush();
-        }
-        $this->addFlash('primary', 'Stage successfully deleted !');
+
+            $this->addFlash('primary', 'Stage successfully deleted !');
             return $this->redirectToRoute('app_stages');
+        }
+
+        elseif ($this->isCsrfTokenValid('stage_deletion_profil_' . $stage->getId(), $request->request->get('csrf_token')))
+        {
+            $em->remove($stage);
+            $em->flush();
+
+            $this->addFlash('primary', 'Stage successfully deleted !');
+            return $this->redirectToRoute('app_profile');
+
+        }
+
+         elseif ($this->isCsrfTokenValid('stage_deletion_show_' . $stage->getId(), $request->request->get('csrf_token')))
+        {
+            // $match_id = $request->request->all();
+            // $matchs = $match_id['match_id'];
+            // $match_id['match_id'];
+
+            $em->remove($stage);
+            $em->flush();
+
+            $this->addFlash('primary', 'Stage successfully deleted !');
+            return $this->redirectToRoute('app_stages');
+            // return $this->redirectToRoute('app_match_show',);
+            // return $this->redirectToRoute('app_match_show', ['id' => $matchs]);
+            // return $this->redirectToRoute('app_match_show', ['id' => $match->getId()]);
+
+        }
+        
       }
 
 
@@ -359,8 +416,25 @@ class StagesController extends AbstractController
             }
             
             $em->flush();
-        }
-        $this->addFlash('primary', 'Stage successfully shared !');
+
+            $this->addFlash('primary', 'Stage successfully shared !');
             return $this->redirectToRoute('app_stages');
+        }
+
+        elseif ($this->isCsrfTokenValid('stage_share_profile' . $stage->getId(), $request->request->get('csrf_token')))
+        {           
+            if ($stage->getShowall() == false ) {
+                $stage->setShowall(true);
+            }else{
+               $stage->setShowall(false); 
+            }
+            
+            $em->flush();
+
+            $this->addFlash('primary', 'Stage successfully shared !');
+            return $this->redirectToRoute('app_profile');
+        }
+        
       }
+
 }

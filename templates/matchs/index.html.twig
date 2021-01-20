@@ -79,23 +79,42 @@
 						<td>{{ match.createdAt|ago }}</td>
 						<td>{{ match.updatedAt|ago }}</td>
 
+						{# Download stage #}
 						<td>							
-							{# <a class="" href="#"><i class="material-icons iconimatch">cloud_download</i></a> #}
-							<a class="" href="#" onclick="event.preventDefault(); confirm('Are you sure you want to download all stages of match: {{ match.getName }} ?') && document.getElementById('js-stages-download-form-{{ match.id }}').submit();"><i class="material-icons iconimatch">cloud_download</i></a>
+							<a href="#" onclick="event.preventDefault(); confirm('Are you sure you want to download all stages of match: {{ match.getName }} ?') && document.getElementById('js-stages-download-form-{{ match.id }}').submit();"><i class="material-icons iconimatch">cloud_download</i></a>
 							<form id="js-stages-download-form-{{ match.id }}" action="{{ path('app_stages_download', {'id': match.id}) }}" method="post" style="display: none;">
 							<input type="hidden" name="csrf_token" value="{{ csrf_token('stages_download_' ~ match.id) }}">
 							<input type="hidden" name="_method" value="POST">						
-							</form>		
+							</form>
 
+						{# Download winmss files #}
 						</td>
 						<td class="align-td">
-							<a class="" href=""><span><img style="max-width: 35px;" src="{{ asset("images/winmss.jpg") }}" alt="logo WINMSS" class="rounded" title="logo WINMSS"></span></a>
-						</td>    
+							{# <a href="">
+							<span>
+							<img style="max-width: 35px;" src="{{ asset("images/winmss.jpg") }}" alt="logo WINMSS" class="rounded" title="logo WINMSS">
+							</span>
+							</a> #}
+
+							<a href="#" onclick="event.preventDefault(); confirm('Are you sure you want to download Winmss files of match: {{ match.getName }} ?') && document.getElementById('js-winmss-download-form-{{ match.id }}').submit();">
+							<span>
+							<img style="max-width: 35px;" src="{{ asset("images/winmss.jpg") }}" alt="Download WINMSS files" class="rounded" title="Download WINMSS files">
+							</span>
+							</a>
+							<form id="js-winmss-download-form-{{ match.id }}" action="{{ path('app_winmss_download', {'id': match.id}) }}" method="post" style="display: none;">
+							<input type="hidden" name="csrf_token" value="{{ csrf_token('winmss_download_' ~ match.id) }}">
+							<input type="hidden" name="_method" value="POST">						
+							</form>
+						</td> 
+
+						{# modify stage #}
 						<td>							
 							<a class="btn-sm" href="{{ path('app_match_edit', {'id': match.id}) }}"><i class="material-icons iconimatch_warning">create</i></a>       
 						</td> 
+
+						{# delete stage #}
 						<td>					
-							<a class="" href="#" onclick="event.preventDefault(); confirm('Are you sure you want to delete match: {{ match.getName }} with all associated stages ?') && document.getElementById('js-match-delete-form-{{ match.id }}').submit();"><i class="material-icons iconimatch_danger">delete</i></a>
+							<a href="#" onclick="event.preventDefault(); confirm('Are you sure you want to delete match: {{ match.getName }} with all associated stages ?') && document.getElementById('js-match-delete-form-{{ match.id }}').submit();"><i class="material-icons iconimatch_danger">delete</i></a>
 							<form id="js-match-delete-form-{{ match.id }}" action="{{ path('app_match_delete', {'id': match.id}) }}" method="post" style="display: none;">
 							<input type="hidden" name="csrf_token" value="{{ csrf_token('match_deletion_' ~ match.id) }}">
 							<input type="hidden" name="_method" value="DELETE">						

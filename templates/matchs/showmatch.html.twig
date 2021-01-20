@@ -110,8 +110,30 @@
                       </td>                 
                       <td>{{ stagelist.minrounds }}</td>
                       <td>{{ stagelist.maxpoints }}</td>
-                      {{ dump(match.getStages) }}
-                      <td><a href="{{ stagelist.Fileurl }}" target="_blank" title="Download stage pdf"><span class="material-icons-round iconsuser pdf">picture_as_pdf</span></a></td>
+                      {# {{ dump(match.getStages) }} #}
+                      <td class="d-flex">
+                      {# download stage #}
+                      <a href="../../{{ stagelist.Fileurl }}" target="_blank" title="Download stage pdf">
+                      <span class="material-icons-round iconsuser pdf">picture_as_pdf</span>
+                      </a>
+
+                      {# edit stage #}
+                      <a href="{{ path('app_stage_edit', {'id': stagelist.id}) }}" target="_blank" title="Modify stage">
+                      <span class="material-icons-round iconsuser updatestage">create</span>
+                      </a>
+
+                      {# delete stage #}
+                      <a href="#" title="Delete stage" onclick="event.preventDefault(); confirm('Are you sure you want to delete stage {{ stagelist.getstagename }} ?') && document.getElementById('js-stage-delete-form-{{ stagelist.id }}').submit();">
+                      <span class="material-icons-round iconsuser deletestage">delete</span>
+                      </a>                          
+                      <form id="js-stage-delete-form-{{ stagelist.id }}" action="{{ path('app_stage_delete', {'id': stagelist.id}) }}" method="post" style="display: none;">
+                      <input type="hidden" name="csrf_token" value="{{ csrf_token('stage_deletion_show_' ~ stagelist.id) }}">
+                      <input type="hidden" name="match_id" value="{{ match.id }}">
+                      <input type="hidden" name="_method" value="DELETE">                 
+                      </form>
+
+
+                      </td>
                     </tr>
                     {% endfor %}   
                   </tbody>
