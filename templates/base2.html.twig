@@ -336,40 +336,6 @@ $(function(){
 </script>
 
 
-    {# rotation elements with css#}
-{# <script>   
-    var degrees = 0;
-    $( ".elementRotate" ).click(function() {
-        degrees += 10;
-        $(this).css("transform","rotate("+degrees+"deg)");
-    });
-    </script>
- #}
-{# rotation elements with JQueryRotate#}
-{# <script>
-    var value = 0
-$(".elementRotate").rotate({
-  bind:
-  {
-    click: function(){
-      value +=10;
-      $(this).rotate({ animateTo:value})
-    }
-  }
-});
-</script> #}
-
-{# Redimmenssionement des images sur petit ecrans #}
-{# <script>
-    bsContainerWidth = $(document).find('.container-fluid').width()
-    $(document).ready(function() {
-
-        if (bsContainerWidth <= 768) {
-            $("img").addClass("small-img");
-        }  
-
-    });
-    </script> #}
 
     {# Button grid #}
     <script>
@@ -391,105 +357,35 @@ $(".elementRotate").rotate({
     </script>
 
 
-{#     <script>
-function update() {
-  var snap = $snap.prop("checked"),
-      liveSnap = $liveSnap.prop("checked");
-  Draggable.create(".box", {
-    bounds: $container,
-    edgeResistance: 0.65,
-    type: "x,y",
-    inertia: true,
-    autoScroll: true,
-    liveSnap: liveSnap,
-    snap:{
-      x: function(endValue) {
-        return (snap || liveSnap) ? Math.round(endValue / gridWidth) * gridWidth : endValue;
-      },
-      y: function(endValue) {
-        return (snap || liveSnap) ? Math.round(endValue / gridHeight) * gridHeight : endValue;
-      }
-    }
-  });
-}
-</script> #}
+  <!-- Script upload fil perso objetc-->
+  <script>
+      $('#btn_upload').click(function(){
 
-<script>
-// fonction de calcul de l'angle actuel des images
-// function calculateAngle(elementId) {
-//     var element = document.getElementById(elementId);
-//     var tr = (window.getComputedStyle(element, null)).getPropertyValue("transform"),
-//         values = tr.split('(')[1],
-//         values = values.split(')')[0],
-//         values = values.split(','),
-//         a = values[0],
-//         b = values[1],
-//         c = values[2],
-//         d = values[3],
-//         radians = Math.atan2(b, a);
-//     if (radians < 0) {
-//         radians += (2 * Math.PI);
-//         console.log(element);
-//     }
-//     return Math.round(radians * (180 / Math.PI));
-// }
+        
+        let fd = new FormData();
+        let files = $('#file')[0].files[0];
+        let Token2 = document.querySelector('[name="_token_logo"]');
+        fd.append('file',files);
+        fd.append('_token_logo', Token2.value);
+        // console.log(fd);
 
-//  // function pour attribuer le click droit a rotation test1
-
-//   document.oncontextmenu = function() {return false;};
-
-//   $('.draggable').mousedown(function(e){ 
-//     if( e.button == 2 ) { 
-//       var selectedId = $(this).attr('id');
-//       var currentDegree = calculateAngle(selectedId);
-//       var newDegree = parseInt(currentDegree) + parseInt(10);
-//       $(this).css({"transform":"rotate(" + newDegree + "deg)"});
-//     } 
-//     return true; 
-//   });
-
-
-// function pour attribuer le click droit a rotation test2
-
-// document.getElementById('dropzone').addEventListener('contextmenu', (e) => {
-//   e.preventDefault();
-
-//   document.addEventListener('click', function(e) {
-//     let degrees = 0;
-//     let targetElement = e.target || e.srcElement;
-//     // draggable
-//     if (targetElement.classList.contains('draggable')) {
-//       targetElement.classList.add("elementRotate");
-//       degrees += 10;
-//       $(".elementRotate").click(function() {
-//         degrees += 10;
-//         $(this).css("transform", "rotate(" + degrees + "deg)");
-//         targetElement.classList.remove("elementRotate");
-//       });
-
-//     }
-
-//   })
-// })
-
-
-// rotation elements      
-// change out contextmenu with click if you want it onclick
-
-// document.getElementById('dropzone').addEventListener('contextmenu', (e) => {
-//   e.preventDefault();
-
-//  $(".elementRotate").contextmenu(function (e) {
-//    if (this.style.transform.length){
-//      var num = parseInt(this.style.transform.split("(")[1])
-//      num += 10
-//      $(this).css("transform", "rotate(" + num + "deg)");  
-//    } else {
-//      $(this).css("transform", "rotate(" + 10 + "deg)"); 
-//    }
-// });
-//  })
-            </script>
-
+                // AJAX request
+                $.ajax({
+                  url: "{{ path('app_upload_logo')}}",
+                  type: 'post',
+                  data: fd,
+                  contentType: false,
+                  processData: false,
+                  success: function(response){
+                    if(response != 0){
+                            // Show image preview
+                            $('#preview').append("<img id='decor8' class='ui-widget-content ui-draggable' src='"+response+"'  title='Perso_object' alt='object'  width='100' height='100'>");
+                        }else{
+                          alert('file not uploaded');
+                        }
+                    }
+                });
+            });    
+  </script>
 
           {% endblock %}

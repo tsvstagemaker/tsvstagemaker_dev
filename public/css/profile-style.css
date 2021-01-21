@@ -126,3 +126,9 @@ footer{
 
     margin-left: -0.5rem;
 }
+
+.delete-logo{
+    margin-bottom: auto;
+    color:red;
+    cursor: pointer;
+}

@@ -123,10 +123,16 @@ class User implements UserInterface, \Serializable
      */
     private $pseudo;
 
+    /**
+     * @ORM\OneToMany(targetEntity=UploadLogo::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $uploadLogos;
+
     public function __construct()
     {
         $this->stages = new ArrayCollection();
         $this->matchs = new ArrayCollection();
+        $this->uploadLogos = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -443,6 +449,34 @@ class User implements UserInterface, \Serializable
         $this->setUpdatedAt(new \DateTimeImmutable);
     }
 
-    
+    /**
+     * @return Collection|UploadLogo[]
+     */
+    public function getUploadLogos(): Collection
+    {
+        return $this->uploadLogos;
+    }
+
+    public function addUploadLogo(UploadLogo $uploadLogo): self
+    {
+        if (!$this->uploadLogos->contains($uploadLogo)) {
+            $this->uploadLogos[] = $uploadLogo;
+            $uploadLogo->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUploadLogo(UploadLogo $uploadLogo): self
+    {
+        if ($this->uploadLogos->removeElement($uploadLogo)) {
+            // set the owning side to null (unless already changed)
+            if ($uploadLogo->getUser() === $this) {
+                $uploadLogo->$match->setUser(null);
+            }
+        }
+
+        return $this;
+    }
 
 }

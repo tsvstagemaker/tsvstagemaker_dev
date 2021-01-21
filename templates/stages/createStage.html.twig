@@ -512,17 +512,17 @@
 						<button  title="Upload objects" class="btn btn-info btn-accordion"><img src="{{ asset('images/tireur.png') }}" width="30">&nbsp;Upload your logo or objects</button>
 						<div id="decor"><br>
 							<button style="width: 150px;" type="button" class="btn btn-info" data-toggle="modal" data-target="#uploadModal">Upload your logo objects file</button><br>
-						{# 	<?php
-							$dir = 'upload_perso_obj/*.{jpg,jpeg,gif,png,png}';
-							$files = glob($dir,GLOB_BRACE);?>
-							<p>Logo or objects uploaded</p><br>
-							<?php 
-							foreach($files as $image)
-							{ 
-								$f= str_replace($dir,'',$image);?> #}
-								<img id="decor8" class="draggable elementsDraggable ui-draggable" src="" style="max-width: 200px; max-height: 200px" title="Perso_object" alt="Object">
-								{# <?php }
-								?>			 #}							
+
+								<img id="decor8" class="draggable elementsDraggable ui-draggable" src="{{ asset('images/logo-ipsc.png') }}" style="max-width: 200px; max-height: 200px" title="Perso_object" alt="Object">
+								<img id="decor8" class="draggable elementsDraggable ui-draggable" src="{{ asset('images/logo-tsvstagemaker.png') }}" style="max-width: 200px; max-height: 200px" title="Perso_object" alt="Object">
+								
+								{% for listlogo in app.user.uploadLogos %}
+
+									<img id="decor8" class="draggable elementsDraggable ui-draggable" src="{{ asset(listlogo.getLogopath) }}" style="max-width: 200px; max-height: 200px" title="{{ listlogo.getName }}" alt="Object">
+
+								 {% endfor %}
+
+
 							</div>
 						</div>
 						<!-- Uploader des objets -->				
@@ -673,7 +673,7 @@
 								<div class="optionstage">			
 									<button   title="Effacer tout" id="reset"class="btn btn-info abutton efface" type="button">Reset stage</button><br>												
 
-									<button   title="Sauvegarder le stage en pdf dans votre profil" class="btn btn-info abutton sauvegarde" type="button" onclick="uploadFile();">Save stage</button>
+									<button title="Sauvegarder le stage en pdf dans votre profil" class="btn btn-info abutton sauvegarde" type="button" onclick="uploadFile();">Save stage</button>
 
 									<button id="downloadButton" title="Télécharger le stage en pdf directement sur votre PC" class="btn btn-info abutton telecharge" type="button" onclick="savPDF();">Download stage</button>
 								</div>				
@@ -722,7 +722,32 @@
 			</div>
 		</div>
 </div>
-<div class="menu-perso">
-	<button class="btn btn-info btn-rotate">Rotation</button>
-</div>
+	<!-- Modal upload file perso object-->
+				<!-- Modal -->
+				<div id="uploadModal" class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLabel">Upload File objects</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<!-- Form -->
+								<form method='post' action='' enctype="multipart/form-data">
+									Select file : <input type='file' name='file' id='file' class='form-control' ><br>
+									<input value="{{ csrf_token('stage_create_logo') }}" name="_token_logo" type="hidden">
+									<input type='button' class='btn btn-info' value='Upload' id='btn_upload'>
+									<button class="btn btn-info" {# onclick="uploadLogo();" #}>Send</button> 
+									<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								</form> 
+								<div class="modal-footer">
+									<!-- Preview-->
+									<div id='preview'></div>        
+								</div>  
+							</div>
+						</div>
+					</div>
+				</div>
 {% endblock %}
