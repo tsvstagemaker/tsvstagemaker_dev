@@ -378,78 +378,48 @@ html, body{
 						.context-menu--active {  display: block;  }
 
 						.context-menu__items { list-style: none;  margin: 0;  padding: 0;  }
-						.context-menu__item { display: block;  /*margin-bottom: 4px;*/  }
-						.context-menu__item:last-child {  margin-bottom: 0;  }
-						.context-menu__link {  display: block;  padding: 0px 6px;  color: #0066aa;  text-decoration: none; font-size: 14px; }
-						.context-menu__link:hover {  color: #fff;  background-color: #0066aa;  }
-						.context-menu__items ul {  position: absolute;  white-space: nowrap;  z-index: 1;  left: -99999em;}
-						.context-menu__items > li:hover > ul {  left: auto;  padding-top: 5px  ;  min-width: 100%;  }
-						.context-menu__items > li li ul {  border-left:1px solid #fff;}
-						.context-menu__items > li li:hover > ul {  left: 100%;  top: -1px;  }
-						.context-menu__item ul { background-color: #ffffff; padding: 7px 11px;  list-style-type: none;  text-decoration: none; margin-left: 40px; }
-						.page-media .context-menu__items ul li { display: block; }
-						/************** For Context menu ***********/
+					.context-menu__item { display: block;  /*margin-bottom: 4px;*/  }
+					.context-menu__item:last-child {  margin-bottom: 0;  }
+					.context-menu__link {  display: block;  padding: 0px 6px;  color: #0066aa;  text-decoration: none; font-size: 14px; }
+					.context-menu__link:hover {  color: #fff;  background-color: #0066aa;  }
+					.context-menu__items ul {  position: absolute;  white-space: nowrap;  z-index: 1;  left: -99999em;}
+					.context-menu__items > li:hover > ul {  left: auto;  padding-top: 5px  ;  min-width: 100%;  }
+					.context-menu__items > li li ul {  border-left:1px solid #fff;}
+					.context-menu__items > li li:hover > ul {  left: 100%;  top: -1px;  }
+					.context-menu__item ul { background-color: #ffffff; padding: 7px 11px;  list-style-type: none;  text-decoration: none; margin-left: 40px; }
+					.page-media .context-menu__items ul li { display: block; }
+					/************** For Context menu ***********/
 
 
-					/*	.selectedItem{
-							background-color: #0000001a;
-							border: 1px dashed red;
-							border-radius: 3px;
-							background-image: url(/images/svg/rotate-icon.svg);
-							background-repeat:no-repeat;
-							background-position:50% 50%;
-							background-position: center;
-							z-index: 999;
-						}
 
-						.movableItem{
-							
+					.svg-item{
+						width: 30px;
+					}
+					.svg-item2{
+						width: 70px;
+					}
+					.svg-item3{
+						width: 50px;
+					}
 
-						}*/
+					.svg-popper{
+						width: 28px;
+					}
+					.svg-mini-popper{
+						width:24px;
+					}
 
-/*.spinEffect{
-   transform: rotate(5deg);
-   -webkit-transform: rotate(5deg);
-   -ms-transform: rotate(5deg);
-   }*/
 
-   .overlayR{
-   	position: absolute;
- /* left:70px;
- top:10px;*/
- color:#fff; 
- display:inline-flex;
- visibility: hidden;
-}
-.overlayR p{
-	color: black;     
-}
+					.elementsDraggable{
+						cursor: grab;
+					}
 
-.chevron{
-	color: red;
-}
+					.ui-draggable-dragging{
+						cursor: grabbing;
+					}
 
-.elementsDraggable{
-	cursor: grab;
-}
-
-.ui-draggable-dragging{
-	cursor: grabbing;
-}
-
-#resizable { 
-	width: 150px; 
-	height: 150px; 
-	padding: 0.5em;
-}
-
-/*.ui-resizable {
-    position: absolute !important;
-}
-
-.ui-resizable-helper { 
-	border: 2px dotted #00F; 
-}*/
-
-/*#selectable .ui-selecting { background: #FECA40; }
-  #selectable .ui-selected { background: #F39814; color: white; }*/
+					#resizable { 
+						width: 150px; 
+						height: 150px; 
+						padding: 0.5em;
+					}

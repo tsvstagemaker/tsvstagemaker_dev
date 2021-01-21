@@ -267,7 +267,7 @@
     });
 
     $( "#accordion-resizer" ).resizable({
-    	minHeight: 200,
+    	minHeight: 300,
     	minWidth: 200,
     	resize: function() {
     		$( "#elements," ).accordion( "refresh" );
