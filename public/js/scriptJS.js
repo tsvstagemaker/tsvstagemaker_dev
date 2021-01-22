@@ -262,7 +262,7 @@
 
     $("#elements").accordion({ //Fonction pour la liste déroulante des cibles et accessoires
     	collapsible: true,
-    	heightStyle: "fill"
+    	heightStyle: "content"
 
     });
 

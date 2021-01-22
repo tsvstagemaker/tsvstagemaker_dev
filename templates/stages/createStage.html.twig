@@ -513,12 +513,12 @@
 						<div id="decor"><br>
 							<button style="width: 150px;" type="button" class="btn btn-info" data-toggle="modal" data-target="#uploadModal">Upload your logo objects file</button><br>
 
-								<img id="decor8" class="draggable elementsDraggable ui-draggable" src="{{ asset('images/logo-ipsc.png') }}" style="max-width: 200px; max-height: 200px" title="Perso_object" alt="Object">
-								<img id="decor8" class="draggable elementsDraggable ui-draggable" src="{{ asset('images/logo-tsvstagemaker.png') }}" style="max-width: 200px; max-height: 200px" title="Perso_object" alt="Object">
+								<img id="decor8" class="draggable elementsDraggable ui-draggable" src="{{ asset('images/logo-ipsc.png') }}" style="width: 200px; height: 200px" title="Perso_object" alt="Object">
+								<img id="decor8" class="draggable elementsDraggable ui-draggable" src="{{ asset('images/logo-tsvstagemaker.png') }}" style="width: 200px; height: 200px" title="Perso_object" alt="Object">
 								
 								{% for listlogo in app.user.uploadLogos %}
 
-									<img id="decor8" class="draggable elementsDraggable ui-draggable" src="{{ asset(listlogo.getLogopath) }}" style="max-width: 200px; max-height: 200px" title="{{ listlogo.getName }}" alt="Object">
+									<img id="decor8" class="draggable elementsDraggable ui-draggable" src="{{ asset(listlogo.getLogopath) }}" style="width: 200px; height: 200px" title="{{ listlogo.getName }}" alt="Object">
 
 								 {% endfor %}
 

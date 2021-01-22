@@ -218,10 +218,12 @@ body {
 
 .alert-success {
 	color: #ffffff;
-	background-color: #17a2b8;
-	border-color: 0;
-	text-align: center;
-	border-radius: 0;
+    background-color: #3f51b5;
+    border-color: 0;
+    text-align: center;
+    border-radius: 0;
+    box-shadow: 1px 7px 7px 1px rgb(255 255 255 / 20%);
+    border: none;
 }
 
 .alert-danger {
@@ -230,6 +232,8 @@ body {
 	border-color: 0;
 	text-align: center;
 	border-radius: 0;
+    box-shadow: 1px 7px 7px 1px rgb(255 255 255 / 20%);
+    border: none;
 }
 
 .alert-primary {
@@ -238,6 +242,8 @@ body {
 	border-color: 0;
 	text-align: center;
 	border-radius: 0;
+    box-shadow: 1px 7px 7px 1px rgb(255 255 255 / 20%);
+    border: none;
 }
 
 .alert-info {
@@ -246,6 +252,8 @@ body {
     border-color: 0;
     text-align: center;
     border-radius: 0;
+    box-shadow: 1px 7px 7px 1px rgb(255 255 255 / 20%);
+    border: none;
 }
 
 .alert-error {
@@ -254,6 +262,8 @@ body {
 	border-color: 0;
 	text-align: center;
 	border-radius: 0;
+    box-shadow: 1px 7px 7px 1px rgb(255 255 255 / 20%);
+    border: none;
 }
 
 .navbar-light .navbar-nav .nav-link:focus, 

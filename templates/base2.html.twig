@@ -377,15 +377,25 @@ $(function(){
                   contentType: false,
                   processData: false,
                   success: function(response){
+                    // console.log(response);
                     if(response != 0){
                             // Show image preview
-                            $('#preview').append("<img id='decor8' class='ui-widget-content ui-draggable' src='"+response+"'  title='Perso_object' alt='object'  width='100' height='100'>");
+                            let htmlPreview = "<img id='decor8' class='ui-widget-content ui-draggable' src='{{ asset('response') }}'  title='Perso_object' alt='object'  width='100' height='100'>";
+                            $('#preview').append(htmlPreview);
                         }else{
-                          alert('file not uploaded');
+                          alertify.success('file not uploaded');
                         }
                     }
                 });
-            });    
+            }); 
+
+
+             // xhr.onreadystatechange = function() {
+             //         if(this.readyState == 4 && this.status == 200) {
+             //           alertify.success('Your Logo or Object has been successfully uploaded !');
+             //           return;                    
+             //         }
+             //       }   
   </script>
 
           {% endblock %}

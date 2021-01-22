@@ -146,7 +146,7 @@ class StagesController extends AbstractController
                 // dd($MatchsId);
                 // getMatchsId()->$MatchsId;
                 // dd($MatchsId);
-                $stages->setMatchsId($this->getMatchsId($MatchsId));
+                // $stages->setMatchsId($this->getMatchsId($MatchsId));
                 // dd($this);
 
                // dd($data);
@@ -473,8 +473,6 @@ class StagesController extends AbstractController
 
                 $filepath = 'uploads/logos_objects/'.$filename;
 
-
-
                 // file extension
                 $file_extension = pathinfo($location, PATHINFO_EXTENSION);
                 $file_extension = strtolower($file_extension);
@@ -482,16 +480,34 @@ class StagesController extends AbstractController
                 // Valid image extensions
                 $image_ext = array("jpg","png","jpeg","gif","webp","svg");
 
+                if (!in_array($file_extension, $image_ext)) {
+                  $this->addFlash('error', 'Only format file: "jpg","png","jpeg","gif","webp","svg" accepted !');
+                  return $this->redirectToRoute('app_stage_create');
+                }
+
+                  $response = 0;
+                  if(in_array($file_extension,$image_ext)){
+                    // Upload file
+                    if(move_uploaded_file($_FILES['file']['tmp_name'],$location)){
+                      $response = $location;
+                    }
+                  }
+                   // $response = $filepath;
+
                 $upload_logo->setUser($this->getUser());
                 $upload_logo->setName($filename);
                 $upload_logo->setlogopath($filepath);
 
                 $em->persist($upload_logo);
                 $em->flush();
+
+                // dd($response);
               
                 
             $this->addFlash('success', 'Logo or object successfully uploaded !');
-            return $this->redirectToRoute('app_stage_create');            
+            return $this->redirectToRoute('app_stage_create', array(
+              'response' => $response
+            ));            
 
          }
 
@@ -511,7 +527,7 @@ class StagesController extends AbstractController
             $em->remove($uploadlogo);
             $em->flush();
 
-            $this->addFlash('primary', '!logo or object successfully deleted !');
+            $this->addFlash('success', 'Logo or object successfully deleted !');
             return $this->redirectToRoute('app_profile');
         }      
         
