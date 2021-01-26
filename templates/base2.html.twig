@@ -153,7 +153,7 @@
         <script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
         {# Monscript calcule de point et drag and drop #}
         <script src="{{ asset('js/scriptJS.js') }}" type="text/jscript"></script>
-        <script src="{{ asset('js/jQueryRotate.js') }}" type="text/jscript"></script>
+        {# <script src="{{ asset('js/jQueryRotate.js') }}" type="text/jscript"></script> #}
 
         <!-- Alertify -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.13.1/alertify.js"></script>
@@ -396,6 +396,16 @@ $(function(){
              //           return;                    
              //         }
              //       }   
+  </script>
+
+    <script>
+  // Slide up message flash in .3seconde after .6secpnde 
+$("document").ready(function(){
+    setTimeout(function(){
+        $("div.alert").slideUp(3000);
+    }, 6000 ); // 5 secs
+
+});
   </script>
 
           {% endblock %}

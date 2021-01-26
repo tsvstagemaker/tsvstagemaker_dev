@@ -69,7 +69,7 @@
 
 
 #fonction .media{
-	padding: .5rem 1rem;
+	/*padding: .5rem 1rem;*/
 	cursor: pointer;
 	border-radius: 3px;
 	transition: all .5s ease-in-out;

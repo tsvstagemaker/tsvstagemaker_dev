@@ -513,14 +513,31 @@
 						<div id="decor"><br>
 							<button style="width: 150px;" type="button" class="btn btn-info" data-toggle="modal" data-target="#uploadModal">Upload your logo objects file</button><br>
 
-								<img id="decor8" class="draggable elementsDraggable ui-draggable" src="{{ asset('images/logo-ipsc.png') }}" style="width: 200px; height: 200px" title="Perso_object" alt="Object">
-								<img id="decor8" class="draggable elementsDraggable ui-draggable" src="{{ asset('images/logo-tsvstagemaker.png') }}" style="width: 200px; height: 200px" title="Perso_object" alt="Object">
+								<img id="decor8" class="draggable elementsDraggable ui-draggable" src="{{ asset('images/logo-ipsc.png') }}" style="height: 200px;" title="Perso_object" alt="Object">
+								<img id="decor8" class="draggable elementsDraggable ui-draggable" src="{{ asset('images/logo-tsvstagemaker.png') }}" style="height: 200px;" title="Perso_object" alt="Object">
 								
-								{% for listlogo in app.user.uploadLogos %}
+							{# 	{% for listlogo in app.user.uploadLogos %}
 
 									<img id="decor8" class="draggable elementsDraggable ui-draggable" src="{{ asset(listlogo.getLogopath) }}" style="width: 200px; height: 200px" title="{{ listlogo.getName }}" alt="Object">
 
-								 {% endfor %}
+								 {% endfor %} #}
+								<div class="div-logo-all">
+								 {% for listlogo in app.user.uploadLogos %}
+								
+								{# <span class="delete-logo">&times</span> #}
+									<div class="div-logo zoom">
+									{# Delete logo #}
+										<a class="delete-logo-a" href="#" title="Delete logo or object" onclick="event.preventDefault(); confirm('Are you sure you want to delete this Logo or Objects : {{ listlogo.getName }} ?') && document.getElementById('js-logo-delete-stage-{{ listlogo.id }}').submit();"><span class="delete-logo">&times</span></a>
+										{# Form Delete logo #}
+										<form id="js-logo-delete-stage-{{ listlogo.id }}" action="{{ path('app_logo_delete', {'id': listlogo.id}) }}" method="post" style="display: none;">
+											<input type="hidden" name="csrf_token" value="{{ csrf_token('logo_deletion_stage_' ~ listlogo.id) }}">
+											<input type="hidden" name="_method" value="DELETE">
+										</form>
+
+										<img id="decor8" class="logo-uploaded draggable elementsDraggable" src="{{ asset(listlogo.getLogopath) }}" style="height: 100px;" title="{{ listlogo.getName }}" alt="Object">
+									</div>
+						{% endfor %}
+						</div>
 
 
 							</div>

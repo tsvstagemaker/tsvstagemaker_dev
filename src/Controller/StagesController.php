@@ -370,7 +370,7 @@ class StagesController extends AbstractController
             $em->remove($stage);
             $em->flush();
 
-            $this->addFlash('primary', 'Stage successfully deleted !');
+            $this->addFlash('success', 'Stage successfully deleted !');
             return $this->redirectToRoute('app_stages');
         }
 
@@ -379,7 +379,7 @@ class StagesController extends AbstractController
             $em->remove($stage);
             $em->flush();
 
-            $this->addFlash('primary', 'Stage successfully deleted !');
+            $this->addFlash('success', 'Stage successfully deleted !');
             return $this->redirectToRoute('app_profile');
 
         }
@@ -393,7 +393,7 @@ class StagesController extends AbstractController
             $em->remove($stage);
             $em->flush();
 
-            $this->addFlash('primary', 'Stage successfully deleted !');
+            $this->addFlash('success', 'Stage successfully deleted !');
             return $this->redirectToRoute('app_stages');
             // return $this->redirectToRoute('app_match_show',);
             // return $this->redirectToRoute('app_match_show', ['id' => $matchs]);
@@ -420,7 +420,7 @@ class StagesController extends AbstractController
 
                $em->flush();
 
-               $this->addFlash('primary', 'Stage successfully shared !');
+               $this->addFlash('success', 'Stage successfully shared !');
                return $this->redirectToRoute('app_stages');
            }
 
@@ -434,7 +434,7 @@ class StagesController extends AbstractController
 
            $em->flush();
 
-           $this->addFlash('primary', 'Stage successfully shared !');
+           $this->addFlash('success', 'Stage successfully shared !');
            return $this->redirectToRoute('app_profile');
        }
 
@@ -529,7 +529,16 @@ class StagesController extends AbstractController
 
             $this->addFlash('success', 'Logo or object successfully deleted !');
             return $this->redirectToRoute('app_profile');
-        }      
+        }   
+
+        elseif ($this->isCsrfTokenValid('logo_deletion_stage_' . $uploadlogo->getId(), $request->request->get('csrf_token')))
+        {
+            $em->remove($uploadlogo);
+            $em->flush();
+
+            $this->addFlash('success', 'Logo or object successfully deleted !');
+            return $this->redirectToRoute('app_stage_create');
+        }   
         
     }
 

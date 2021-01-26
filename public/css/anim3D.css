@@ -1,0 +1,95 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+ /* font-family: "Poppins", sans-serif;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;*/
+  /* perspective: 2500px;*/
+}
+
+.container{
+  perspective: 3000px;
+}
+.container-effect {
+  /*  width: 50%;*/
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /*perspective: 2000px;*/
+  /*font-family: "Poppins", sans-serif;*/
+}
+.card-effect {
+  transform-style: preserve-3d;
+  min-height: 80vh;
+  width: 40rem;
+  /*border-radius: 8px;*/
+  padding: 0rem 3rem;
+  /*box-shadow: 0 20px 20px rgba(0, 0, 0, 0.2), 0px 0px 50px rgba(0, 0, 0, 0.2)*/
+}
+
+.logo-effect {
+  min-height: 35vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+.logo-effect .logo-ipsc {
+  width: 8rem;
+  z-index: 1;
+  transition: all 0.75s ease-in-out;
+  margin-top: 20px;
+/*  transform: translate(50%, 5%);*/
+  
+
+}
+.circle-effect {
+  width: 13rem;
+  /*height: 13rem;
+  background: linear-gradient(to right,
+   rgb(12 18 199 / 100%), 
+   rgb(255 255 255 / 100%), 
+   rgb(234 18 18 / 100%)  
+   );*/
+  position: absolute;
+  /*border-radius: 50%;*/
+  z-index: 2;
+}
+
+/*.circle-effect-2{
+  width: 9rem;
+  height: 9rem;
+  border-radius: 50%;
+  border:1px solid black;
+  transform: translate(50%, 5%);
+}*/
+
+.info-effect h1 {
+  font-size: 3rem;
+  transition: all 0.75s ease-in-out;
+  text-align: center;
+}
+.info-effect h3 {
+  font-size: 1.3rem;
+  padding: 2rem 0rem;
+  color: #585858;
+  font-weight: lighter;
+  transition: all 0.75s ease-in-out;
+  text-align: center;
+
+}
+
+.info-effect-h1-logo{
+  display: flex;
+}
+
+.info-effect-h1-logo img{
+  margin-top: -14px;
+}
+

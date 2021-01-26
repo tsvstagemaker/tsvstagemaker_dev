@@ -612,6 +612,7 @@ function movableStop(){
         document.getElementById("bobber").innerText = bob;
         document.getElementById("targetNS").innerText = nosh;
         toggleMenuOff();
+        movableStop();
       }
 
       // Rotate with css
@@ -641,6 +642,8 @@ function movableStop(){
 
       let mouseTarget = document.querySelector('.movableItem');
       resizableSelected = true;
+      rotatableSelected = false;
+      warpableSelected = false;
       movableStart(mouseTarget);
 
       toggleMenuOff();      
@@ -658,6 +661,8 @@ function movableStop(){
 
       let mouseTarget = document.querySelector('.movableItem');
       rotatableSelected = true;
+      resizableSelected = false;
+      warpableSelected = false;
       movableStart(mouseTarget);
 
       toggleMenuOff();      
@@ -675,6 +680,8 @@ function movableStop(){
 
       let mouseTarget = document.querySelector('.movableItem');
       warpableSelected = true;
+      rotatableSelected = false;
+      resizableSelected = false;
       movableStart(mouseTarget);
 
       toggleMenuOff();      
@@ -780,3 +787,4 @@ initMenuFunction();
 //     }
 //   })
 // })
+// 

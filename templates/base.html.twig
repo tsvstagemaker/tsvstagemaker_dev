@@ -25,6 +25,8 @@
 		<link rel="stylesheet" href="{{ asset('css/match-style.css') }}" />
 		<link rel="stylesheet" href="{{ asset('css/stage-style.css') }}" />
 		<link rel="stylesheet" href="{{ asset('css/main-style.css') }}" />
+		<link rel="stylesheet" href="{{ asset('css/anim3D.css') }}" />		
+		
         {% block stylesheets %}{% endblock %}
     </head>
      <body>
@@ -112,3 +114,16 @@
 
 {{ include('layouts/partials/_footer1.html.twig') }} 
 
+
+ {% block javascripts %}
+ 	<script>
+ 	// Slide up message flash in .3seconde after .6secpnde 
+ 	$("document").ready(function(){
+ 		setTimeout(function(){
+ 			$("div.alert").slideUp(3000);
+    }, 6000 ); // 5 secs
+
+ 	});
+ 	</script>
+
+ {% endblock %}

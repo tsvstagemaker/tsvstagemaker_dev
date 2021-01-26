@@ -423,3 +423,47 @@ html, body{
 						height: 150px; 
 						padding: 0.5em;
 					}
+
+
+/*******************Upload logo*********************/
+
+.div-logo-all{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.div-logo{
+    opacity: 0.5;
+    transition: transform .2s;
+    margin-right: 15px;
+}
+
+
+.div-logo:hover {
+  transform: scale(1.5); 
+  opacity: 1;
+}
+
+.delete-logo-a{
+    text-decoration: none !important;
+}
+
+.delete-logo{    
+    z-index: 100;
+    position: absolute;
+    color: red;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 22px;
+    margin-top: -7px;
+}
+
+.addgrid {
+	margin:0;
+	padding:0;
+	border:none;
+	outline:1px solid #000;
+	display:inline-block;
+}
