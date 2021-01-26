@@ -1,8 +1,5 @@
-
-// $(document).ready(function() { //fonction qui exectute le script        
-
-
-  const selectbox = document.getElementById("ConditionCourseId");   
+// **********************list variables and constantes**********************
+        const selectbox = document.getElementById("ConditionCourseId");   
         let nbcoup = 0; //Nombre de coup 
         document.getElementById("nbcp").innerText = nbcoup;
         let pts = 0; //Nombre de points
@@ -26,6 +23,8 @@
         let decorsvg = document.getElementById("decorsvg");
 
         const dropzone = document.getElementById("dropzone");
+        // const draggabling = document.querySelectorAll(".ui-draggable-dragging");
+
 
         let draggableSelected = null;
         let scalableSelected = null;
@@ -34,10 +33,52 @@
         let rotatableSelected = null;
         let warpableSelected = null;
 
-        // const elementremobable = document.querySelector('.removable');
-        // let numbercoups = document.getElementById("shortc").innerText = nbcoup;
+        // const containerPage = document.querySelector('.container-fluid');
+
+
+
+// **********************Delete .moveable-control-box - handle resize rotate and warp **********************
+        function movableStop(){
+         let targetElements = document.querySelectorAll('.ui-draggable'); 
+         targetElements.forEach(targetElements =>{  
+          let divRemove = document.querySelectorAll('.moveable-control-box');
+            // console.log(divRemove);
+            divRemove.forEach(divRemove =>{
+              divRemove.remove();
+              targetElements.classList.toggle('movableItem');
+            })
+            
+          })
+       }
+
+// **********************Call movableStop if click anywhere in dropzone**********************
+
+   
+        // let itemsElements = document.querySelectorAll(".elementsDraggable");
+        // itemsElements.forEach(itemsElements =>{
+        //   if (itemsElements.classList.contains("ui-draggable-dragging")) {
+        //        let draggabling = document.querySelectorAll('.ui-draggable-dragging');
+        //     draggabling.addEventListener('dragover', e =>{
+        //         movableStop();
+        //        })       
+        //     }
+        // }) 
         
-        
+       //  let draggabling = document.querySelectorAll(".ui-draggable-dragging");
+       // draggabling.forEach(draggabling =>{
+       //  draggabling.addEventListener('dragover', e =>{
+       //  console.log(e + 'test1');
+       // })
+       // console.log(e + 'test1');
+       // })   
+
+
+       //  document.addEventListener('click', e =>{
+       //  movableStop();
+
+       // })    
+
+// **********************Draggabel fonction all items with class draggable and scope items with ID #paper , #metal , #decor  **********************
         
             $('.draggable').draggable({ //fonction qui rend les elements draggable
             	helper: 'clone',
@@ -46,7 +87,9 @@
             	grid: [2, 1],
                 // handle: "draggable"              
               })
-            
+
+
+// **********************init droppable zone with ID #dropzone and count draggable items by attribute alt**********************
             
             $("#dropzone").droppable({ //fonction qui rend la zone droppable
                 //accept: "#objet1, #objet2 , #objet3 , #objet4",           
@@ -103,7 +146,10 @@
                   nbcoup = nbcoup + n;
                   pts = pts + p;
 
-                  document.getElementById("nbcp").innerText = nbcoup; //ligne qui pemettent d'écrire dans le tableau en positif
+// **********************Change input type course if items >25 = LONG COURSE; >= 13 = MEDIUM COURSE; elseif SHORT COURSE **********************
+
+
+                  document.getElementById("nbcp").innerText = nbcoup;
                   Which(nbcoup);                  
                   function Which(el){
                     removeOption(selectbox);
@@ -131,7 +177,9 @@
                  document.getElementById("minipapier").innerText = minipap;
                  document.getElementById("plate").innerText = plt;
                  document.getElementById("bobber").innerText = bob;
-                 document.getElementById("targetNS").innerText = nosh;              
+                 document.getElementById("targetNS").innerText = nosh;
+
+// **********************init containment parent dropzone and Remove class draggable on items draggabled  **********************
 
                     let redrag = $(ui.helper).clone().removeClass('draggable') //variable qui enleve la class du l'élément cloné et qui redonne la fontion draggable aux clones
                     redrag.draggable({
@@ -143,6 +191,8 @@
 
                     });
 
+
+// **********************Add z-index for each click on item to bring to front items img clicked **********************
 
                     //fonction qui permet de mettre l'image au premier avec z-index
                     $(this).append(redrag);
@@ -156,6 +206,8 @@
                     //attribuer un z-index supérieur à l'élément cliqué
                     $(this).css('z-index', maxZindex + 1);
                   });
+
+// **********************Add z-index for each click on item to bring to front items svg clicked **********************
 
                     //fonction qui permet de mettre le svg au premier avec z-index 
                     $(this).append(redrag);
@@ -171,39 +223,20 @@
                     $(this).css('z-index', maxZindex + 1);
                   });
                     
+
+// **********************Add class "removable", "resizables" and "rotable"  on all img or svg fonded in dropzone**********************
                     
                     if ( $(this).find("img").addClass("removable", "resizables", "rotable") ) { //fonction qui permet d'ajouter une class a l'image
                   };
                     if ( $(this).find("svg").addClass("removable", "resizables", "rotable") ) { //fonction qui permet d'ajouter une class au svg
-                  };               
+                  };
+       }                         
+
+     });
 
 
-
-              //   if ( $(this).find("img").attr('id', 'foo123') ) { //fonction qui permet d'ajouter un id a l'image pour la supprimer avec le button reset
-              // };
-
-
-
-
-                         // $(this).find("svg").dblclick(function() { //fonction qui supprime un élément svg de la zone droppable par l'action double click
-                         // 	$(this).remove();                        
-                         // });
-                         // 
-                       }                         
-
-                     });
-
-
-// const elementToRotate = document.querySelector('.rotable');
-// // elementToRotate.addEventListener('click', (e) => {
-// //   console.log("ok");
-// // })
-
-// $(".rotable").dblclick(function() { 
-//   var degrees = 0;                  
-//   degrees += 10;
-//   $(".rotable").css("transform","rotate("+degrees+"deg)");
-// });                   
+                  
+// **********************Remove all items present in dropzone on click reset button and all count reset to 0**********************
 
 
             $("#reset").on("click", function() { // fonction du boutton reset pour supprmer tout les elements clone draggés dans la zone possedant la classe removable 
@@ -226,38 +259,11 @@
                 document.getElementById("plate").innerText = plt;
                 document.getElementById("bobber").innerText = bob;
                 document.getElementById("targetNS").innerText = nosh;
-                // exit();
+                movableStop();
               }); 
 
-// resize eement draggable
-// 
-// // bugfix for http://dev.jquery.com/ticket/1749
-// if ( (/absolute/).test( el.css("position") ) ) {
-//     el.css({ position: "absolute", top: el.css("top"), left: el.css("left") });
-// } else if (el.is(".ui-draggable")) {
-//     el.css({ position: "absolute", top: iniPos.top, left: iniPos.left });
-// }
 
-// $( function() {
-//   $( ".elementsDraggable" ).resizable({
-//     // animate: true,
-//     // containment: "#dropzone",
-//     // helper: "ui-resizable-helper",
-//     // aspectRatio: true,
-//     // autoHide: true
-//   });
-
-//   // Getter
-// var aspectRatio = $( ".selector" ).resizable( "option", "aspectRatio" ); 
-// // Setter
-// $( "#paper", "#metal" ).resizable( "option", "aspectRatio", true );
-
-// } );
-
-// $( function() {
-//     $( ".elementsDraggable" ).selectable();
-//   } );
-
+// **********************Init accordion for all items by catégories**********************
 
 
     $("#elements").accordion({ //Fonction pour la liste déroulante des cibles et accessoires
@@ -275,6 +281,7 @@
     });
 
 
+// ***********experimental***********Change color of prop svg **********************
 
             // change COULEURS PANNEAU
             function changeColor(){
@@ -285,6 +292,7 @@
             }
 
             
+// **********************Load spiner DVC **********************
 
             // loader ouverture page    
             function loaderspiner(){
@@ -292,42 +300,13 @@
             }
             setTimeout(loaderspiner, 3000);
 
-
+// **********************Remove option input type course if option > 0**********************
             function removeOption(el) {
               while (el.options.length > 0) {
                 el.remove(0);
               }
             }
 
-//fonction de calcul de l'angle actuel des images
-// function calculateAngle(elementId) {
-//     var element = document.getElementById(elementId);
-//     var tr = (window.getComputedStyle(element, null)).getPropertyValue("transform"),
-//         values = tr.split('(')[1],
-//         values = values.split(')')[0],
-//         values = values.split(','),
-//         a = values[0],
-//         b = values[1],
-//         c = values[2],
-//         d = values[3],
-//         radians = Math.atan2(b, a);
-//     if (radians < 0) {
-//         radians += (2 * Math.PI);
-//     }
-//     return Math.round(radians * (180 / Math.PI));
-// }
-
- // function pour attribuer le click droit a rotation
-  // document.oncontextmenu = function() {return false;};
-  // $('.draggable').mousedown(function(e){ 
-  //   if( e.button == 2 ) { 
-  //     var selectedId = $(this).attr('id');
-  //     var currentDegree = calculateAngle(selectedId);
-  //     var newDegree = parseInt(currentDegree) + parseInt(10);
-  //     $(this).css({"transform":"rotate(" + newDegree + "deg)"});
-  //   } 
-  //   return true; 
-  // });
 
 
 
@@ -474,6 +453,10 @@
     }
   }
 
+
+   /**
+   * Show menu in position of click .
+   */
   function positionMenu(e) {
     clickCoords = getPosition(e);
     clickCoordsX = clickCoords.x;
@@ -499,52 +482,44 @@
     }
   }
 
+     /**
+   * Init moveable lib  .
+   */
   function movableStart(mouseTarget){
     // let mouseTarget = document.querySelector('.movableItem');
-  const moveable = new Moveable(dropzone, {
-    target: mouseTarget,
-    container: dropzone,
-    draggable: draggableSelected,
-    scalable: scalableSelected,
-    resizable: resizableSelected,
-    keepRatio: keepRatioSelected,
-    rotatable: rotatableSelected,
-    warpable:warpableSelected
-  })
-  .on("drag", ({ target, transform }) => {
-    target.style.transform = transform
-  })
-  .on("scale", ({ target, transform }) => {
-    target.style.transform = transform
-  })
-  .on("rotate", ({ target, transform }) => {
-    target.style.transform = transform
-  })
-  .on("resize", ({ target, width, height }) => {
-    target.style.width = width + "px";
-    target.style.height = height  + "px";
-  })
-  .on("warp", ({ target, transform }) => {
-    target.style.transform = transform;  
-  })
-}
+    const moveable = new Moveable(dropzone, {
+      target: mouseTarget,
+      container: dropzone,
+      draggable: draggableSelected,
+      scalable: scalableSelected,
+      resizable: resizableSelected,
+      keepRatio: keepRatioSelected,
+      rotatable: rotatableSelected,
+      warpable:warpableSelected
+    })
+    .on("drag", ({ target, transform }) => {
+      target.style.transform = transform
+    })
+    .on("scale", ({ target, transform }) => {
+      target.style.transform = transform
+    })
+    .on("rotate", ({ target, transform }) => {
+      target.style.transform = transform
+    })
+    .on("resize", ({ target, width, height }) => {
+      target.style.width = width + "px";
+      target.style.height = height  + "px";
+    })
+    .on("warp", ({ target, transform }) => {
+      target.style.transform = transform;  
+    })
+  }
 
-function movableStop(){
- let targetElements = document.querySelectorAll('.ui-draggable'); 
- targetElements.forEach(targetElements =>{  
-  let divRemove = document.querySelectorAll('.moveable-control-box');
-  // console.log(divRemove);
-  divRemove.forEach(divRemove =>{
-    divRemove.remove();
-  })
-  
-})
-}
-
-
-
-  function menuItemListener( link ) {
-    let actionItem = link.getAttribute("data-action");   
+   /**
+   * Init function if actionItem = clicked
+   */
+function menuItemListener( link ) {
+  let actionItem = link.getAttribute("data-action");   
       // delete Item
       if (actionItem == "deleteItem") {
         let menuSelectedItem = taskItemInContext.getAttribute("alt");
@@ -615,26 +590,7 @@ function movableStop(){
         movableStop();
       }
 
-      // Rotate with css
-    //   if(actionItem == 'rotateItem'){        
-    //    let menuSelectedItem = taskItemInContext.getAttribute("class", "svg");  
-    //    taskItemInContext.classList.toggle('selectedItem');
-    //    if (taskItemInContext.classList.contains("selectedItem")) {
-    //      let degrees = 10;
-    //      taskItemInContext.addEventListener("click", (e) =>{
-    //       let targetElement = e.target || e.srcElement;     
-    //       targetElement.style.transform = "rotate("+degrees+"deg)";
-    //       degrees +=10;
-    //       console.log('Clicked Action Name: '+actionItem);
-    //       console.log('Clicked Item Name: '+menuSelectedItem);
-    //       toggleMenuOff();
-    //              // console.log(degrees);             
-    //            })
-    //    }else{
-    //     toggleMenuOff();
-    //   }
 
-    // }
     if (actionItem == 'resizeItem') {
      let menuSelectedItem = taskItemInContext.getAttribute("class", "svg");
      taskItemInContext.classList.toggle('movableItem');
@@ -652,42 +608,42 @@ function movableStop(){
      movableStop()
      // taskItemInContext.classList.toggle("movableItem");   
    }
-    }
+ }
 
-    if (actionItem == 'rotateItem') {
-     let menuSelectedItem = taskItemInContext.getAttribute("class", "svg");
-     taskItemInContext.classList.toggle('movableItem');
-     if (taskItemInContext.classList.contains("movableItem")) {
+ if (actionItem == 'rotateItem') {
+   let menuSelectedItem = taskItemInContext.getAttribute("class", "svg");
+   taskItemInContext.classList.toggle('movableItem');
+   if (taskItemInContext.classList.contains("movableItem")) {
 
-      let mouseTarget = document.querySelector('.movableItem');
-      rotatableSelected = true;
-      resizableSelected = false;
-      warpableSelected = false;
-      movableStart(mouseTarget);
+    let mouseTarget = document.querySelector('.movableItem');
+    rotatableSelected = true;
+    resizableSelected = false;
+    warpableSelected = false;
+    movableStart(mouseTarget);
 
-      toggleMenuOff();      
-    }else{
-     toggleMenuOff();
-     movableStop()
+    toggleMenuOff();      
+  }else{
+   toggleMenuOff();
+   movableStop()
      // taskItemInContext.classList.toggle("movableItem");   
    }
  } 
 
  if (actionItem == 'warpableItem') {
-     let menuSelectedItem = taskItemInContext.getAttribute("class", "svg");
-     taskItemInContext.classList.toggle('movableItem');
-     if (taskItemInContext.classList.contains("movableItem")) {
+   let menuSelectedItem = taskItemInContext.getAttribute("class", "svg");
+   taskItemInContext.classList.toggle('movableItem');
+   if (taskItemInContext.classList.contains("movableItem")) {
 
-      let mouseTarget = document.querySelector('.movableItem');
-      warpableSelected = true;
-      rotatableSelected = false;
-      resizableSelected = false;
-      movableStart(mouseTarget);
+    let mouseTarget = document.querySelector('.movableItem');
+    warpableSelected = true;
+    rotatableSelected = false;
+    resizableSelected = false;
+    movableStart(mouseTarget);
 
-      toggleMenuOff();      
-    }else{
-     toggleMenuOff();
-     movableStop()
+    toggleMenuOff();      
+  }else{
+   toggleMenuOff();
+   movableStop()
      // taskItemInContext.classList.toggle("movableItem");   
    }
  } 
@@ -700,91 +656,3 @@ toggleMenuOff();
 initMenuFunction();
 
 })();
-
-
-
-
-// function movableStart(){
-//   const moveable = new Moveable(dropzone, {
-//     target: mouseTarget,
-//     container: dropzone,
-//     draggable: draggableSelected,
-//     scalable: scalableSelected,
-//     resizable: resizableSelected,
-//     keepRatio: keepRatioSelected,
-//     rotatable: rotatableSelected,
-//     warpable:warpableSelected
-//   })
-//   .on("drag", ({ target, transform }) => {
-//     target.style.transform = transform
-//   })
-//   .on("scale", ({ target, transform }) => {
-//     target.style.transform = transform
-//   })
-//   .on("rotate", ({ target, transform }) => {
-//     target.style.transform = transform
-//   })
-//   .on("resize", ({ target, width, height }) => {
-//     target.style.width = width + "px";
-//     target.style.height = height  + "px";
-//   })
-//   .on("warp", ({ target, transform }) => {
-//     target.style.transform = transform;  
-//   })
-// }
-
-// function movableStop(){
-//  let targetElements = document.querySelectorAll('.ui-draggable'); 
-//  targetElements.forEach(targetElements =>{  
-//   let divRemove = document.querySelectorAll('.moveable-control-box');
-//   // console.log(divRemove);
-//   divRemove.forEach(divRemove =>{
-//     divRemove.remove();
-//   })
-// })
-// }
-
-
-
-// const dropzone = document.getElementById('dropzone');
-// let target = dropzone.querySelectorAll('.removable');
-// target.forEach(target => {
-//   target.addEventListener('mouseenter', (e) =>{
-//     let targetElement = e.target || e.srcElement;
-//     console.log(targetElement);
-//     if (targetElement.classList.contains('removable')) {
-//       targetElement.classList.toggle('movableItem');
-//       console.log(targetElement);
-//       const moveable = new Moveable(dropzone, {
-//         target: document.querySelectorAll(".removable"),
-//         origin: false,
-//         dragArea: true,
-//         // draggable: true,
-//         rotatable: true,
-//         scalable: true,
-//         pinchable: true,
-//         keepRatio: true,
-//         snappable: true,
-//         edge: true,
-//         throttleDrag: 1,
-//         throttleRotate: 0.2,
-//         throttleResize: 1,
-//       })
-//       // .on("drag", ({ target, transform }) => {
-//       //   target.style.transform = transform
-//       // })
-//       .on("scale", ({ target, transform }) => {
-//         target.style.transform = transform
-//       }).on("rotate", ({ target, transform }) => {
-//         target.style.transform = transform
-//       }).on("resize", ({ target, transform }) => {
-//         target.style.transform = transform
-//       })
-
-//       window.addEventListener("resize", () => {
-//         moveable.updateRect();
-//       });
-//     }
-//   })
-// })
-// 

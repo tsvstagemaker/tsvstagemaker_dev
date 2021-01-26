@@ -401,6 +401,9 @@ html, body{
 					.svg-item3{
 						width: 50px;
 					}
+					.svg-item4{
+						width: 18px;
+					}
 
 					.svg-popper{
 						width: 28px;
@@ -430,7 +433,7 @@ html, body{
 .div-logo-all{
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: right;
     align-items: center;
 }
 

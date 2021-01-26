@@ -215,16 +215,16 @@
 			<div id="draggable">
 				<div id="accordion-resizer">
 					<div id="elements">		
-						<button  title="Toutes les cibles papier" class="btn btn-info btn-accordion"><img src="{{ asset('images/LogoTarget.png') }}" width="25" height="25">&nbsp;IPSC Paper Target</button>
+						<button  title="Toutes les cibles papier" class="btn btn-info btn-accordion btn-sm"><img src="{{ asset('images/LogoTarget.png') }}" width="25" height="25">&nbsp;IPSC Paper Target</button>
 						<div id="paper">
 
 							<!-- Cible papier -->			
-							<img id="paper1" class="draggable elementsDraggable TrgtPaper svg-item" src="{{ asset('images/svg/ipsc-target-mini.svg') }}" title="mini target ipsc" alt="minitarget"> 
+							<img id="paper1" class="draggable elementsDraggable TrgtPaper svg-item" src="{{ asset('images/svg/ipsc-target-mini.svg') }}" title="mini target ipsc holder" alt="minitarget"> 
 							{# <img id="paper1" class="draggable elementsDraggable TrgtPaper" src="{{ asset('images/IPSC_Mini_Target_iso1.png') }}" title="mini target ipsc" alt="minitarget">
 							<img id="paper1" class="draggable elementsDraggable TrgtPaper" src="{{ asset('images/IPSC_Mini_Target_iso2.png') }}" title="mini target ipsc" alt="minitarget"> #}
 
 							{# <img id="paper1" class="draggable elementsDraggable TrgtPaper" src="{{ asset('images/IPSC_Target.png') }}" title="Standard target ipsc" alt="target"> #}
-							<img id="paper1" class="draggable elementsDraggable TrgtPaper svg-item" src="{{ asset('images/svg/ipsc-target.svg') }}" title="Standard target ipsc" alt="target"> 
+							<img id="paper1" class="draggable elementsDraggable TrgtPaper svg-item" src="{{ asset('images/svg/ipsc-target.svg') }}" title="Standard target ipsc holder" alt="target"> 
 
 						{# 	<img id="paper1" class="draggable elementsDraggable TrgtPaper" src="{{ asset('images/IPSC_Target_iso1.png') }}" title="Standard target ipsc" alt="target"> 
 							<img id="paper1" class="draggable elementsDraggable TrgtPaper" src="{{ asset('images/IPSC_Target_iso2.png') }}" title="Standard target ipsc" alt="target">  #}
@@ -237,6 +237,11 @@
 							<img id="paper1" class="draggable elementsDraggable TrgtPaper" src="{{ asset('images/IPSC_Bobber_profile_D_new.png') }}" title="Bobber centre" alt="bobber"> #}
 							<img id="paper1" class="draggable elementsDraggable TrgtPaper svg-item" src="{{ asset('images/svg/ipsc-coucou-bas.svg') }}" title="Coucou ipsc bas" alt="bobber">
 							<img id="paper1" class="draggable elementsDraggable TrgtPaper svg-item" src="{{ asset('images/svg/ipsc-coucou-haut.svg') }}" title="Coucou ipsc haut" alt="bobber">
+
+							{# cible seul #}
+							<img id="paper1" class="draggable elementsDraggable TrgtPaper svg-item" src="{{ asset('images/svg/target-ipsc-std.svg') }}" title="Standard target ipsc" alt="target">
+							<img id="paper1" class="draggable elementsDraggable TrgtPaper svg-item4" src="{{ asset('images/svg/target-ipsc-mini.svg') }}" title="Standard target ipsc mini" alt="minitarget">
+						
 
 							<!-- Demi cible -->
 							<img id="paper1" class="draggable elementsDraggable TrgtPaper svg-item" src="{{ asset('images/svg/target-ipsc-std-cut-horizontal.svg') }}" title="Cut horizontal target ipsc" alt="target">
@@ -265,7 +270,7 @@
 							<img id="paper1" class="draggable elementsDraggable TrgtPaper svg-item3" src="{{ asset('images/svg/target-ipsc-floor-bullet-trap.svg') }}" width="38" title="target ipsc floor bullet trap" alt="target">	
 
 						</div>				
-						<button  title="Toutes les cibles métalique" class="btn btn-info btn-accordion"><img src="{{ asset('images/IPSC_Popper.svg') }}"  width="20" height="25">&nbsp;IPSC Steel Target</button>	
+						<button  title="Toutes les cibles métalique" class="btn btn-info btn-accordion btn-sm"><img src="{{ asset('images/IPSC_Popper.svg') }}"  width="20" height="25">&nbsp;IPSC Steel Target</button>	
 						<div id="metalp">
 
 							<!-- Cibles Metaliques blancs-->
@@ -292,7 +297,7 @@
 
 						</div>		
 
-						<button  title="Tout les Panneaux et lignes de faute" class="btn btn-info btn-accordion"><img src="{{ asset('images/Panneau3_fenetre_new.png') }}" width="30" height="25" >&nbsp;Props & fault lines</button>	
+						<button  title="Tout les Panneaux et lignes de faute" class="btn btn-info btn-accordion btn-sm"><img src="{{ asset('images/Panneau3_fenetre_new.png') }}" width="30" height="25" >&nbsp;Props & fault lines</button>	
 						<div id="decor">
 
 							<!-- Panneaux -->
@@ -358,7 +363,7 @@
 							<img id="decor3" class="draggable elementsDraggable" style="width: 25px;height: 4px" src="{{ asset('images/mark4.png') }}" title="mark2" alt="mark">															
 						</div>											
 
-						<button  title="Tout les Accessoires et décors" class="btn btn-info btn-accordion"><img src="{{ asset('images/Porte1.gif') }}" width="10" height="25" >&nbsp;Accessories & Decors</button>	
+						<button  title="Tout les Accessoires et décors" class="btn btn-info btn-accordion btn-sm"><img src="{{ asset('images/Porte1.gif') }}" width="10" height="25" >&nbsp;Accessories & Decors</button>	
 						<div id="decor">
 
 							<!-- Accessoire -->
@@ -426,7 +431,7 @@
 						</div>
 
 
-						<button  title="Tout les Accessoires et décors" class="btn btn-info btn-accordion"><img src="{{ asset('images/velo.png') }}" width="40">&nbsp;Speciales objects</button>	
+						<button  title="Tout les Accessoires et décors" class="btn btn-info btn-accordion btn-sm"><img src="{{ asset('images/velo.png') }}" width="40">&nbsp;Speciales objects</button>	
 						<div id="decor">	
 
 							<!-- Palettes -->
@@ -509,12 +514,40 @@
 						</div>
 
 						<!-- debut Uploader des objets -->
-						<button  title="Upload objects" class="btn btn-info btn-accordion"><img src="{{ asset('images/tireur.png') }}" width="30">&nbsp;Upload your logo or objects</button>
-						<div id="decor"><br>
-							<button style="width: 150px;" type="button" class="btn btn-info" data-toggle="modal" data-target="#uploadModal">Upload your logo objects file</button><br>
+						<button title="Upload objects" class="btn btn-info btn-accordion"><img src="{{ asset('images/tireur.png') }}" width="30">&nbsp;Upload your logo or objects</button>
 
-								<img id="decor8" class="draggable elementsDraggable ui-draggable" src="{{ asset('images/logo-ipsc.png') }}" style="height: 200px;" title="Perso_object" alt="Object">
-								<img id="decor8" class="draggable elementsDraggable ui-draggable" src="{{ asset('images/logo-tsvstagemaker.png') }}" style="height: 200px;" title="Perso_object" alt="Object">
+						<div id="decor"><br>
+							<button style="width: 245px;" type="button" class="btn btn-info btn-sm mb-3" data-toggle="modal" data-target="#uploadModal">Upload your logo objects file</button><br>
+
+								<img id="decor8" class="draggable elementsDraggable ui-draggable" src="{{ asset('images/logo-ipsc.png') }}" style="height: 100px;" title="Perso_object" alt="Object">
+								<img id="decor8" class="draggable elementsDraggable ui-draggable" src="{{ asset('images/logo-tsvstagemaker.png') }}" style="height: 100px;" title="Perso_object" alt="Object">
+								<img id="decor8" class="draggable elementsDraggable TrgtPaper svg-item" src="{{ asset('images/svg/target-ipsc-std-fr.svg') }}" title="Perso_object" alt="target">
+
+
+
+						{# 	<div class="row">
+								<div class="col-md-6 mx-auto">
+									<div class="form-group">
+										<form method='post' action='{{ path('app_upload_logo') }}' enctype="multipart/form-data">
+											{{ form_start(formUploadLogo) }}
+											<div class="row">
+												<div class="col-md-12">
+												{{ form_row(formUploadLogo.name) }}
+												</div>
+											</div>								            
+											<div class="row">
+												<div class="col-md-12">												
+													<input value="{{ csrf_token('stage_create_logo') }}" name="_token_logo" type="hidden">
+												<button class="btn btn-info btn-sm" formnovalidate type="submit">Upload</button>
+												</div>
+											</div> 
+										</form>
+									</div>     
+								</div>
+							</div> #}
+
+
+
 								
 							{# 	{% for listlogo in app.user.uploadLogos %}
 
@@ -536,7 +569,7 @@
 
 										<img id="decor8" class="logo-uploaded draggable elementsDraggable" src="{{ asset(listlogo.getLogopath) }}" style="height: 100px;" title="{{ listlogo.getName }}" alt="Object">
 									</div>
-						{% endfor %}
+							{% endfor %}
 						</div>
 
 
@@ -600,7 +633,7 @@
 											</select> #}	
 												{# {{ form_row(formMatch.MatchsId) }} #}
 												<div name="MatchsId">
-													{{ form(formMatch) }}
+													{{ form(formMatch) }}													
 												</div>
 													
 
@@ -745,7 +778,7 @@
 					<div class="modal-dialog" role="document">
 						<div class="modal-content">
 							<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalLabel">Upload File objects</h5>
+								<h5 class="modal-title" id="exampleModalLabel">Upload Logo or Objects File</h5>
 								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 									<span aria-hidden="true">&times;</span>
 								</button>
@@ -753,13 +786,14 @@
 							<div class="modal-body">
 								<!-- Form -->
 								<form method='post' action='' enctype="multipart/form-data">
-									Select file : <input type='file' name='file' id='file' class='form-control' ><br>
+									Select file : 
+									<input type='file' name='file' id='file' class='form-control'>
 									<input value="{{ csrf_token('stage_create_logo') }}" name="_token_logo" type="hidden">
-									<input type='button' class='btn btn-info' value='Upload' id='btn_upload'>
-									<button class="btn btn-info" {# onclick="uploadLogo();" #}>Send</button> 
-									<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+									<input type='button' class='btn btn-info btn-sm mt-1' value='Upload' id='btn_upload'>
+									<button class="btn btn-info btn-sm mt-1" type='button' {# onclick="uploadLogo();" #}>Send</button> 
+									<button type="button" class="btn btn-secondary btn-sm mt-1" data-dismiss="modal">Close</button>
 								</form> 
-								<div class="modal-footer">
+								<div class="modal-footer mt-1">
 									<!-- Preview-->
 									<div id='preview'></div>        
 								</div>  
