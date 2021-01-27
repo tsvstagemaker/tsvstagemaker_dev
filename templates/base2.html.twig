@@ -10,6 +10,9 @@
 <meta name="msapplication-TileColor" content="#FFFFFF">
 <meta name="msapplication-TileImage" content="images/icon.png">
 <meta name="application-name" content="TSV STAGE MAKER">
+<link rel="icon" href="/path/to/favicon-32.png" sizes="32x32">
+<link rel="shortcut icon" sizes="196x196" href="/path/to/favicon-196.png">
+<link rel="icon" href="/favicon.ico">
 <title>{% block title %}Welcome!{% endblock %}</title>
 
 
@@ -22,14 +25,6 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">	
 {# CSS AlertifyJS #}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.13.1/css/alertify.css">
-
-{# <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/> #}
-<!-- Default theme -->
-{# <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/> #}
-<!-- Semantic UI theme -->
-{# <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css"/> #}
-<!-- Bootstrap theme -->
-{# <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css"/> #}
 
 <link rel="stylesheet" href="{{ asset('css/navbar-style.css') }}" />
 <link rel="stylesheet" href="{{ asset('css/match-style.css') }}" />
@@ -130,7 +125,7 @@
        {% block javascripts %} 
 
         <!--librairie moveable -->
-         <script src="{{ asset('js/scene.js') }}"></script>
+        <script src="{{ asset('js/scene.js') }}"></script>
         <script src="{{ asset('js/moveable.min.js') }}"></script>
 
         <!--librairie jQuery -->
@@ -275,6 +270,8 @@ window.scrollTo(0, 0); //scroll page entiere du haut en bas
                      if(this.readyState == 4 && this.status == 200) {
                        alertify.success('Your Stage has been successfully saved !');
                        return;                    
+                     }else{
+                        alertify.error('Your Stage could not be saved! please try again!');
                      }
                    }
                    xhr.open("post", "{{ path('app_stage_create') }}",); 
@@ -307,14 +304,14 @@ window.scrollTo(0, 0); //scroll page entiere du haut en bas
                 }else{
                   doc.save(stagename.value.concat(".pdf"));
                 }
-                 
+
               });
                   };
                   </script>
 
 
-         
-            <script>
+
+                  <script>
 
 
 // ALERTIFY
@@ -337,34 +334,34 @@ $(function(){
 
 
 
-    {# Button grid #}
-    <script>
-    function actveGrid() {
-      document.getElementById("dropzone").style.background = "url( {{ asset('images/grillebleu.png') }} ) round";
+{# Button grid #}
+<script>
+function actveGrid() {
+  document.getElementById("dropzone").style.background = "url( {{ asset('images/grillebleu.png') }} ) round";
 
-    }
-    function actveGrid1() {
-      document.getElementById("dropzone").style.background = "url( {{ asset('images/grille2.png') }} ) round";
-    }
+}
+function actveGrid1() {
+  document.getElementById("dropzone").style.background = "url( {{ asset('images/grille2.png') }} ) round";
+}
 
-    function actveGrid2() {
-      document.getElementById("dropzone").style.background = "url( {{ asset('images/grille3.png') }} ) round";
-    }
+function actveGrid2() {
+  document.getElementById("dropzone").style.background = "url( {{ asset('images/grille3.png') }} ) round";
+}
 
-    function dactveGrid() {
-      document.getElementById("dropzone").style.background = "none ";
-    }
-    </script>
+function dactveGrid() {
+  document.getElementById("dropzone").style.background = "none ";
+}
+</script>
 
 
-  <!-- Script upload fil perso objetc-->
-  <script>
-      $('#btn_upload').click(function(){        
-        let fd = new FormData();
-        let files = $('#file')[0].files[0];
-        let Token2 = document.querySelector('[name="_token_logo"]');
-        fd.append('file',files);
-        fd.append('_token_logo', Token2.value);
+<!-- Script upload fil perso objetc-->
+<script>
+$('#btn_upload').click(function(){        
+  let fd = new FormData();
+  let files = $('#file')[0].files[0];
+  let Token2 = document.querySelector('[name="_token_logo"]');
+  fd.append('file',files);
+  fd.append('_token_logo', Token2.value);
         // console.log(fd);
 
           // AJAX request
@@ -375,31 +372,42 @@ $(function(){
             contentType: false,
             processData: false,
             success: function(response){
-              // response = JSON.parse(response);
-              console.log(response);
-              if(response != 0){
+             let pathUpload = null;
+             try {
+                      // Parse a JSON
+                      pathUpload = JSON.stringify(response);
+                    } catch (e) {                   
+                      pathUpload = response;
+                    }
+                    if(pathUpload != 0){             
+                     let obj = JSON.parse(pathUpload);               
 
-                      // Show image preview
-                       // $response = 'response';
-                      let htmlPreview = "<img id='decor8' class='ui-widget-content ui-draggable' src='{{ asset('response') }}'  title='Perso_object' alt='object'  width='100' height='100'>";
-                      $('#preview').append(htmlPreview);
-                  }else{
-                    alertify.success('file not uploaded');
+                     $('#preview').append("<img id='decor8' class='draggable elementsDraggable' src='"+"/"+obj.response+"'  title='Perso_object' alt='object'  width='100' height='100'>");
+
+                     // $('#preview').append("<img id='decor8' class='draggable elementsDraggable' src='{{ asset('+"/"+obj.response+') }}'  title='Perso_object' alt='object'  width='100' height='100'>");                    
+                   }else{
+                    alertify.error('file not uploaded! please try again!');
                   }
-              }
-          });
-      });
- 
-  </script>
+                }
+              });
+        });
+        </script>
 
-    <script>
+        <script>
   // Slide up message flash in .3seconde after .6secpnde 
-$("document").ready(function(){
+  $("document").ready(function(){
     setTimeout(function(){
-        $("div.alert").slideUp(3000);
+      $("div.alert").slideUp(3000);
     }, 6000 ); // 5 secs
 
-});
+  });
   </script>
 
-          {% endblock %}
+  <script>
+    var elem = document.getElementById("mydoc");
+if (elem.requestFullscreen) {
+  elem.requestFullscreen();
+}
+  </script>
+
+{% endblock %}

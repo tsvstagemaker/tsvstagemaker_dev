@@ -45,7 +45,7 @@
             // console.log(divRemove);
             divRemove.forEach(divRemove =>{
               divRemove.remove();
-              targetElements.classList.toggle('movableItem');
+              targetElements.classList.remove('movableItem');
             })
             
           })
@@ -72,11 +72,20 @@
        // console.log(e + 'test1');
        // })   
 
+       let divControleRemove = document.querySelectorAll('.elementsDraggable');
+        document.addEventListener('click', e =>{
+        movableStop();
+       });
 
-       //  document.addEventListener('click', e =>{
-       //  movableStop();
+         divControleRemove.forEach(divControleRemove =>{
+               divControleRemove.addEventListener('click', e =>{
+                e.stopPropagation();            
+          })
+               })
 
-       // })    
+
+         
+
 
 // **********************Draggabel fonction all items with class draggable and scope items with ID #paper , #metal , #decor  **********************
         

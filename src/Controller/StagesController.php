@@ -57,7 +57,8 @@ class StagesController extends AbstractController
      * @Route("/stages/create", name="app_stage_create", methods={"GET", "POST"})
      */
     public function create(Request $request, EntityManagerInterface $em, MatchsRepository $matchsrepo)
-    {    
+    {   
+
 
         $stages = new Stage;
         // form match
@@ -501,13 +502,16 @@ class StagesController extends AbstractController
                 $em->persist($upload_logo);
                 $em->flush();
 
-                // dd($response);
+                 // dd($response);
+                 
+                 return $this->json([            
+                  'response' => $response], 200);
               
                 
-            $this->addFlash('success', 'Logo or object successfully uploaded !');
-            return $this->redirectToRoute('app_stage_create', array(
-              'response' => $response
-            ));            
+            // $this->addFlash('success', 'Logo or object successfully uploaded !');
+            // return $this->redirectToRoute('app_stage_create', array(
+            //    $response
+            // ));            
 
          }
 
