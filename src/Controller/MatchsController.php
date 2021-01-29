@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Matchs;
 use App\Repository\MatchsRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
@@ -13,6 +14,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use ZipArchive;
 
+  /**     
+   * @Security("is_granted('ROLE_USER')")
+   */
 class MatchsController extends AbstractController
 {
     /**

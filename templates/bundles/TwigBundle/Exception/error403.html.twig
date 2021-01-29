@@ -11,14 +11,13 @@
 
 {% block body %}
 
-  <div class="container mt-4" align="center">
-    <h1>Page not found</h1> 
+  <div class="container mt-10" align="center">
+    <h1>Access forbidden</h1> 
 
-    <a href="{{ path('home') }}"><img class="logo" src="{{ asset('images/logo.png') }}" alt="Logo TSV STAGE MAKER"></a> 
+    <a href="{{ path('app_home') }}"><img class="logo" src="{{ asset('images/logo.png') }}" alt="Logo TSV STAGE MAKER"></a> 
 
     <p>
-        The requested page couldn't be located. Checkout for any URL
-        misspelling or <a href="{{ path('home') }}">return to the homepage</a>.
+        You cannot access this page, go back to <a href="{{ path('app_home') }}">home page</a>.
     </p>
   </div>
     

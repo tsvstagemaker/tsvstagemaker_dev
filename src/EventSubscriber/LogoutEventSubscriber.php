@@ -19,7 +19,7 @@ class LogoutEventSubscriber implements EventSubscriberInterface
     {
         $event->getRequest()->getSession()->getFlashBag()->add(
         'success', 
-        'You have successfully logged out!.'
+        $event->getToken()->getUser()->getfirstName() . ',' .' ' . 'You have successfully logged out!.'
     );  
 
         $event->setResponse(new RedirectResponse($this->urlGenerator->generate('app_home')));

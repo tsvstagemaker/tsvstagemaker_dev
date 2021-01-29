@@ -28,7 +28,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 class DashboardController extends AbstractDashboardController
 {
 
-     protected $StageRepository;
+    protected $StageRepository;
     protected $MatchsRepository;
     protected $UserRepository;
 /**
