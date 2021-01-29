@@ -45,10 +45,10 @@ body {
   z-index: 1;
   transition: all 0.75s ease-in-out;
   margin-top: 20px;
-/*  transform: translate(50%, 5%);*/
-  
+/*  transform: translate(50%, 5%);*/  
 
 }
+
 .circle-effect {
   width: 13rem;
   /*height: 13rem;
@@ -93,3 +93,35 @@ body {
   margin-top: -14px;
 }
 
+
+
+
+
+
+
+.div-effect{
+  transform-style: preserve-3d;
+  min-height: 80vh;
+  width: 40rem;
+  padding: 0rem 3rem;
+}
+
+.img-shooter {
+  width: 50rem;
+  z-index: 1;
+  transition: all 0.75s ease-in-out;
+  margin-top: 20px;
+  transform: translateY(600px);
+  /*  transform: translate(50%, 5%);*/  
+
+}
+
+.ipsc-target{
+  position: absolute;
+  width: 5rem;
+  z-index: 1;
+  transition: all 0.75s ease-in-out;
+  margin-top: 112px;
+  transform: translateY(-300px);
+/*  transform: translate(50%, 5%);*/
+}

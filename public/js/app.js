@@ -6,6 +6,7 @@ const readyAnim = document.querySelector('.readyAnim');
 const standbyAnim = document.querySelector('.standbyAnim');
 const registererAnim = document.querySelector('.registererAnim');
 const loginAnim = document.querySelector('.loginAnim');
+
 // const alert = document.querySelector('.alert');
 // const tireur = document.querySelector('#tireur');
 
@@ -102,3 +103,4 @@ $(".progress-bar").each(function(i){
     }
   });
 });
+

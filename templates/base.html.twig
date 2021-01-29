@@ -25,7 +25,11 @@
 		<link rel="stylesheet" href="{{ asset('css/match-style.css') }}" />
 		<link rel="stylesheet" href="{{ asset('css/stage-style.css') }}" />
 		<link rel="stylesheet" href="{{ asset('css/main-style.css') }}" />
-		<link rel="stylesheet" href="{{ asset('css/anim3D.css') }}" />		
+		<link rel="stylesheet" href="{{ asset('css/anim3D.css') }}" />	
+		{# <link rel="stylesheet" href="{{ asset('css/swup.css') }}" />	 #}
+
+			
+
 		
         {% block stylesheets %}{% endblock %}
     </head>
@@ -121,7 +125,7 @@
  	$("document").ready(function(){
  		setTimeout(function(){
  			$("div.alert").slideUp(3000);
-    }, 6000 ); // 5 secs
+    }, 6000 ); // 6 secs
 
  	});
  	</script>
