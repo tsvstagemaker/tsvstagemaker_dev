@@ -26,7 +26,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**     
-* @Security("is_granted('ROLE_USER')")
+* @Security("is_granted('ROLE_USER') and user.isVerified()")
 */
 class StagesController extends AbstractController
 {

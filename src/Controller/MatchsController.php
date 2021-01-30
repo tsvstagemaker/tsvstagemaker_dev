@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use ZipArchive;
 
   /**     
-   * @Security("is_granted('ROLE_USER')")
+   * @Security("is_granted('ROLE_USER') and user.isVerified()")
    */
 class MatchsController extends AbstractController
 {

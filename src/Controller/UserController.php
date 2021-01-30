@@ -15,8 +15,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**     
-   * @Security("is_granted('ROLE_USER')")
-   */
+  * @Security("is_granted('ROLE_USER') and user.isVerified()")
+*/
 class UserController extends AbstractController
 {
     /**
