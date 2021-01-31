@@ -26,7 +26,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**     
-* @Security("is_granted('ROLE_USER') and user.isVerified()")
+* @Security("is_granted('ROLE_USER')")
 */
 class StagesController extends AbstractController
 {
@@ -39,6 +39,17 @@ class StagesController extends AbstractController
      */
     public function index(Request $request, PaginatorInterface $paginator): Response
     {
+          if (! $this->getUser()) {
+            // $this->addFlash('error', 'You need to login first !');
+            throw $this->createAccessDeniedException('Tentative d\'access a la page /matchs/create sans etre connecté');            
+        }
+
+         if (! $this->getUser()->isVerified()) {
+            $this->addFlash('error', 'You need to have a verified account before access to all features !');
+
+            return $this->redirectToRoute('app_home');
+        } 
+
 
     	$datastages = $this->getDoctrine()->getRepository(Stage::class)->findBy([], 
             ['createdAt' => 'desc']);
@@ -61,6 +72,16 @@ class StagesController extends AbstractController
      */
     public function create(Request $request, EntityManagerInterface $em, MatchsRepository $matchsrepo)
     {   
+          if (! $this->getUser()) {
+            // $this->addFlash('error', 'You need to login first !');
+            throw $this->createAccessDeniedException('Tentative d\'access a la page /matchs/create sans etre connecté');            
+        }
+
+         if (! $this->getUser()->isVerified()) {
+            $this->addFlash('error', 'You need to have a verified account before access to all features !');
+
+            return $this->redirectToRoute('app_home');
+        } 
 
 
         $stages = new Stage;
@@ -253,6 +274,17 @@ class StagesController extends AbstractController
      */
     public function showstage(Stage $stage): Response
     {
+          if (! $this->getUser()) {
+            // $this->addFlash('error', 'You need to login first !');
+            throw $this->createAccessDeniedException('Tentative d\'access a la page /matchs/create sans etre connecté');            
+        }
+
+         if (! $this->getUser()->isVerified()) {
+            $this->addFlash('error', 'You need to have a verified account before access to all features !');
+
+            return $this->redirectToRoute('app_home');
+        } 
+
       return $this->render('stages/showstage.html.twig', compact('stage'));
 
   }
@@ -263,6 +295,17 @@ class StagesController extends AbstractController
      */
      public function editstage(Stage $stage, Request $request, EntityManagerInterface $em): Response
      {  
+
+          if (! $this->getUser()) {
+            // $this->addFlash('error', 'You need to login first !');
+            throw $this->createAccessDeniedException('Tentative d\'access a la page /matchs/create sans etre connecté');            
+        }
+
+         if (! $this->getUser()->isVerified()) {
+            $this->addFlash('error', 'You need to have a verified account before access to all features !');
+
+            return $this->redirectToRoute('app_home');
+        } 
 
          if($request->isMethod('POST'))
          {
@@ -369,6 +412,18 @@ class StagesController extends AbstractController
        public function deleteStage(Request $request, Stage $stage, EntityManagerInterface $em): Response
        {
 
+          if (! $this->getUser()) {
+            // $this->addFlash('error', 'You need to login first !');
+            throw $this->createAccessDeniedException('Tentative d\'access a la page /matchs/create sans etre connecté');            
+        }
+
+         if (! $this->getUser()->isVerified()) {
+            $this->addFlash('error', 'You need to have a verified account before access to all features !');
+
+            return $this->redirectToRoute('app_home');
+        } 
+
+
         if ($this->isCsrfTokenValid('stage_deletion_' . $stage->getId(), $request->request->get('csrf_token')))
         {
             $em->remove($stage);
@@ -413,6 +468,16 @@ class StagesController extends AbstractController
      */
          public function shareStage(Request $request, Stage $stage, EntityManagerInterface $em): Response
          {
+              if (! $this->getUser()) {
+            // $this->addFlash('error', 'You need to login first !');
+            throw $this->createAccessDeniedException('Tentative d\'access a la page /matchs/create sans etre connecté');            
+        }
+
+         if (! $this->getUser()->isVerified()) {
+            $this->addFlash('error', 'You need to have a verified account before access to all features !');
+
+            return $this->redirectToRoute('app_home');
+        } 
 
             if ($this->isCsrfTokenValid('stage_share_' . $stage->getId(), $request->request->get('csrf_token')))
             {           
@@ -450,6 +515,16 @@ class StagesController extends AbstractController
      */
       public function UploadLogo(Request $request, EntityManagerInterface $em): Response
       {
+          if (! $this->getUser()) {
+            // $this->addFlash('error', 'You need to login first !');
+            throw $this->createAccessDeniedException('Tentative d\'access a la page /matchs/create sans etre connecté');            
+        }
+
+         if (! $this->getUser()->isVerified()) {
+            $this->addFlash('error', 'You need to have a verified account before access to all features !');
+
+            return $this->redirectToRoute('app_home');
+        } 
 
          // dd($request);
 
@@ -528,6 +603,17 @@ class StagesController extends AbstractController
      */
        public function deletelogo(Request $request, UploadLogo $uploadlogo, EntityManagerInterface $em): Response
        {
+
+          if (! $this->getUser()) {
+            // $this->addFlash('error', 'You need to login first !');
+            throw $this->createAccessDeniedException('Tentative d\'access a la page /matchs/create sans etre connecté');            
+        }
+
+         if (! $this->getUser()->isVerified()) {
+            $this->addFlash('error', 'You need to have a verified account before access to all features !');
+
+            return $this->redirectToRoute('app_home');
+        } 
 
         if ($this->isCsrfTokenValid('logo_deletion_profil_' . $uploadlogo->getId(), $request->request->get('csrf_token')))
         {

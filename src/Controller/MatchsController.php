@@ -14,9 +14,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use ZipArchive;
 
-  /**     
-   * @Security("is_granted('ROLE_USER') and user.isVerified()")
-   */
+/**     
+  * @Security("is_granted('ROLE_USER')")
+*/
 class MatchsController extends AbstractController
 {
     /**
@@ -36,7 +36,20 @@ class MatchsController extends AbstractController
      * @Route("/matchs/create", name="app_match_create", methods={"GET", "POST"})
      */
      public function creatematch(Request $request, EntityManagerInterface $em)
-     {      
+     {  
+
+      if (! $this->getUser()) {
+            // $this->addFlash('error', 'You need to login first !');
+            throw $this->createAccessDeniedException('Tentative d\'access a la page /matchs/create sans etre connecté');
+            
+        }
+
+         if (! $this->getUser()->isVerified()) {
+            $this->addFlash('error', 'You need to have a verified account before access to all features !');
+
+            return $this->redirectToRoute('app_home');
+        }      
+            
 
 
      	if($request->isMethod('POST')){
@@ -86,8 +99,38 @@ class MatchsController extends AbstractController
      */
     public function showmatch(Matchs $match): Response
     {
+       if (! $this->getUser()) {
+            // $this->addFlash('error', 'You need to login first !');
+            throw $this->createAccessDeniedException('Tentative d\'access a la page /matchs/create sans etre connecté');            
+        }
+
+         if (! $this->getUser()->isVerified()) {
+            $this->addFlash('error', 'You need to have a verified account before access to all features !');
+
+            return $this->redirectToRoute('app_home');
+        } 
+
+
       return $this->render('matchs/showmatch.html.twig', compact('match'));
     }
+
+     // if (! $this->getUser()) {
+     //        $this->addFlash('error', 'You need to login first !');
+
+     //        return $this->redirectToRoute('app_login');
+     //    }
+
+     //     if (! $this->getUser()->isVerified()) {
+     //        $this->addFlash('error', 'You need to have a verified account before access to all features !');
+
+     //        return $this->redirectToRoute('app_home');
+     //    }
+
+     //       if ($matchs->getUser() != $this->getUser()) {
+     //        $this->addFlash('error', 'Access Forbiden!');
+
+     //        return $this->redirectToRoute('app_home');
+     //    }   
 
 
 
@@ -97,6 +140,17 @@ class MatchsController extends AbstractController
      */
       public function editmatch(Request $request, Matchs $match, EntityManagerInterface $em): Response
       {
+         if (! $this->getUser()) {
+            // $this->addFlash('error', 'You need to login first !');
+            throw $this->createAccessDeniedException('Tentative d\'access a la page /matchs/create sans etre connecté');            
+        }
+
+         if (! $this->getUser()->isVerified()) {
+            $this->addFlash('error', 'You need to have a verified account before access to all features !');
+
+            return $this->redirectToRoute('app_home');
+        } 
+
         if($request->isMethod('PUT'))
         {
 
@@ -133,7 +187,19 @@ class MatchsController extends AbstractController
      * @Route("/matchs/{id<[0-9]+>}/delete", name="app_match_delete", methods={"DELETE"})
      */
     public function deleteMatch(Request $request, Matchs $match, EntityManagerInterface $em): Response
-    {     
+    {  
+
+       if (! $this->getUser()) {
+            // $this->addFlash('error', 'You need to login first !');
+            throw $this->createAccessDeniedException('Tentative d\'access a la page /matchs/create sans etre connecté');            
+        }
+
+         if (! $this->getUser()->isVerified()) {
+            $this->addFlash('error', 'You need to have a verified account before access to all features !');
+
+            return $this->redirectToRoute('app_home');
+        } 
+
       if ($this->isCsrfTokenValid('match_deletion_' . $match->getId(), $request->request->get('csrf_token')))
       {
             $em->remove($match); //Supprime le match selectionné
@@ -150,6 +216,17 @@ class MatchsController extends AbstractController
      */
       public function downloadStages(Request $request, Matchs $match, EntityManagerInterface $em): Response
       { 
+         if (! $this->getUser()) {
+            // $this->addFlash('error', 'You need to login first !');
+            throw $this->createAccessDeniedException('Tentative d\'access a la page /matchs/create sans etre connecté');            
+        }
+
+         if (! $this->getUser()->isVerified()) {
+            $this->addFlash('error', 'You need to have a verified account before access to all features !');
+
+            return $this->redirectToRoute('app_home');
+        } 
+
         if($request->isMethod('POST')) //vérifie si c'est une méthode post
         {
             if ($this->isCsrfTokenValid('stages_download_' . $match->getId(), $request->request->get('csrf_token'))) //vérifie si le token est OK
@@ -201,6 +278,18 @@ class MatchsController extends AbstractController
      */
          public function winmssDownload(Request $request, Matchs $match, EntityManagerInterface $em): Response
          { 
+
+          if (! $this->getUser()) {
+            // $this->addFlash('error', 'You need to login first !');
+            throw $this->createAccessDeniedException('Tentative d\'access a la page /matchs/create sans etre connecté');            
+        }
+
+         if (! $this->getUser()->isVerified()) {
+            $this->addFlash('error', 'You need to have a verified account before access to all features !');
+
+            return $this->redirectToRoute('app_home');
+        } 
+
         if($request->isMethod('POST')) //vérifie si c'est une méthode post
         {
             if ($this->isCsrfTokenValid('winmss_download_' . $match->getId(), $request->request->get('csrf_token'))) //vérifie si le token est OK

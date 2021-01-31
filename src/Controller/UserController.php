@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**     
-  * @Security("is_granted('ROLE_USER') and user.isVerified()")
+  * @Security("is_granted('ROLE_USER')")
 */
 class UserController extends AbstractController
 {
@@ -23,7 +23,8 @@ class UserController extends AbstractController
      * @Route("/profile", name="app_profile")
      */
     public function index(): Response
-    {
+    {       
+
         return $this->render('profile/index.html.twig');
     }
 
@@ -32,6 +33,17 @@ class UserController extends AbstractController
      */
     public function editprofile(Request $request, EntityManagerInterface $em): Response
     {        
+          if (! $this->getUser()) {
+            // $this->addFlash('error', 'You need to login first !');
+            throw $this->createAccessDeniedException('Tentative d\'access a la page /matchs/create sans etre connecté');            
+        }
+
+         if (! $this->getUser()->isVerified()) {
+            $this->addFlash('error', 'You need to have a verified account before access to all features !');
+
+            return $this->redirectToRoute('app_profile');
+        } 
+
     	$user = $this->getUser();
         $form = $this->createForm(EditProfileFormType::class, $user);
         $form->handleRequest($request);
@@ -82,7 +94,18 @@ class UserController extends AbstractController
      * @Route("/profile/change-password", name="app_profile_change_password", methods={"GET", "POST"})
      */
     public function changePassword(Request $request, EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder): Response
-    {        
+    {
+          if (! $this->getUser()) {
+            // $this->addFlash('error', 'You need to login first !');
+            throw $this->createAccessDeniedException('Tentative d\'access a la page /matchs/create sans etre connecté');            
+        }
+
+         if (! $this->getUser()->isVerified()) {
+            $this->addFlash('error', 'You need to have a verified account before access to all features !');
+
+            return $this->redirectToRoute('app_profile');
+        } 
+        
         $user = $this->getUser();
         $form = $this->createForm(ChangePasswordFormType::class, null, [
             'current_password_is_required' => true
