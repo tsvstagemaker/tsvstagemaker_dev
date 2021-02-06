@@ -32,6 +32,7 @@
         let keepRatioSelected = true;
         let rotatableSelected = null;
         let warpableSelected = null;
+        let pinchableSelected = true;
 
         // const containerPage = document.querySelector('.container-fluid');
 
@@ -504,7 +505,8 @@
       resizable: resizableSelected,
       keepRatio: keepRatioSelected,
       rotatable: rotatableSelected,
-      warpable:warpableSelected
+      warpable: warpableSelected,
+      pinchable: pinchableSelected,
     })
     .on("drag", ({ target, transform }) => {
       target.style.transform = transform
@@ -521,6 +523,9 @@
     })
     .on("warp", ({ target, transform }) => {
       target.style.transform = transform;  
+    })
+    .on("pinchable", ({ target, transform }) => {
+      target.style.transform = transform
     })
   }
 

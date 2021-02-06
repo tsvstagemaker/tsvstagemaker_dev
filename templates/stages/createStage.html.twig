@@ -49,6 +49,8 @@
 
 
 <div class="container-fluid">
+
+
 	<div class="section0" id="main">
 		{# Partie de droite, dropzone et tableau #}
 		<div class="datastage" id="datastage">
@@ -60,6 +62,7 @@
                 Version 3.0 Built by YB <a href="https://www.tsvstagemaker.fr">tsvstagemaker.fr &reg;</a>                          
             </small> 
             </p>
+            <canvas id="canvas"></canvas>
 			</div>
 
 			{# Tableau de calcule  #}
@@ -584,26 +587,70 @@
 
 						<hr class="style-one">
 						<!-- debut Grille fond de stage -->
-						<h4>Grid</h4> 							
+
 						<div class="grid">
-							<button title="Séléctioner ou Créer match" class="btn btn-info btn-sm grid-btn" type="button" onclick="actveGrid();">Grid 1</button>
+						<h4>Grid</h4> 	
+						{# slid Grid #}
+							<input type="text" id="amount">
+							{# <p class="text-grid" >Grid</p> #}
+							<div id="slider-horizontal" class="ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content">
+								
+								<div class="ui-slider-range ui-corner-all ui-widget-header ui-slider-range-min" style="height: 21.4286%;">
+
+								</div>
+								<span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" style="bottom: 21.4286%;"></span>
+							</div>
+					{# slid Grid #}
+
+						
+							{# <button title="Séléctioner ou Créer match" class="btn btn-info btn-sm grid-btn" type="button" onclick="actveGrid();">Grid 1</button>
 
 							<button title="Séléctioner ou Créer match" class="btn btn-info btn-sm grid-btn" type="button" onclick="actveGrid1();">Grid 2</button>
 
 							<button title="Séléctioner ou Créer match" class="btn btn-info btn-sm grid-btn" type="button" onclick="actveGrid2();">Grid 3</button>
 
-							<button title="Séléctioner ou Créer match" class="btn btn-info btn-sm grid-btn" type="button" onclick="dactveGrid();">No grid</button><br>
+							<button title="Séléctioner ou Créer match" class="btn btn-info btn-sm grid-btn" type="button" onclick="dactveGrid();">No grid</button><br> #}
 						</div>
 
 						<hr class="style-one">
 
+						<div class="drawing">
+							<h4>Drawing</h4>
+							<button class="btn btn-info btn-sm" onclick="toggleMode(modes.pan)">Toggle Pan</button>
+							<button class="btn btn-info btn-sm" onclick="toggleMode(modes.drawing)">Toggle Drawing</button>
+							<!-- <button onclick="toggleMode(modes.drawing)">Toggle Drawing</button> -->
+							<input id="colorPicker" value="#000000" data-jscolor="">
+							<button class="btn btn-info btn-sm" onclick="clearCanvas(canvas, svgState)">Clear</button>
+							<button class="btn btn-info btn-sm" onclick="restoreCanvas(canvas, svgState, bgUrl)">Restore</button>
+
+							<div id="bottomButtons">
+								<div class="ButtonsWrapper">			
+									<p class="objectsTitle">Objects</p>
+									<div class="Buttons">
+										<button class="btn btn-info btn-sm btn-fabric" onclick="createRect(canvas)">Rect</button>
+										<button class="btn btn-info btn-sm btn-fabric" onclick="createCircle(canvas)">Circle</button>
+										<button class="btn btn-info btn-sm btn-fabric" onclick="groupObjects(canvas, group, true)">Group</button>
+										<button class="btn btn-info btn-sm btn-fabric" onclick="groupObjects(canvas, group, false)">Ungroup</button>
+									</div>
+								</div>
+
+							<div class="ButtonsWrapper">
+								<p class="objectsTitle">Image</p>
+								<input id="myImage" type="file" accept="image/*">
+							</div>							
+							</div>							
+						</div>
+
 						
-						<h4>Select color to Change props color</h4>
+
+
+						
+					{# 	<h4>Select color to Change props color</h4>
 						<div>
 							{# <input type="text" id="colorInputText"> #}
-							<input type="color" class="mb-3 btn-input rounded"  id="colorInputColor"><br>
+							{# <input type="color" class="mb-3 btn-input rounded"  id="colorInputColor"><br>
 							<input type="button" class="btn btn-info btn-sm" id="colorButton" value="Click to Change Color" onclick="changeColor()">
-						</div>
+						</div> #}
 						{# <div>
 							 <ul class="changecolor">  
 								<li class="btnorange" id="btn-orange"></li>

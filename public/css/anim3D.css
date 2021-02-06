@@ -95,7 +95,16 @@ body {
 
 
 
-
+@media (orientation:portrait) {
+   .Anime-shooter{
+      display: none; /* visibility: none; */
+   }
+}
+@media (orientation:landscape) and (max-width: 767px) {
+   .Anime-shooter{
+      display: none; /* visibility: none; */
+   }
+}
 
 
 
@@ -125,3 +134,5 @@ body {
   transform: translateY(-300px);
 /*  transform: translate(50%, 5%);*/
 }
+
+

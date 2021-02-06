@@ -293,11 +293,18 @@ html, body{
 
 					.pub{
 						font-size: 0.6em;
+						z-index: 9999;
 					}
 
 					.modalhelp{
 						cursor: pointer;
 					}
+
+					.modal {						
+						top: 20%;
+					}
+
+
 
 
 					.iconinfo{
@@ -443,45 +450,60 @@ html, body{
 					}
 
 
-/*******************Upload logo*********************/
+					/*******************Upload logo*********************/
 
-.div-logo-all{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: right;
-    align-items: center;
-}
+					.div-logo-all{
+						display: flex;
+						flex-wrap: wrap;
+						justify-content: right;
+						align-items: center;
+					}
 
-.div-logo{
-    opacity: 0.5;
-    transition: transform .2s;
-    margin-right: 15px;
-}
+					.div-logo{
+						opacity: 0.5;
+						transition: transform .2s;
+						margin-right: 15px;
+					}
 
 
-.div-logo:hover {
-  transform: scale(1.5); 
-  opacity: 1;
-}
+					.div-logo:hover {
+						transform: scale(1.5); 
+						opacity: 1;
+					}
 
-.delete-logo-a{
-    text-decoration: none !important;
-}
+					.delete-logo-a{
+						text-decoration: none !important;
+					}
 
-.delete-logo{    
-    z-index: 100;
-    position: absolute;
-    color: red;
-    font-weight: bold;
-    cursor: pointer;
-    font-size: 22px;
-    margin-top: -7px;
-}
+					.delete-logo{    
+						z-index: 100;
+						position: absolute;
+						color: red;
+						font-weight: bold;
+						cursor: pointer;
+						font-size: 22px;
+						margin-top: -7px;
+					}
 
-.addgrid {
-	margin:0;
-	padding:0;
-	border:none;
-	outline:1px solid #000;
-	display:inline-block;
-}
+					.addgrid {
+						margin:0;
+						padding:0;
+						border:none;
+						outline:1px solid #000;
+						display:inline-block;
+					}
+
+					.grid{
+						text-align: -webkit-center;
+						/*text-align: center;*/
+					}
+
+/*.canvas-container, .upper-canvas, .lower-canva, #canvas, canvas{
+	width: 100% !important;
+	height: 97% !important;
+	}*/
+
+/*.upper-canvas, .lower-canva{
+	width: 100% !important;
+	height: 97% !important;
+}*/
