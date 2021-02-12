@@ -57,7 +57,7 @@ class MainController extends AbstractController
         return $this->render('main/allstage.html.twig', [
             'title' => "Allstage",
             'current_menu' => "app_allstage",
-            'stages' => $stages,           
+            'stages' => $stages,
             
         ]);
     }

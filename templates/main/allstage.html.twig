@@ -11,8 +11,14 @@
         <input class="form-control col-md-4" id="filtre-input-stage-js" type="text" placeholder="Search..">        
         </div>
 
+       {#  <stage-shared data-stage="{{ stages }}" data-user="{{ app.user ? app.user.id : 0 }}">
+            
+        </stage-shared> #}
+
+
+
          {% if stages == null %}
-            <p>Sorry, No stage created yet !</p>  
+            <p>Sorry, No stage shared yet !</p>  
             {% else %}  
 
             {% for stage in stages %}
@@ -23,7 +29,15 @@
                    </div>
 
                   
-                   <h4><a href="{{ path('app_stages_show', {id: stage.id}) }}">{% if stage.Stagename == null %}Unknown stage{% else %}{{ stage.Stagename|capitalize }}{% endif %}</a></h4>                  
+                   <h4>
+                   <a href="{{ path('app_stages_show', {id: stage.id}) }}">
+                   {% if stage.Stagename == null %}
+                   Unknown stage
+                   {% else %}
+                   {{ stage.Stagename|capitalize }}
+                   {% endif %}
+                   </a>
+                   </h4>                  
                   {#  <p>Match: <b>{% for matchList in matchs %}                                 
                         {% if stage.getMatchs.id == matchList.getId %}                
                             {{ matchList.getname|capitalize }}
